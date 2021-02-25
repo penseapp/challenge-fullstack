@@ -1,21 +1,21 @@
-# Desafio FullStack Penseapp
+# Desafio FullStack Penseapp (WORK IN PROGRESS)
 
-## Backend
+Como o core da nossa empresa é o desenvolvimento de software sob medida para nossos clientes, queremos avaliar a sua capacidade técnica agora. Esse desafio é para desevolvedores flutter fullStack!
 
-Criar um `micro-service` que aceite requisições RESTful (API) capaz de gerenciar:
+Como essa é uma vaga para fullStack, gostariamos de avaliar um pouquinho das duas partes, por isso, pensamos em um teste relativamente simples em que seja avaliado tanto front quanto backend.
+
+## Desafio backend
+
+Criar um `micro-service` que aceite requisições RESTful (API) capaz de gerenciar produtos de uma loja.
+
+A loja deve conter (Pode ser mockado):
+```
+Nome, descrição
+```
 
 <br >
 
-- CRUD de loja
-
-|   Nome    | Obrigatório? |
-| :-------: | :----------: |
-|   Nome    |     Sim      |
-| Descrição |     Não      |
-
-<br >
-
-- Crud Produtos
+CRUD de Produtos:
 
 |       Nome        | Obrigatório? |
 | :---------------: | :----------: |
@@ -30,9 +30,11 @@ Criar um `micro-service` que aceite requisições RESTful (API) capaz de gerenci
 
 ## Frontend
 
-1. Tela de Login.
-2. listar os produtos disponiveis.
-3. Criar uma wishlist baseado na lista de produtos.
+#### Tela de Login.
+Aqui você pode fazer como bem entender! Pode-se usar com email/senha
+
+#### Tela de listagem com os produtos
+#### Criar uma wishlist baseado na lista de produtos.
 
 <br >
 
@@ -57,3 +59,9 @@ Documentar no projeto como executar a aplicação.
 Como esta aplicação será um sucesso mundial, ela deve estar preparada para ser acessível, responsiva, tolerante a falhas e resiliente. É altamente recomendável usar o Flutter para criar o aplicativo.
 
 Além disso, elabore brevemente os detalhes da arquitetura de sua solução, a escolha de padrões e estruturas.
+
+## Extras
+- Cobertura de testes
+- Boas práticas de codificação
+- Apreço com UI
+- Capacidade de usar libs prontas para gerar valor e produtividade
