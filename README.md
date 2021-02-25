@@ -4,6 +4,8 @@ Como o core da nossa empresa é o desenvolvimento de software sob medida para no
 
 Como essa é uma vaga para fullStack, gostariamos de avaliar um pouquinho das duas partes, por isso, pensamos em um teste relativamente simples em que seja avaliado tanto front quanto backend.
 
+Como esta aplicação será um sucesso mundial, ela deve estar preparada para ser acessível, responsiva, tolerante a falhas e resiliente. É altamente recomendável usar o Flutter para criar o aplicativo.
+
 ## Desafio backend
 
 Criar um `micro-service` que aceite requisições RESTful (API) capaz de gerenciar produtos de uma loja.
@@ -31,17 +33,20 @@ CRUD de Produtos:
 ## Frontend
 
 #### Tela de Login.
-Aqui você pode fazer como bem entender! Pode-se usar com email/senha
+Ta liberado! Aqui você pode fazer como bem entender! Pode-se autenticar com email/senha ou social media login, tipo Google, Facebook, etc... 
 
 #### Tela de listagem com os produtos
+Faça a listagem como bem entender, traga os produtos do backend via API (Você pode utilizar componenentes já prontos para o front! Valorizamos a reutilização de código existente para gerar valor para nossos clientes, nada de reinventar a roda!)
+
 #### Criar uma wishlist baseado na lista de produtos.
+Basicamente é adicionar alguns produtos nessa lista de desejos. Você tem autonomia no design, pode colocar em duas telas, numa página a parte, você é o dono da aplicação.
 
 <br >
 
 # Regra de Negócio
 
 - Cada usuario deverá poder criar sua propria wishlist.
-- A wishlist poderá ser salva na memoria interna do dispositivo.
+- A wishlist poderá ser salva na memória interna do dispositivo.
 - Permitir filtrar produtos por:
   - Palavra-chave
   - Produto promocional ou não
@@ -52,16 +57,14 @@ Aqui você pode fazer como bem entender! Pode-se usar com email/senha
 
 <br >
 
-# Requisito não funcional
+# Requisitos não funcionais
 
-Documentar no projeto como executar a aplicação.
+#### Documentar no projeto como executar a aplicação.
+Precisamos avaliar o seu projeto! Também valorizamos muito um README.md bem feito. Independente de como você faça, se for local na máquina ou usando Docker, como executar a sua aplicação é fundamental para nós!
 
-Como esta aplicação será um sucesso mundial, ela deve estar preparada para ser acessível, responsiva, tolerante a falhas e resiliente. É altamente recomendável usar o Flutter para criar o aplicativo.
-
-Além disso, elabore brevemente os detalhes da arquitetura de sua solução, a escolha de padrões e estruturas.
-
-## Extras
+#### Extras
 - Cobertura de testes
 - Boas práticas de codificação
 - Apreço com UI
-- Capacidade de usar libs prontas para gerar valor e produtividade
+- Não reinventar a roda, ser capaz de usar libs prontas para gerar valor e produtividade
+- Elabore brevemente os detalhes da arquitetura de sua solução, a escolha de padrões e estruturas.
