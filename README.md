@@ -1,10 +1,11 @@
 # Desafio FullStack Penseapp (WORK IN PROGRESS)
 
-Como o core da nossa empresa é o desenvolvimento de software sob medida para nossos clientes, queremos avaliar a sua capacidade técnica agora.
+Criamos softwares sob medida para nossos clientes, assim queremos avaliar a sua capacidade técnica agora.
 
-Como essa é uma vaga para fullStack, gostariamos de avaliar um pouquinho das duas partes, por isso, pensamos em um teste relativamente simples em que seja avaliado tanto front quanto backend.
+Essa é uma vaga para fullStack, gostariamos de avaliar um pouquinho das duas partes, por isso, pensamos em um teste simples para avaliar o desempenho nas duas stacks.
 
-Como esta aplicação será um sucesso mundial, ela deve estar preparada para ser acessível, responsiva, tolerante a falhas e resiliente. É altamente recomendável usar o Flutter para criar o aplicativo.
+Como esta aplicação será um sucesso mundial, ela deve estar preparada para ser acessível, responsiva, tolerante a falhas e resiliente. 
+É altamente recomendável usar o Flutter para criar o aplicativo.
 
 ## Desafio backend
 
