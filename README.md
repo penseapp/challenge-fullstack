@@ -1,6 +1,6 @@
 # Desafio FullStack Penseapp (WORK IN PROGRESS)
 
-Como o core da nossa empresa é o desenvolvimento de software sob medida para nossos clientes, queremos avaliar a sua capacidade técnica agora. Esse desafio é para desevolvedores flutter fullStack!
+Como o core da nossa empresa é o desenvolvimento de software sob medida para nossos clientes, queremos avaliar a sua capacidade técnica agora.
 
 Como essa é uma vaga para fullStack, gostariamos de avaliar um pouquinho das duas partes, por isso, pensamos em um teste relativamente simples em que seja avaliado tanto front quanto backend.
 
@@ -8,7 +8,7 @@ Como esta aplicação será um sucesso mundial, ela deve estar preparada para se
 
 ## Desafio backend
 
-Criar um `micro-service` que aceite requisições RESTful (API) capaz de gerenciar produtos de uma loja.
+Criar um `micro service` que aceite requisições RESTful (API) capaz de gerenciar produtos de uma loja.
 
 A loja deve conter (Pode ser mockado):
 ```
@@ -18,6 +18,7 @@ Nome, descrição
 <br >
 
 CRUD de Produtos:
+Você não precisa criar uma interface visual no flutter para implementar o CRUD, porém, a API tem que ter os métodos implementados.
 
 |       Nome        | Obrigatório? |
 | :---------------: | :----------: |
@@ -36,7 +37,7 @@ CRUD de Produtos:
 Ta liberado! Aqui você pode fazer como bem entender! Pode-se autenticar com email/senha ou social media login, tipo Google, Facebook, etc... 
 
 #### Tela de listagem com os produtos
-Faça a listagem como bem entender, traga os produtos do backend via API (Você pode utilizar componenentes já prontos para o front! Valorizamos a reutilização de código existente para gerar valor para nossos clientes, nada de reinventar a roda!)
+Faça a listagem como bem entender, traga os produtos do backend via API
 
 #### Criar uma wishlist baseado na lista de produtos.
 Basicamente é adicionar alguns produtos nessa lista de desejos. Você tem autonomia no design, pode colocar em duas telas, numa página a parte, você é o dono da aplicação.
@@ -46,6 +47,7 @@ Basicamente é adicionar alguns produtos nessa lista de desejos. Você tem auton
 # Regra de Negócio
 
 - Cada usuario deverá poder criar sua propria wishlist.
+- Utilize algo para gerênciar estado, damos preferencia a utilização de BloC, MobX e Riverpod, mas você é livre para escolher qual você prefere
 - A wishlist poderá ser salva na memória interna do dispositivo.
 - Permitir filtrar produtos por:
   - Palavra-chave
