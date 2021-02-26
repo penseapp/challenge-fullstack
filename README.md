@@ -71,3 +71,9 @@ Precisamos avaliar o seu projeto! Também valorizamos muito um README.md bem fei
 - Apreço com UI
 - Não reinventar a roda, ser capaz de usar libs prontas para gerar valor e produtividade
 - Elabore brevemente os detalhes da arquitetura de sua solução, a escolha de padrões e estruturas.
+
+#### Instrução de Entrega
+ - Fazer um fork do repo
+ - Abrir uma PR com a branch backend.
+ - Abrir uma PR com a branch frontend.
+ - Os arquivos serão avaliados e executados.
