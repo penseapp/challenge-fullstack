@@ -1,4 +1,4 @@
-# Desafio FullStack Penseapp (WORK IN PROGRESS)
+# Desafio FullStack Penseapp
 
 Criamos softwares sob medida para nossos clientes, assim queremos avaliar a sua capacidade técnica agora.
 
