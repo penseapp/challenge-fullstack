@@ -7,6 +7,8 @@ Essa é uma vaga para fullStack, gostariamos de avaliar um pouquinho das duas pa
 Como esta aplicação será um sucesso mundial, ela deve estar preparada para ser acessível, responsiva, tolerante a falhas e resiliente. 
 É altamente recomendável usar o Flutter para criar o aplicativo.
 
+Ahh, crie um novo repo para fazer isso, beleza? O código tem que estar no github!
+
 ## Desafio backend
 
 Criar um `micro service` que aceite requisições RESTful (API) capaz de gerenciar produtos de uma loja.
