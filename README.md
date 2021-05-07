@@ -79,3 +79,14 @@ Precisamos avaliar o seu projeto! Também valorizamos muito um README.md bem fei
  - Abrir uma PR com a branch backend.
  - Abrir uma PR com a branch frontend.
  - Os arquivos serão avaliados e executados.
+
+
+#### Dependencias utilizadas
+- npm install express
+- npm install knex
+- npm install dotenv
+- npm install nodemon -D
+- npm install sqlite3
+- npm install cors
+- npm install celebrate
+- 

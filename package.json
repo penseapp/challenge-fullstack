@@ -1,0 +1,30 @@
+{
+  "name": "challenge-flutter-fullstack",
+  "version": "1.0.0",
+  "description": "Challenge para a vaga de FullStack em Flutter da empresa PenseApp",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Skema1114/challenge-flutter-fullstack.git"
+  },
+  "author": "Rafael Aranda Martins",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Skema1114/challenge-flutter-fullstack/issues"
+  },
+  "homepage": "https://github.com/Skema1114/challenge-flutter-fullstack#readme",
+  "dependencies": {
+    "celebrate": "^14.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^9.0.0",
+    "express": "^4.17.1",
+    "knex": "^0.95.4",
+    "sqlite3": "^5.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
