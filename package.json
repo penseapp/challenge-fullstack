@@ -1,0 +1,25 @@
+{
+  "name": "challenge-flutter-fullstack",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/jeanlsilva/challenge-flutter-fullstack.git",
+  "author": "Jean Silva <jeanslucasilva@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "dev:server": "ts-node-dev --poll --transpileOnly --ignore node_modules src/server.ts",
+    "start": "ts-node src/server.ts",
+    "typeorm": "ts-node-dev --poll ./node_modules/typeorm/cli.js"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.11",
+    "@types/node": "^15.0.2",
+    "express": "^4.17.1",
+    "typescript": "^4.2.4"
+  },
+  "dependencies": {
+    "pg": "^8.6.0",
+    "ts-node-dev": "1.0.0-pre.44",
+    "typeorm": "^0.2.32"
+  }
+}
