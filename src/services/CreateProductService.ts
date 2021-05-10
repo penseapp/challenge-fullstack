@@ -1,33 +1,52 @@
-import { getCustomRepository } from 'typeorm';
+import { getCustomRepository, getRepository } from 'typeorm';
 import ProductsRepository from '../repositories/ProductsRepository';
 import Product from '../models/Product';
+import Category from '../models/Category';
 
 interface Request {
-    name: string;
-    description: string;
-    price: number;
-    promoPrice: number;
-    statusFlag: string;
-    category: string;
+  name: string;
+  description: string;
+  price: number;
+  promoPrice: number;
+  statusFlag: 'Ativo' | 'Inativo';
+  categoryTitle: string;
 }
 
 class CreateProductService {
-    public async execute({ name, description, price, promoPrice, statusFlag, category}: Request): Promise<Product> {
-        const productsRepository = getCustomRepository(ProductsRepository);
+  public async execute({
+    name,
+    description,
+    price,
+    promoPrice,
+    statusFlag,
+    categoryTitle,
+  }: Request): Promise<Product> {
+    const productsRepository = getCustomRepository(ProductsRepository);
+    const categoriesRepository = getRepository(Category);
 
-        const product = productsRepository.create({
-            name,
-            description,
-            price,
-            promo_price: promoPrice,
-            status_flag: statusFlag,
-            category,
-        });
+    let category = await productsRepository.verifyCategory(categoryTitle);
 
-        productsRepository.save(product);
+    if (!category) {
+      const newCategory = categoriesRepository.create({
+        title: categoryTitle,
+      });
 
-        return product;
+      category = await categoriesRepository.save(newCategory);
     }
+
+    const product = productsRepository.create({
+      name,
+      description,
+      price,
+      promo_price: promoPrice,
+      status_flag: statusFlag,
+      category,
+    });
+
+    productsRepository.save(product);
+
+    return product;
+  }
 }
 
 export default CreateProductService;
