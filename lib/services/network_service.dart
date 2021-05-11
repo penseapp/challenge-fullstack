@@ -3,11 +3,12 @@ import 'dart:convert';
 import 'package:http/http.dart';
 
 class NetworkService {
-  final baseUrl = 'http://10.0.2.2:3000';
+  final baseUrl = 'http://10.0.2.2:3333';
 
-  Future<List<dynamic>> fetchTodos() async {
+  Future<List<dynamic>> fetchStore() async {
     try {
-      final response = await get(Uri.parse(baseUrl + '/todos'));
+      final response = await get(Uri.parse(baseUrl + '/store'),
+          headers: {"authorization": "1"});
       print(response.body);
       return jsonDecode(response.body) as List;
     } catch (e) {
@@ -16,33 +17,33 @@ class NetworkService {
     }
   }
 
-  Future<bool> patchTodo(Map<String, String> patchObj, int id) async {
+  Future<List<dynamic>> fetchProduct() async {
     try {
-      await patch(Uri.parse(baseUrl + '/todos/$id'), body: patchObj);
-      return true;
+      final response = await get(Uri.parse(baseUrl + '/product'),
+          headers: {"authorization": "1"});
+      print(response.body);
+      return jsonDecode(response.body) as List;
     } catch (e) {
       print(e);
-      return false;
+      return [];
     }
   }
 
-  Future<Map> addTodo(Map<String, String> todoObj) async {
+  Future<Map> addStore(Map<String, String> storeObj) async {
+    print('NetworkService.addStore => ' + storeObj.toString());
     try {
-      final response = await post(Uri.parse(baseUrl + '/todos'), body: todoObj);
+      final response = await post(
+        Uri.parse(baseUrl + '/store'),
+        headers: <String, String>{'authorization': '1'},
+        body: jsonEncode(<String, String>{
+          'name': storeObj['name'],
+          'description': storeObj['description']
+        }),
+      );
       return jsonDecode(response.body);
     } catch (e) {
       print(e);
       return null;
-    }
-  }
-
-  Future<bool> deleteTodo(int id) async {
-    try {
-      await delete(Uri.parse(baseUrl + '/todos/$id'));
-      return true;
-    } catch (e) {
-      print(e);
-      return false;
     }
   }
 }

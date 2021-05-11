@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:frontend/cubit/add_todo_cubit.dart';
+import 'package:frontend/cubit/add_store_cubit.dart';
 import 'package:toast/toast.dart';
 
-class AddTodoScreen extends StatelessWidget {
-  final _controller = TextEditingController();
+class AddStorePage extends StatelessWidget {
+  final _nameController = TextEditingController();
+  final _descriptionController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Todo'),
+        title: Text('Add Store'),
       ),
-      body: BlocListener<AddTodoCubit, AddTodoState>(
+      body: BlocListener<AddStoreCubit, AddStoreState>(
         listener: (context, state) {
-          if (state is TodoAdded) {
+          if (state is StoreAdded) {
             Navigator.pop(context);
-          } else if (state is AddTodoError) {
+          } else if (state is AddStoreError) {
             Toast.show(
               state.error,
               context,
@@ -39,14 +40,23 @@ class AddTodoScreen extends StatelessWidget {
       children: [
         TextField(
           autofocus: true,
-          controller: _controller,
-          decoration: InputDecoration(hintText: 'Enter todo message...'),
+          controller: _nameController,
+          decoration: InputDecoration(hintText: 'Adicione um nome'),
+        ),
+        TextField(
+          controller: _descriptionController,
+          decoration: InputDecoration(hintText: 'Adicione uma descrição'),
         ),
         SizedBox(height: 10),
         InkWell(
             onTap: () {
-              final message = _controller.text;
-              BlocProvider.of<AddTodoCubit>(context).addTodo(message);
+              final name = _nameController.text;
+              final description = _descriptionController.text;
+
+              print('AddStorePage.addStore => ' + name + ', ' + description);
+
+              BlocProvider.of<AddStoreCubit>(context)
+                  .addStore(name, description);
             },
             child: _addButton(context)),
       ],
@@ -62,16 +72,16 @@ class AddTodoScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Center(
-        child: BlocBuilder<AddTodoCubit, AddTodoState>(
+        child: BlocBuilder<AddStoreCubit, AddStoreState>(
           builder: (context, state) {
-            if (state is AddingTodo) {
+            if (state is AddingStore) {
               return Center(
                 child: CircularProgressIndicator(),
               );
             }
 
             return Text(
-              'Add Todo',
+              'Add Store',
               style: TextStyle(
                 color: Colors.white,
               ),

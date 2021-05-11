@@ -1,24 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:frontend/cubit/add_store_cubit.dart';
+import 'package:frontend/cubit/product_cubit.dart';
+import 'package:frontend/cubit/store_cubit.dart';
+import 'package:frontend/src/pages/add_store_page.dart';
+import 'package:frontend/src/pages/store_page.dart';
 import 'package:frontend/utils/strings.dart';
-import 'package:frontend/cubit/add_todo_cubit.dart';
-import 'package:frontend/cubit/edit_todo_cubit.dart';
-import 'package:frontend/cubit/todos_cubit.dart';
-import 'package:frontend/src/models/todo.dart';
 import 'package:frontend/services/network_service.dart';
 import 'package:frontend/services/repository.dart';
-import 'package:frontend/src/pages/add_todo_screen.dart';
-import 'package:frontend/src/pages/edit_todo_screen.dart';
-import 'package:frontend/src/pages/todos_screen.dart';
 
 class AppRouter {
   Repository repository;
-  TodosCubit todosCubit;
+  StoreCubit storeCubit;
+  ProductCubit productCubit;
 
   AppRouter() {
     repository = Repository(networkService: NetworkService());
-    todosCubit = TodosCubit(repository: repository);
+    storeCubit = StoreCubit(repository: repository);
+    productCubit = ProductCubit(repository: repository);
   }
 
   Route generateRoute(RouteSettings settings) {
@@ -26,35 +26,31 @@ class AppRouter {
       case '/':
         return MaterialPageRoute(
           builder: (_) => BlocProvider.value(
-            value: todosCubit,
-            child: TodosScreen(),
+            value: storeCubit,
+            child: StorePage(),
           ),
         );
 
-      case EDIT_TODO_ROUTE:
-        final todo = settings.arguments as Todo;
+      /* case '/':
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider.value(
+            value: productCubit,
+            child: ProductScreen(),
+          ),
+        ); */
+
+      case ADD_STORE_ROUTE:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (BuildContext context) => EditTodoCubit(
+            create: (BuildContext context) => AddStoreCubit(
               repository: repository,
-              todosCubit: todosCubit,
+              storeCubit: storeCubit,
             ),
-            child: EditTodoScreen(
-              todo: todo,
-            ),
+            child: AddStorePage(),
           ),
         );
 
-      case ADD_TODO_ROUTE:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (BuildContext context) => AddTodoCubit(
-              repository: repository,
-              todosCubit: todosCubit,
-            ),
-            child: AddTodoScreen(),
-          ),
-        );
+//----------------------------------------
 
       default:
         return null;
