@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/cubit/edit_todo_cubit.dart';
-import 'package:frontend/data/models/todo.dart';
+import 'package:frontend/src/models/todo.dart';
 import 'package:toast/toast.dart';
 
 class EditTodoScreen extends StatelessWidget {

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:frontend/cubit/todos_cubit.dart';
-import 'package:frontend/data/repository.dart';
+import 'package:frontend/services/repository.dart';
 import 'package:meta/meta.dart';
 
 part 'add_todo_state.dart';

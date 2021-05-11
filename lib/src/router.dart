@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:frontend/constants/strings.dart';
+import 'package:frontend/utils/strings.dart';
 import 'package:frontend/cubit/add_todo_cubit.dart';
 import 'package:frontend/cubit/edit_todo_cubit.dart';
 import 'package:frontend/cubit/todos_cubit.dart';
-import 'package:frontend/data/models/todo.dart';
-import 'package:frontend/data/network_service.dart';
-import 'package:frontend/data/repository.dart';
-import 'package:frontend/presentation/screens/add_todo_screen.dart';
-import 'package:frontend/presentation/screens/edit_todo_screen.dart';
-import 'package:frontend/presentation/screens/todos_screen.dart';
+import 'package:frontend/src/models/todo.dart';
+import 'package:frontend/services/network_service.dart';
+import 'package:frontend/services/repository.dart';
+import 'package:frontend/src/pages/add_todo_screen.dart';
+import 'package:frontend/src/pages/edit_todo_screen.dart';
+import 'package:frontend/src/pages/todos_screen.dart';
 
 class AppRouter {
   Repository repository;

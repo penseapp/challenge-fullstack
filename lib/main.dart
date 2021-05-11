@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/presentation/router.dart';
+import 'package:frontend/src/router.dart';
 
 void main() {
   runApp(TodoApp(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:frontend/constants/strings.dart';
+import 'package:frontend/utils/strings.dart';
 import 'package:frontend/cubit/todos_cubit.dart';
-import 'package:frontend/data/models/todo.dart';
+import 'package:frontend/src/models/todo.dart';
 
 class TodosScreen extends StatelessWidget {
   @override

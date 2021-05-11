@@ -1,5 +1,5 @@
-import 'package:frontend/data/models/todo.dart';
-import 'package:frontend/data/network_service.dart';
+import 'package:frontend/src/models/todo.dart';
+import 'package:frontend/services/network_service.dart';
 
 class Repository {
   final NetworkService networkService;

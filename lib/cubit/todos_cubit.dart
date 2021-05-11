@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:frontend/data/models/todo.dart';
-import 'package:frontend/data/repository.dart';
+import 'package:frontend/src/models/todo.dart';
+import 'package:frontend/services/repository.dart';
 import 'package:meta/meta.dart';
 
 part 'todos_state.dart';
