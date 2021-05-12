@@ -1,35 +1,56 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:frontend/pages/user/user_list_page.dart';
+import 'package:frontend/pages/product/product_list_page.dart';
 import 'package:http/http.dart';
-import '../models/user.dart';
 import '../utils/strings.dart';
 
-class UserController {
-  Future<List<User>> listUser() async {
+class AuthController {
+  Future<bool> login(String email, String password) async {
     try {
       Response res = await get(
-        Uri.parse('$BASE_URL$USER_URL'),
-        headers: {AUTH: '1'},
+        Uri.parse('$BASE_URL$AUTH_URL'),
+        headers: {
+          'email': email,
+          'password': password,
+        },
       );
 
       if (res.statusCode == 200) {
-        List<dynamic> body = jsonDecode(res.body);
-
-        List<User> user =
-            body.map((dynamic item) => User.fromJson(item)).toList();
-
-        return user;
+        return true;
       } else {
-        throw 'Não foi possível carregar os usuários';
+        return false;
       }
     } catch (e) {
       print('Error ' + e);
+      return false;
+    }
+  }
+
+  Future<String> getLoginToken(String email, String password) async {
+    try {
+      Response res = await get(
+        Uri.parse('$BASE_URL$AUTH_URL'),
+        headers: {
+          'email': email,
+          'password': password,
+        },
+      );
+
+      print(res.body.toString());
+      if (res.statusCode == 200) {
+        dynamic body = jsonDecode(res.body);
+
+        return body['token'].toString();
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print(e);
       return null;
     }
   }
 
-  Future<void> saveUser(
+  Future<void> userNewAcount(
     String name,
     String email,
     String password,
@@ -54,14 +75,12 @@ class UserController {
         },
       );
 
-      print(res.body);
-
       if (res.statusCode == 200) {
         print('POST');
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => UserListPage(),
+            builder: (context) => ProductListPage(),
           ),
         );
       } else {

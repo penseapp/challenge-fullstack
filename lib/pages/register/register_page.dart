@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/controllers/user_controller.dart';
+import 'package:frontend/controllers/auth_controller.dart';
 import 'package:frontend/pages/login/login_page.dart';
 
 class RegisterPage extends StatelessWidget {
-  final UserController userController = UserController();
+  final AuthController authController = AuthController();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -49,7 +49,8 @@ class RegisterPage extends StatelessWidget {
                     final _email = _emailController.text;
                     final _password = _passwordController.text;
 
-                    userController.saveUser(_name, _email, _password, context);
+                    authController.userNewAcount(
+                        _name, _email, _password, context);
                   },
                   child: Text('Cadastrar-se'),
                 ),
