@@ -24,7 +24,7 @@ class StoreController {
         throw 'Não foi possível carregar as lojas';
       }
     } catch (e) {
-      print('Error ' + e);
+      print(e);
       return null;
     }
   }
@@ -57,7 +57,7 @@ class StoreController {
         throw 'Não foi possível cadastrar a loja';
       }
     } catch (e) {
-      print('Error ' + e);
+      print(e);
     }
   }
 
@@ -80,7 +80,7 @@ class StoreController {
         throw 'Não foi possível deletar a loja';
       }
     } catch (e) {
-      print('Error ' + e);
+      print(e);
     }
   }
 }

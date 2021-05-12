@@ -24,7 +24,7 @@ class UserController {
         throw 'Não foi possível carregar os usuários';
       }
     } catch (e) {
-      print('Error ' + e);
+      print(e);
       return null;
     }
   }
@@ -68,7 +68,7 @@ class UserController {
         throw 'Não foi possível cadastrar o usuário';
       }
     } catch (e) {
-      print('Error ' + e);
+      print(e);
     }
   }
 }

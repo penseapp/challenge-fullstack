@@ -58,12 +58,14 @@ class RegisterPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 25),
                 child: InkWell(
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => LoginPage(),
-                    ),
-                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginPage(),
+                      ),
+                    );
+                  },
                   child: Text('Já tenho uma conta.'),
                 ),
               )

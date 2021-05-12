@@ -1,25 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/controllers/product_controller.dart';
-import 'package:frontend/pages/login/login_page.dart';
-import 'package:frontend/pages/product/product_add_page.dart';
-import 'package:frontend/pages/wishlist/wish_list_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'product_detail_page.dart';
 import '../../models/product.dart';
 
-class ProductListPage extends StatefulWidget {
+class WishListPage extends StatefulWidget {
   @override
-  _ProductListPageState createState() => _ProductListPageState();
+  _WishListPageState createState() => _WishListPageState();
 }
 
-class _ProductListPageState extends State<ProductListPage> {
+class _WishListPageState extends State<WishListPage> {
   final ProductController productController = ProductController();
   List<String> _wishList;
 
   void initState() {
     super.initState();
-    productController.listProduct();
-
+    productController.wishListProduct(_wishList);
     _loadWishList();
 
     if (_wishList == null) {
@@ -44,59 +39,13 @@ class _ProductListPageState extends State<ProductListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ProductAddPage(),
-            ),
-          );
-        },
-        child: Icon(Icons.add),
-      ),
       appBar: AppBar(
-        title: Text('Produtos'),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.list),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => WishListPage(),
-                ),
-              );
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.logout),
-            onPressed: () async {
-              _removeKeepLogin() async {
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                setState(() {
-                  prefs.remove('@store:keep_login');
-                });
-              }
-
-              _removeKeepLogin();
-
-              Navigator.pop(context);
-
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => LoginPage(),
-                ),
-              );
-            },
-          )
-        ],
+        title: Text('Lista de desejos'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(25),
         child: FutureBuilder(
-          future: productController.listProduct(),
+          future: productController.wishListProduct(_wishList),
           builder:
               (BuildContext context, AsyncSnapshot<List<Product>> snapshot) {
             if (snapshot.hasData) {
@@ -145,13 +94,6 @@ class _ProductListPageState extends State<ProductListPage> {
                                   ],
                                 ),
                               ],
-                            ),
-                            onTap: () => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => ProductDetailPage(
-                                  product: product,
-                                ),
-                              ),
                             ),
                           ),
                         ],

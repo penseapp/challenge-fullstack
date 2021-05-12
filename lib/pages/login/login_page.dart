@@ -89,8 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                     _keepLogin = newValue;
                   });
                 },
-                controlAffinity:
-                    ListTileControlAffinity.leading, //  <-- leading Checkbox
+                controlAffinity: ListTileControlAffinity.leading,
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 10),

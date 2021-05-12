@@ -21,7 +21,7 @@ class AuthController {
         return false;
       }
     } catch (e) {
-      print('Error ' + e);
+      print(e);
       return false;
     }
   }
@@ -87,7 +87,7 @@ class AuthController {
         throw 'Não foi possível cadastrar o usuário';
       }
     } catch (e) {
-      print('Error ' + e);
+      print(e);
     }
   }
 }

@@ -24,7 +24,41 @@ class ProductController {
         throw 'Não foi possível carregar os produtos';
       }
     } catch (e) {
-      print('Error ' + e);
+      print(e);
+      return null;
+    }
+  }
+
+  Future<List<Product>> wishListProduct(List<String> products) async {
+    try {
+      List<int> productsParse = products.map(int.parse).toList();
+
+      Response res = await post(
+        Uri.parse('$BASE_URL$WISH_URL'),
+        encoding: utf8,
+        body: jsonEncode(
+          {
+            'products': productsParse,
+          },
+        ),
+        headers: {
+          AUTH: '1',
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (res.statusCode == 200) {
+        List<dynamic> body = jsonDecode(res.body);
+
+        List<Product> wishListProduct =
+            body.map((dynamic item) => Product.fromJson(item)).toList();
+
+        return wishListProduct;
+      } else {
+        throw 'Não foi possível carregar os produtos';
+      }
+    } catch (e) {
+      print(e);
       return null;
     }
   }
@@ -72,7 +106,7 @@ class ProductController {
         throw 'Não foi possível cadastrar o produto';
       }
     } catch (e) {
-      print('Error ' + e);
+      print(e);
     }
   }
 
@@ -95,7 +129,7 @@ class ProductController {
         throw 'Não foi possível deletar o produto';
       }
     } catch (e) {
-      print('Error ' + e);
+      print(e);
     }
   }
 }

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:frontend/pages/initial/initial_page.dart';
 import 'package:frontend/pages/product/product_list_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/widgets.dart';
 
-void main() {
+void main() async {
   runApp(MyApp());
 }
 
