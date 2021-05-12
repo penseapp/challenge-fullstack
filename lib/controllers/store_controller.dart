@@ -21,7 +21,7 @@ class StoreController {
 
         return store;
       } else {
-        throw "Não foi possível carregar as lojas";
+        throw 'Não foi possível carregar as lojas';
       }
     } catch (e) {
       print('Error ' + e);
@@ -46,7 +46,7 @@ class StoreController {
       );
 
       if (res.statusCode == 200) {
-        print("POST");
+        print('POST');
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -54,7 +54,7 @@ class StoreController {
           ),
         );
       } else {
-        throw "Não foi possível cadastrar a loja";
+        throw 'Não foi possível cadastrar a loja';
       }
     } catch (e) {
       print('Error ' + e);
@@ -64,12 +64,12 @@ class StoreController {
   Future<void> deleteStore(int id, context) async {
     try {
       Response res = await delete(
-        Uri.parse("$BASE_URL$STORE_URL/$id"),
+        Uri.parse('$BASE_URL$STORE_URL/$id'),
         headers: {AUTH: '$id'},
       );
 
       if (res.statusCode == 200) {
-        print("DELETED");
+        print('DELETED');
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -77,7 +77,7 @@ class StoreController {
           ),
         );
       } else {
-        throw "Não foi possível deletar a loja";
+        throw 'Não foi possível deletar a loja';
       }
     } catch (e) {
       print('Error ' + e);

@@ -16,7 +16,7 @@ class UserDetailPage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: const EdgeInsets.all(25),
           child: Column(
             children: <Widget>[
               Card(

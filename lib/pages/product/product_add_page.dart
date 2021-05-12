@@ -17,14 +17,14 @@ class ProductAddPage extends StatelessWidget {
         title: Text('Novo produto'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(25),
         child: ListView(
           children: <Widget>[
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 ListTile(
-                  title: Text("Nome"),
+                  title: Text('Nome'),
                 ),
                 TextField(
                   autofocus: true,
@@ -32,7 +32,7 @@ class ProductAddPage extends StatelessWidget {
                   decoration: InputDecoration(hintText: 'Adicione um nome'),
                 ),
                 ListTile(
-                  title: Text("Descrição"),
+                  title: Text('Descrição'),
                 ),
                 TextField(
                   controller: _descriptionController,
@@ -40,7 +40,7 @@ class ProductAddPage extends StatelessWidget {
                       InputDecoration(hintText: 'Adicione uma descrição'),
                 ),
                 ListTile(
-                  title: Text("Preço"),
+                  title: Text('Preço'),
                 ),
                 TextField(
                   controller: _priceController,
@@ -48,7 +48,7 @@ class ProductAddPage extends StatelessWidget {
                       InputDecoration(hintText: 'Adicione o valor do produto'),
                 ),
                 ListTile(
-                  title: Text("Preço promocional"),
+                  title: Text('Preço promocional'),
                 ),
                 TextField(
                   controller: _promotionalPriceController,
@@ -56,7 +56,7 @@ class ProductAddPage extends StatelessWidget {
                       InputDecoration(hintText: 'Adicione o preço promcional'),
                 ),
                 ListTile(
-                  title: Text("flag de status"),
+                  title: Text('flag de status'),
                 ),
                 TextField(
                   controller: _statusFlagController,
@@ -64,7 +64,7 @@ class ProductAddPage extends StatelessWidget {
                       InputDecoration(hintText: 'Adicione o status do produto'),
                 ),
                 ListTile(
-                  title: Text("Categoria"),
+                  title: Text('Categoria'),
                 ),
                 TextField(
                   controller: _categoryController,

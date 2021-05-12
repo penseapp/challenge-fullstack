@@ -29,34 +29,37 @@ class _StoreListPageState extends State<StoreListPage> {
       appBar: AppBar(
         title: Text('Lojas'),
       ),
-      body: FutureBuilder(
-        future: storeController.listStore(),
-        builder: (BuildContext context, AsyncSnapshot<List<Store>> snapshot) {
-          if (snapshot.hasData) {
-            List<Store> store = snapshot.data;
-            return ListView(
-              children: store
-                  .map(
-                    (Store store) => ListTile(
-                      title: Text(store.name),
-                      subtitle: Text(store.description),
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => StoreDetailPage(
-                            store: store,
+      body: Padding(
+        padding: const EdgeInsets.all(25),
+        child: FutureBuilder(
+          future: storeController.listStore(),
+          builder: (BuildContext context, AsyncSnapshot<List<Store>> snapshot) {
+            if (snapshot.hasData) {
+              List<Store> store = snapshot.data;
+              return ListView(
+                children: store
+                    .map(
+                      (Store store) => ListTile(
+                        title: Text(store.name),
+                        subtitle: Text(store.description),
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => StoreDetailPage(
+                              store: store,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  )
-                  .toList(),
-            );
-          } else {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
+                    )
+                    .toList(),
+              );
+            } else {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
+        ),
       ),
     );
   }

@@ -21,7 +21,7 @@ class ProductController {
 
         return product;
       } else {
-        throw "Não foi possível carregar os produtos";
+        throw 'Não foi possível carregar os produtos';
       }
     } catch (e) {
       print('Error ' + e);
@@ -61,7 +61,7 @@ class ProductController {
 
       print(res.body);
       if (res.statusCode == 200) {
-        print("POST");
+        print('POST');
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -69,7 +69,7 @@ class ProductController {
           ),
         );
       } else {
-        throw "Não foi possível cadastrar o produto";
+        throw 'Não foi possível cadastrar o produto';
       }
     } catch (e) {
       print('Error ' + e);
@@ -79,12 +79,12 @@ class ProductController {
   Future<void> deleteProduct(int id, context) async {
     try {
       Response res = await delete(
-        Uri.parse("$BASE_URL$PRODUCT_URL/$id"),
+        Uri.parse('$BASE_URL$PRODUCT_URL/$id'),
         headers: {AUTH: '$id'},
       );
 
       if (res.statusCode == 200) {
-        print("DELETED");
+        print('DELETED');
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -92,7 +92,7 @@ class ProductController {
           ),
         );
       } else {
-        throw "Não foi possível deletar o produto";
+        throw 'Não foi possível deletar o produto';
       }
     } catch (e) {
       print('Error ' + e);

@@ -14,14 +14,14 @@ class UserAddPage extends StatelessWidget {
         title: Text('Cadastrar-se'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(25),
         child: Column(
           children: <Widget>[
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 ListTile(
-                  title: Text("Nome"),
+                  title: Text('Nome'),
                 ),
                 TextField(
                   autofocus: true,
@@ -29,15 +29,15 @@ class UserAddPage extends StatelessWidget {
                   decoration: InputDecoration(hintText: 'Insira o seu nome'),
                 ),
                 ListTile(
-                  title: Text("Email"),
+                  title: Text('Email'),
                 ),
                 TextField(
                   controller: _emailController,
                   decoration:
-                      InputDecoration(hintText: 'exemplo@exemplo.com.br'),
+                      InputDecoration(hintText: 'fulano@exemplo.com.br'),
                 ),
                 ListTile(
-                  title: Text("Senha"),
+                  title: Text('Senha'),
                 ),
                 TextField(
                   controller: _passwordController,

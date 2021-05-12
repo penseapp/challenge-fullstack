@@ -21,7 +21,7 @@ class UserController {
 
         return user;
       } else {
-        throw "Não foi possível carregar os usuários";
+        throw 'Não foi possível carregar os usuários';
       }
     } catch (e) {
       print('Error ' + e);
@@ -55,7 +55,7 @@ class UserController {
       );
 
       if (res.statusCode == 200) {
-        print("POST");
+        print('POST');
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -63,7 +63,7 @@ class UserController {
           ),
         );
       } else {
-        throw "Não foi possível cadastrar o usuário";
+        throw 'Não foi possível cadastrar o usuário';
       }
     } catch (e) {
       print('Error ' + e);

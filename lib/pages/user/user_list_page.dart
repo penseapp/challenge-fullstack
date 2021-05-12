@@ -29,34 +29,37 @@ class _UserListPageState extends State<UserListPage> {
       appBar: AppBar(
         title: Text('Usuários'),
       ),
-      body: FutureBuilder(
-        future: userController.listUser(),
-        builder: (BuildContext context, AsyncSnapshot<List<User>> snapshot) {
-          if (snapshot.hasData) {
-            List<User> user = snapshot.data;
-            return ListView(
-              children: user
-                  .map(
-                    (User user) => ListTile(
-                      title: Text(user.name),
-                      subtitle: Text(user.email),
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => UserDetailPage(
-                            user: user,
+      body: Padding(
+        padding: const EdgeInsets.all(25),
+        child: FutureBuilder(
+          future: userController.listUser(),
+          builder: (BuildContext context, AsyncSnapshot<List<User>> snapshot) {
+            if (snapshot.hasData) {
+              List<User> user = snapshot.data;
+              return ListView(
+                children: user
+                    .map(
+                      (User user) => ListTile(
+                        title: Text(user.name),
+                        subtitle: Text(user.email),
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => UserDetailPage(
+                              user: user,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  )
-                  .toList(),
-            );
-          } else {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
+                    )
+                    .toList(),
+              );
+            } else {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
+        ),
       ),
     );
   }

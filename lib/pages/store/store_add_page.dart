@@ -13,14 +13,14 @@ class StoreAddPage extends StatelessWidget {
         title: Text('Nova Loja'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(25),
         child: Column(
           children: <Widget>[
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 ListTile(
-                  title: Text("Nome"),
+                  title: Text('Nome'),
                 ),
                 TextField(
                   autofocus: true,
@@ -28,7 +28,7 @@ class StoreAddPage extends StatelessWidget {
                   decoration: InputDecoration(hintText: 'Adicione um nome'),
                 ),
                 ListTile(
-                  title: Text("Descrição"),
+                  title: Text('Descrição'),
                 ),
                 TextField(
                   controller: _descriptionController,

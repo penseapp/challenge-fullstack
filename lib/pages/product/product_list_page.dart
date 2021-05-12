@@ -29,50 +29,54 @@ class _ProductListPageState extends State<ProductListPage> {
       appBar: AppBar(
         title: Text('Produtos'),
       ),
-      body: FutureBuilder(
-        future: productController.listProduct(),
-        builder: (BuildContext context, AsyncSnapshot<List<Product>> snapshot) {
-          if (snapshot.hasData) {
-            List<Product> product = snapshot.data;
-            return ListView(
-              children: product
-                  .map(
-                    (Product product) => Column(
-                      children: <Widget>[
-                        ListTile(
-                          title: Text(product.name),
-                          subtitle: Row(
-                            children: [
-                              Column(
-                                children: [
-                                  Text(product.description),
-                                  Text(product.price),
-                                  Text(product.promotionalPrice),
-                                  Text(product.statusFlag),
-                                  Text(product.category),
-                                ],
-                              ),
-                            ],
-                          ),
-                          onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => ProductDetailPage(
-                                product: product,
+      body: Padding(
+        padding: const EdgeInsets.all(25),
+        child: FutureBuilder(
+          future: productController.listProduct(),
+          builder:
+              (BuildContext context, AsyncSnapshot<List<Product>> snapshot) {
+            if (snapshot.hasData) {
+              List<Product> product = snapshot.data;
+              return ListView(
+                children: product
+                    .map(
+                      (Product product) => Column(
+                        children: <Widget>[
+                          ListTile(
+                            title: Text(product.name),
+                            subtitle: Row(
+                              children: [
+                                Column(
+                                  children: [
+                                    Text(product.description),
+                                    Text(product.price),
+                                    Text(product.promotionalPrice),
+                                    Text(product.statusFlag),
+                                    Text(product.category),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            onTap: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => ProductDetailPage(
+                                  product: product,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  )
-                  .toList(),
-            );
-          } else {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
+                        ],
+                      ),
+                    )
+                    .toList(),
+              );
+            } else {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
+        ),
       ),
     );
   }
