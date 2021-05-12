@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/src/router.dart';
+import 'package:frontend/pages/product/product_list_page.dart';
+import 'package:frontend/pages/store/store_list_page.dart';
+import 'package:frontend/pages/user/user_list_page.dart';
 
 void main() {
-  runApp(TodoApp(
-    router: AppRouter(),
-  ));
+  runApp(MyApp());
 }
 
-class TodoApp extends StatelessWidget {
-  final AppRouter router;
-
-  const TodoApp({Key key, this.router}) : super(key: key);
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'HTTP',
       debugShowCheckedModeBanner: false,
-      onGenerateRoute: router.generateRoute,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: ProductListPage(),
     );
   }
 }
