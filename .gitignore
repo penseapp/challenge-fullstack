@@ -117,3 +117,9 @@ dist
 
 # banco de dados
 *.sqlite
+
+# ios da outra branch
+
+ios/*
+build/*
+android/*
