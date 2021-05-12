@@ -6,227 +6,91 @@ module.exports = {
     const authorization = req.headers.authorization;
 
     if (id) {
-      if (orderPrice && orderAlpha) {
-        if (search && promotional) {
-          // COM ID e ORDEM PREÇO e ORDEM ALFABETICA e PESQUISA e PROMOCIONAL
-          const productList = await connection('product')
-            .select('*')
-            .orderBy('price', orderPrice)
-            .orderBy('name', orderAlpha)
-            .where('name', 'like', `%${search}%`)
-            .andWhere('id', id)
-            .groupBy('promotional_price')
-            .having('promotional_price', '>', 0);
+      if (orderPrice) {
+        // COM ID e ORDEM PREÇO
+        const productList = await connection('product')
+          .select('*')
+          .where('id', id)
+          .orderBy('price', orderPrice);
 
-          return res.json(productList);
-
-        } else if (search) {
-          // COM ID e ORDEM PREÇO e ORDEM ALFABETICA e PESQUISA
-          const productList = await connection('product')
-            .select('*')
-            .orderBy('price', orderPrice)
-            .orderBy('name', orderAlpha)
-            .where('name', 'like', `%${search}%`)
-            .andWhere('id', id);
-
-          return res.json(productList);
-
-        } else if (promotional) {
-          // COM ID e ORDEM PREÇO e ORDEM ALFABETICA e PROMOCIONAL
-          const productList = await connection('product')
-            .select('*')
-            .orderBy('price', orderPrice)
-            .orderBy('name', orderAlpha)
-            .where('id', id)
-            .groupBy('promotional_price')
-            .having('promotional_price', '>', 0);
-
-          return res.json(productList);
-        }
-
-      } else if (orderPrice) {
-        if (search && promotional) {
-          // COM ID e ORDEM PREÇO e PESQUISA e PROMOCIONAL
-          const productList = await connection('product')
-            .select('*')
-            .orderBy('price', orderPrice)
-            .where('name', 'like', `%${search}%`)
-            .andWhere('id', id)
-            .groupBy('promotional_price')
-            .having('promotional_price', '>', 0);
-
-          return res.json(productList);
-
-        } else if (search) {
-          // COM ID e ORDEM PREÇO e PESQUISA
-          const productList = await connection('product')
-            .select('*')
-            .orderBy('price', orderPrice)
-            .where('name', 'like', `%${search}%`)
-            .andWhere('id', id);
-
-          return res.json(productList);
-
-        } else if (promotional) {
-          // COM ID e ORDEM PREÇO e PROMOCIONAL
-          const productList = await connection('product')
-            .select('*')
-            .orderBy('price', orderPrice)
-            .where('id', id)
-            .groupBy('promotional_price')
-            .having('promotional_price', '>', 0);
-
-          return res.json(productList);
-        }
-
-      } else if (orderAlpha) {
-        if (search && promotional) {
-          // COM ID e ORDEM ALFABETICA e PESQUISA e PROMOCIONAL
-          const productList = await connection('product')
-            .select('*')
-            .orderBy('name', orderAlpha)
-            .where('name', 'like', `%${search}%`)
-            .andWhere('id', id)
-            .groupBy('promotional_price')
-            .having('promotional_price', '>', 0);
-
-          return res.json(productList);
-
-        } else if (search) {
-          // COM ID e ORDEM ALFABETICA e PESQUISA
-          const productList = await connection('product')
-            .select('*')
-            .orderBy('name', orderAlpha)
-            .where('name', 'like', `%${search}%`)
-            .andWhere('id', id);
-
-          return res.json(productList);
-
-        } else if (promotional) {
-          // COM ID e ORDEM ALFABETICA e PROMOCIONAL
-          const productList = await connection('product')
-            .select('*')
-            .orderBy('name', orderAlpha)
-            .where('id', id)
-            .groupBy('promotional_price')
-            .having('promotional_price', '>', 0);
-
-          return res.json(productList);
-        }
-      } else {
-          // COM ID
-          const productList = await connection('product')
-            .select('*')
-            .where('id', id);
+        return res.json(productList);
       
-          return res.json(productList);
+      } else if (orderAlpha) {
+        // COM ID e ORDEM ALFABETICA
+        const productList = await connection('product')
+          .select('*')
+          .where('id', id)
+          .orderBy('name', orderAlpha);
+
+        return res.json(productList);
+
+      } else if (search) {
+        // COM ID e PESQUISA
+        const productList = await connection('product')
+          .select('*')
+          .where('id', id)
+          .andWhere('name', 'like', `%${search}%`);
+
+        return res.json(productList);
+
+      } else if (promotional) {
+        // COM ID e PROMOCIONAL
+        const productList = await connection('product')
+          .select('*')
+          .where('id', id)
+          .groupBy('id')
+          .having('promotional_price', '>', 0);
+
+        return res.json(productList);
+
+      } else {
+        // COM ID
+        const productList = await connection('product')
+          .select('*')
+          .where('id', id);
+
+        return res.json(productList);
       }
 
-    // SEM ID
     } else {
-      if (orderPrice && orderAlpha) {
-        if (search && promotional) {
-          // SEM ID e ORDEM PREÇO e ORDEM ALFABETICA e PESQUISA e PROMOCIONAL
-          const productList = await connection('product')
-            .select('*')
-            .orderBy('price', orderPrice)
-            .orderBy('name', orderAlpha)
-            .where('name', 'like', `%${search}%`)
-            .groupBy('promotional_price')
-            .having('promotional_price', '>', 0)
+      if (orderPrice) {
+        // SEM ID e ORDEM PREÇO
+        const productList = await connection('product')
+          .select('*')
+          .orderBy('price', orderPrice);
 
-          return res.json(productList);
-
-        } else if (search) {
-          // SEM ID e ORDEM PREÇO e ORDEM ALFABETICA e PESQUISA
-          const productList = await connection('product')
-            .select('*')
-            .orderBy('price', orderPrice)
-            .orderBy('name', orderAlpha)
-            .where('name', 'like', `%${search}%`);
-
-          return res.json(productList);
-
-        } else if (promotional) {
-          // SEM ID e ORDEM PREÇO e ORDEM ALFABETICA e PROMOCIONAL
-          const productList = await connection('product')
-            .select('*')
-            .orderBy('price', orderPrice)
-            .orderBy('name', orderAlpha)
-            .groupBy('promotional_price')
-            .having('promotional_price', '>', 0)
-
-          return res.json(productList);
-        }
-
-      } else if (orderPrice) {
-        if (search && promotional) {
-          // SEM ID e ORDEM PREÇO e PESQUISA e PROMOCIONAL
-          const productList = await connection('product')
-            .select('*')
-            .orderBy('price', orderPrice)
-            .where('name', 'like', `%${search}%`)
-            .groupBy('promotional_price')
-            .having('promotional_price', '>', 0)
-
-          return res.json(productList);
-
-        } else if (search) {
-          // SEM ID e ORDEM PREÇO e PESQUISA
-          const productList = await connection('product')
-            .select('*')
-            .orderBy('price', orderPrice)
-            .where('name', 'like', `%${search}%`);
-
-          return res.json(productList);
-
-        } else if (promotional) {
-          // SEM ID e ORDEM PREÇO e PROMOCIONAL
-          const productList = await connection('product')
-            .select('*')
-            .orderBy('price', orderPrice)
-            .groupBy('promotional_price')
-            .having('promotional_price', '>', 0)
-
-          return res.json(productList);
-        }
-
+        return res.json(productList);
+      
       } else if (orderAlpha) {
-        if (search && promotional) {
-          // SEM ID e ORDEM ALFABETICA e PESQUISA e PROMOCIONAL
-          const productList = await connection('product')
-            .select('*')
-            .orderBy('name', orderAlpha)
-            .where('name', 'like', `%${search}%`)
-            .groupBy('promotional_price')
-            .having('promotional_price', '>', 0)
+        // SEM ID e ORDEM ALFABETICA
+        const productList = await connection('product')
+          .select('*')
+          .orderBy('name', orderAlpha);
 
-          return res.json(productList);
+        return res.json(productList);
 
-        } else if (search) {
-          // SEM ID e ORDEM ALFABETICA e PESQUISA
-          const productList = await connection('product')
-            .select('*')
-            .orderBy('name', orderAlpha)
-            .where('name', 'like', `%${search}%`);
+      } else if (search) {
+        // SEM ID e PESQUISA
+        const productList = await connection('product')
+          .select('*')
+          .andWhere('name', 'like', `%${search}%`);
 
-          return res.json(productList);
+        return res.json(productList);
 
-        } else if (promotional) {
-          // SEM ID e ORDEM ALFABETICA e PROMOCIONAL
-          const productList = await connection('product')
-            .select('*')
-            .orderBy('name', orderAlpha)
-            .groupBy('promotional_price')
-            .having('promotional_price', '>', 0)
+      } else if (promotional) {
+        // SEM ID e PROMOCIONAL
+        const productList = await connection('product')
+          .select('*')
+          .groupBy('id')
+          .having('promotional_price', '>', 0);
 
-          return res.json(productList);
-        }
+        return res.json(productList);
+
       } else {
         // SEM ID
         const productList = await connection('product')
           .select('*');
-    
+
         return res.json(productList);
       }
     }
