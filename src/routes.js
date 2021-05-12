@@ -5,6 +5,7 @@ const {celebrate, Segments, Joi} = require('celebrate');
 const StoreController = require('./controllers/StoreController');
 const ProductController = require('./controllers/ProductController');
 const UserController = require('./controllers/UserController');
+const AuthController = require('./controllers/AuthController');
 
 /**
  *  STORE
@@ -70,7 +71,11 @@ routes.delete('/store/:id', celebrate({
 
 routes.get('/product', celebrate({
   [Segments.QUERY]: Joi.object().keys({
-    id: Joi.number()
+    id: Joi.number(),
+    orderPrice: Joi.string(),
+    orderAlpha: Joi.string(),
+    search: Joi.string(),
+    promotional: Joi.string()
   }),
   [Segments.HEADERS]: Joi.object({
     authorization: Joi.string().required()
@@ -81,8 +86,8 @@ routes.post('/product', celebrate({
   [Segments.BODY]: Joi.object().keys({
     name: Joi.string().required(),
     description: Joi.string(),
-    price: Joi.number(),
-    promotional_price: Joi.number(),
+    price: Joi.string(),
+    promotional_price: Joi.string(),
     status_flag: Joi.string(),
     category: Joi.string()
   }),
@@ -98,8 +103,8 @@ routes.put('/product/:id', celebrate({
   [Segments.BODY]: Joi.object().keys({
     name: Joi.string().required(),
     description: Joi.string().required(),
-    price: Joi.number().required(),
-    promotional_price: Joi.number().required(),
+    price: Joi.string().required(),
+    promotional_price: Joi.string().required(),
     status_flag: Joi.string().required(),
     category: Joi.string().required()
   }),
@@ -115,8 +120,8 @@ routes.patch('/product/:id', celebrate({
   [Segments.BODY]: Joi.object().keys({
     name: Joi.string(),
     description: Joi.string(),
-    price: Joi.number(),
-    promotional_price: Joi.number(),
+    price: Joi.string(),
+    promotional_price: Joi.string(),
     status_flag: Joi.string(),
     category: Joi.string()
   }),
@@ -194,5 +199,16 @@ routes.delete('/user/:id', celebrate({
     authorization: Joi.string().required()
   }).unknown()
 }), UserController.delete);
+
+/**
+ *  AUTH
+ */
+
+ routes.get('/auth', celebrate({
+  [Segments.HEADERS]: Joi.object({
+    email: Joi.string().required(),
+    password: Joi.string().required()
+  }).unknown()
+}), AuthController.get);
 
 module.exports = routes; 

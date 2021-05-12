@@ -3,8 +3,8 @@ exports.up = function(knex) {
     table.increments();
     table.string('name').notNullable();
     table.string('description').nullable();
-    table.decimal('price').nullable();
-    table.decimal('promotional_price').nullable();
+    table.string('price').nullable();
+    table.string('promotional_price').nullable();
     table.string('status_flag').nullable();
     table.string('category').nullable();
   })

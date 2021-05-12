@@ -2,21 +2,233 @@ const connection = require('../database/connection');
 
 module.exports = {
   async get(req, res) {
-    const {id} = req.query;
+    const {id, orderPrice, orderAlpha, search, promotional} = req.query;
     const authorization = req.headers.authorization;
 
-    if (!id) {
-      const productList = await connection('product')
-        .select('*');
+    if (id) {
+      if (orderPrice && orderAlpha) {
+        if (search && promotional) {
+          // COM ID e ORDEM PREÇO e ORDEM ALFABETICA e PESQUISA e PROMOCIONAL
+          const productList = await connection('product')
+            .select('*')
+            .orderBy('price', orderPrice)
+            .orderBy('name', orderAlpha)
+            .where('name', 'like', `%${search}%`)
+            .andWhere('id', id)
+            .groupBy('promotional_price')
+            .having('promotional_price', '>', 0);
 
-      return res.json(productList);
+          return res.json(productList);
 
+        } else if (search) {
+          // COM ID e ORDEM PREÇO e ORDEM ALFABETICA e PESQUISA
+          const productList = await connection('product')
+            .select('*')
+            .orderBy('price', orderPrice)
+            .orderBy('name', orderAlpha)
+            .where('name', 'like', `%${search}%`)
+            .andWhere('id', id);
+
+          return res.json(productList);
+
+        } else if (promotional) {
+          // COM ID e ORDEM PREÇO e ORDEM ALFABETICA e PROMOCIONAL
+          const productList = await connection('product')
+            .select('*')
+            .orderBy('price', orderPrice)
+            .orderBy('name', orderAlpha)
+            .where('id', id)
+            .groupBy('promotional_price')
+            .having('promotional_price', '>', 0);
+
+          return res.json(productList);
+        }
+
+      } else if (orderPrice) {
+        if (search && promotional) {
+          // COM ID e ORDEM PREÇO e PESQUISA e PROMOCIONAL
+          const productList = await connection('product')
+            .select('*')
+            .orderBy('price', orderPrice)
+            .where('name', 'like', `%${search}%`)
+            .andWhere('id', id)
+            .groupBy('promotional_price')
+            .having('promotional_price', '>', 0);
+
+          return res.json(productList);
+
+        } else if (search) {
+          // COM ID e ORDEM PREÇO e PESQUISA
+          const productList = await connection('product')
+            .select('*')
+            .orderBy('price', orderPrice)
+            .where('name', 'like', `%${search}%`)
+            .andWhere('id', id);
+
+          return res.json(productList);
+
+        } else if (promotional) {
+          // COM ID e ORDEM PREÇO e PROMOCIONAL
+          const productList = await connection('product')
+            .select('*')
+            .orderBy('price', orderPrice)
+            .where('id', id)
+            .groupBy('promotional_price')
+            .having('promotional_price', '>', 0);
+
+          return res.json(productList);
+        }
+
+      } else if (orderAlpha) {
+        if (search && promotional) {
+          // COM ID e ORDEM ALFABETICA e PESQUISA e PROMOCIONAL
+          const productList = await connection('product')
+            .select('*')
+            .orderBy('name', orderAlpha)
+            .where('name', 'like', `%${search}%`)
+            .andWhere('id', id)
+            .groupBy('promotional_price')
+            .having('promotional_price', '>', 0);
+
+          return res.json(productList);
+
+        } else if (search) {
+          // COM ID e ORDEM ALFABETICA e PESQUISA
+          const productList = await connection('product')
+            .select('*')
+            .orderBy('name', orderAlpha)
+            .where('name', 'like', `%${search}%`)
+            .andWhere('id', id);
+
+          return res.json(productList);
+
+        } else if (promotional) {
+          // COM ID e ORDEM ALFABETICA e PROMOCIONAL
+          const productList = await connection('product')
+            .select('*')
+            .orderBy('name', orderAlpha)
+            .where('id', id)
+            .groupBy('promotional_price')
+            .having('promotional_price', '>', 0);
+
+          return res.json(productList);
+        }
+      } else {
+          // COM ID
+          const productList = await connection('product')
+            .select('*')
+            .where('id', id);
+      
+          return res.json(productList);
+      }
+
+    // SEM ID
     } else {
-      const productListId = await connection('product')
-        .select('*')
-        .where('id', id);
+      if (orderPrice && orderAlpha) {
+        if (search && promotional) {
+          // SEM ID e ORDEM PREÇO e ORDEM ALFABETICA e PESQUISA e PROMOCIONAL
+          const productList = await connection('product')
+            .select('*')
+            .orderBy('price', orderPrice)
+            .orderBy('name', orderAlpha)
+            .where('name', 'like', `%${search}%`)
+            .groupBy('promotional_price')
+            .having('promotional_price', '>', 0)
 
-      return res.json(productListId);
+          return res.json(productList);
+
+        } else if (search) {
+          // SEM ID e ORDEM PREÇO e ORDEM ALFABETICA e PESQUISA
+          const productList = await connection('product')
+            .select('*')
+            .orderBy('price', orderPrice)
+            .orderBy('name', orderAlpha)
+            .where('name', 'like', `%${search}%`);
+
+          return res.json(productList);
+
+        } else if (promotional) {
+          // SEM ID e ORDEM PREÇO e ORDEM ALFABETICA e PROMOCIONAL
+          const productList = await connection('product')
+            .select('*')
+            .orderBy('price', orderPrice)
+            .orderBy('name', orderAlpha)
+            .groupBy('promotional_price')
+            .having('promotional_price', '>', 0)
+
+          return res.json(productList);
+        }
+
+      } else if (orderPrice) {
+        if (search && promotional) {
+          // SEM ID e ORDEM PREÇO e PESQUISA e PROMOCIONAL
+          const productList = await connection('product')
+            .select('*')
+            .orderBy('price', orderPrice)
+            .where('name', 'like', `%${search}%`)
+            .groupBy('promotional_price')
+            .having('promotional_price', '>', 0)
+
+          return res.json(productList);
+
+        } else if (search) {
+          // SEM ID e ORDEM PREÇO e PESQUISA
+          const productList = await connection('product')
+            .select('*')
+            .orderBy('price', orderPrice)
+            .where('name', 'like', `%${search}%`);
+
+          return res.json(productList);
+
+        } else if (promotional) {
+          // SEM ID e ORDEM PREÇO e PROMOCIONAL
+          const productList = await connection('product')
+            .select('*')
+            .orderBy('price', orderPrice)
+            .groupBy('promotional_price')
+            .having('promotional_price', '>', 0)
+
+          return res.json(productList);
+        }
+
+      } else if (orderAlpha) {
+        if (search && promotional) {
+          // SEM ID e ORDEM ALFABETICA e PESQUISA e PROMOCIONAL
+          const productList = await connection('product')
+            .select('*')
+            .orderBy('name', orderAlpha)
+            .where('name', 'like', `%${search}%`)
+            .groupBy('promotional_price')
+            .having('promotional_price', '>', 0)
+
+          return res.json(productList);
+
+        } else if (search) {
+          // SEM ID e ORDEM ALFABETICA e PESQUISA
+          const productList = await connection('product')
+            .select('*')
+            .orderBy('name', orderAlpha)
+            .where('name', 'like', `%${search}%`);
+
+          return res.json(productList);
+
+        } else if (promotional) {
+          // SEM ID e ORDEM ALFABETICA e PROMOCIONAL
+          const productList = await connection('product')
+            .select('*')
+            .orderBy('name', orderAlpha)
+            .groupBy('promotional_price')
+            .having('promotional_price', '>', 0)
+
+          return res.json(productList);
+        }
+      } else {
+        // SEM ID
+        const productList = await connection('product')
+          .select('*');
+    
+        return res.json(productList);
+      }
     }
   },
 
@@ -41,6 +253,8 @@ module.exports = {
     const {id} = req.params;
     const {name, description, price, promotional_price, status_flag, category} = req.body;
     const authorization = req.headers.authorization;
+
+    console.log({name, description, price, promotional_price, status_flag, category});
 
     await connection('product')
       .where('id', id)

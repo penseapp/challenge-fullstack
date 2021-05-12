@@ -22,6 +22,7 @@ module.exports = {
 
   async post(req, res) {
     const {name, description} = req.body;
+
     const authorization = req.headers.authorization;
 
     await connection('store')
