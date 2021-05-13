@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/pages/initial/initial_page.dart';
-import 'package:frontend/pages/product/product_list_page.dart';
+import 'package:frontend/pages/navigator/bottom_navigator_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/widgets.dart';
 
@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: _keepLogin == true ? ProductListPage() : InitialPage(),
+      home: _keepLogin == true ? BottomNavigatorPage() : InitialPage(),
     );
   }
 }

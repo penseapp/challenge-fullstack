@@ -41,6 +41,7 @@ class UserAddPage extends StatelessWidget {
                 ),
                 TextField(
                   controller: _passwordController,
+                  obscureText: true,
                   decoration: InputDecoration(hintText: '************'),
                 ),
                 ElevatedButton(

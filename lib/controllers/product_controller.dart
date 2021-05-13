@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:frontend/models/product.dart';
-import 'package:frontend/pages/product/product_list_page.dart';
+import 'package:frontend/pages/navigator/bottom_navigator_page.dart';
 import 'package:http/http.dart';
 import '../utils/strings.dart';
 
@@ -96,10 +96,13 @@ class ProductController {
       print(res.body);
       if (res.statusCode == 200) {
         print('POST');
+
+        Navigator.pop(context);
+
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProductListPage(),
+            builder: (context) => BottomNavigatorPage(),
           ),
         );
       } else {
@@ -122,7 +125,7 @@ class ProductController {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProductListPage(),
+            builder: (context) => BottomNavigatorPage(),
           ),
         );
       } else {

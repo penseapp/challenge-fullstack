@@ -38,12 +38,16 @@ class RegisterPage extends StatelessWidget {
               ),
               TextField(
                 autofocus: false,
+                obscureText: true,
                 controller: _passwordController,
                 decoration: InputDecoration(hintText: '************'),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.black,
+                  ),
                   onPressed: () {
                     final _name = _nameController.text;
                     final _email = _emailController.text;

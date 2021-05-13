@@ -13,6 +13,9 @@ class InitialPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.black,
+                ),
                 onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -22,6 +25,9 @@ class InitialPage extends StatelessWidget {
                 child: Text('Já tenho cadastro'),
               ),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.black,
+                ),
                 onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(

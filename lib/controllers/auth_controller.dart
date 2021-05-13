@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:frontend/pages/navigator/bottom_navigator_page.dart';
 import 'package:frontend/pages/product/product_list_page.dart';
 import 'package:http/http.dart';
 import '../utils/strings.dart';
@@ -80,7 +81,7 @@ class AuthController {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProductListPage(),
+            builder: (context) => BottomNavigatorPage(),
           ),
         );
       } else {

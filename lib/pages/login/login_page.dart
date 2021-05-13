@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/controllers/auth_controller.dart';
+import 'package:frontend/pages/navigator/bottom_navigator_page.dart';
 import 'package:frontend/pages/product/product_list_page.dart';
 import 'package:frontend/pages/register/register_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -76,10 +77,13 @@ class _LoginPageState extends State<LoginPage> {
               ),
               TextField(
                 controller: _passwordController,
+                obscureText: true,
                 autofocus: false,
                 decoration: InputDecoration(hintText: '************'),
               ),
               CheckboxListTile(
+                activeColor: Colors.black,
+                checkColor: Colors.blue[100],
                 title: Text("Lembrar minhas credenciais"),
                 value: _keepLogin,
                 onChanged: (newValue) {
@@ -94,6 +98,9 @@ class _LoginPageState extends State<LoginPage> {
               Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.black,
+                  ),
                   onPressed: () {
                     final _email = _emailController.text;
                     final _password = _passwordController.text;
@@ -111,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ProductListPage(),
+                            builder: (context) => BottomNavigatorPage(),
                           ),
                         );
                       } else {

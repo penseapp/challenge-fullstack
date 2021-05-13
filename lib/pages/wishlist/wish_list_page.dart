@@ -39,11 +39,8 @@ class _WishListPageState extends State<WishListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Lista de desejos'),
-      ),
       body: Padding(
-        padding: const EdgeInsets.all(25),
+        padding: const EdgeInsets.all(10),
         child: FutureBuilder(
           future: productController.wishListProduct(_wishList),
           builder:
@@ -53,50 +50,78 @@ class _WishListPageState extends State<WishListPage> {
               return ListView(
                 children: product
                     .map(
-                      (Product product) => Column(
-                        children: <Widget>[
-                          ListTile(
-                            title: Text(product.name),
-                            subtitle: Row(
-                              children: [
-                                Column(
-                                  children: [
-                                    Text(product.description),
-                                    Text(product.price),
-                                    Text(product.promotionalPrice),
-                                    Text(product.statusFlag),
-                                    Text(product.category),
-                                    InkWell(
-                                      onTap: () {
-                                        if (_wishList.contains(
-                                          product.id.toString(),
-                                        )) {
-                                          _wishList.remove(
+                      (Product product) => Card(
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: Column(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            if (_wishList.contains(
+                                              product.id.toString(),
+                                            )) {
+                                              _wishList.remove(
+                                                product.id.toString(),
+                                              );
+                                              _saveWishList(_wishList);
+                                            } else {
+                                              _wishList.add(
+                                                product.id.toString(),
+                                              );
+                                              _saveWishList(_wishList);
+                                            }
+                                          },
+                                          child: _wishList.contains(
                                             product.id.toString(),
-                                          );
-                                          _saveWishList(_wishList);
-                                        } else {
-                                          _wishList.add(
-                                            product.id.toString(),
-                                          );
-                                          _saveWishList(_wishList);
-                                        }
-                                      },
-                                      child: _wishList.contains(
-                                        product.id.toString(),
-                                      )
-                                          ? Icon(
-                                              Icons.star_outlined,
-                                              color: Colors.green,
-                                            )
-                                          : Icon(Icons.star_border),
-                                    )
-                                  ],
+                                          )
+                                              ? Icon(
+                                                  Icons.star_outlined,
+                                                  color: Colors.blue,
+                                                )
+                                              : Icon(Icons.star_border),
+                                        ),
+                                        Text(
+                                          product.name,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18),
+                                        ),
+                                        Text('Preço: ' + product.price),
+                                        Text('Preço promocional: ' +
+                                            product.promotionalPrice),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 10),
+                                    child: Column(children: [
+                                      Text(product.description),
+                                      Text(product.statusFlag),
+                                      Text(product.category),
+                                    ]),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 15),
+                                child: Row(
+                                  children: [],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
                     )
                     .toList(),

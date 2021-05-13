@@ -13,11 +13,8 @@ class ProductAddPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Novo produto'),
-      ),
       body: Padding(
-        padding: const EdgeInsets.all(25),
+        padding: const EdgeInsets.all(10),
         child: ListView(
           children: <Widget>[
             Column(
@@ -27,7 +24,6 @@ class ProductAddPage extends StatelessWidget {
                   title: Text('Nome'),
                 ),
                 TextField(
-                  autofocus: true,
                   controller: _nameController,
                   decoration: InputDecoration(hintText: 'Adicione um nome'),
                 ),
@@ -56,7 +52,7 @@ class ProductAddPage extends StatelessWidget {
                       InputDecoration(hintText: 'Adicione o preço promcional'),
                 ),
                 ListTile(
-                  title: Text('flag de status'),
+                  title: Text('Status'),
                 ),
                 TextField(
                   controller: _statusFlagController,
@@ -72,6 +68,9 @@ class ProductAddPage extends StatelessWidget {
                       InputDecoration(hintText: 'Informe uma categoria'),
                 ),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.black,
+                  ),
                   onPressed: () {
                     final _name = _nameController.text;
                     final _description = _descriptionController.text;
