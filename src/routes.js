@@ -211,4 +211,10 @@ routes.delete('/user/:id', celebrate({
   }).unknown()
 }), AuthController.get);
 
+/**
+ *  WISHLIST
+ */
+
+ routes.post('/wishlist', ProductController.wishList);
+
 module.exports = routes; 

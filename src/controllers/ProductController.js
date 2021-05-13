@@ -194,5 +194,17 @@ module.exports = {
 
       return res.status(401).json({success: false});
     }
-  }
+  },
+
+  async wishList(req, res) {
+    const {products} = req.body;
+    const authorization = req.headers.authorization;
+    
+    const productList = await connection('product')
+    .select('*');
+    
+    const wishListProductList = productList.filter(item => products.includes(item.id));
+
+    return res.json(wishListProductList);
+  },
 }
