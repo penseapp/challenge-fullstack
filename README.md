@@ -1,81 +1,31 @@
-# Desafio FullStack Penseapp
+# Iniciando
 
-Criamos softwares sob medida para nossos clientes, assim queremos avaliar a sua capacidade técnica agora.
+Para executar este projeto é necessário ter o Flutter instalado no PC. O Flutter pode ser encontrado para [download aqui](https://flutter.dev/docs/development/tools/sdk/releases).
 
-Essa é uma vaga para fullStack, gostariamos de avaliar um pouquinho das duas partes, por isso, pensamos em um teste simples para avaliar o desempenho nas duas stacks.
+# Importante
 
-Como esta aplicação será um sucesso mundial, ela deve estar preparada para ser acessível, responsiva, tolerante a falhas e resiliente. 
-É altamente recomendável usar o Flutter para criar o aplicativo.
+Esse frontend trabalha totalmente conectado com o backend, ambos precisam estar rodando
 
-Ahh, crie um novo repo para fazer isso, beleza? O código tem que estar no github!
+# Atualizando as dependências
 
-## Desafio backend
-
-Criar um `micro service` que aceite requisições RESTful (API) capaz de gerenciar produtos de uma loja.
-
-A loja deve conter (Pode ser mockado):
-```
-Nome, descrição
+Para baixar/atualizar as dependências do projeto é necessário ir até o arquivo ````challenge-flutter-fullstack\pubspec.yaml````. E executar o comando para realizar a atualização/download:
+```sh
+flutter pub get
 ```
 
-<br >
+# Funcionalidades contidas na aplicação:
+- Cadastro de Usuário;
+- Cadastro de Loja;
+- Cadastro de Produto;
+- Listagem de Usuários;
+- Listagem de Lojas;
+- Listagem de Produtos;
+- Remoção de Produtos (mas não está atualizando a tela na sequência);
+- Remoção de Lojas (também não atualiza a tela após deletar);
+- Persistência de dados na memória interna;
+- Persistência de dados do usuário para que o mesmo mantenha-se logado;
+- A estrutura foi baseada em um MVC mas utiliza o básico de gerenciamento de estados utilizando o gerenciador nativo do Flutter (setState).
 
-CRUD de Produtos:
-Você não precisa criar uma interface visual no flutter para implementar o CRUD, porém, a API tem que ter os métodos implementados.
+# Dificuldades encontradas
 
-|       Nome        | Obrigatório? |
-| :---------------: | :----------: |
-|       Nome        |     Sim      |
-|     Descrição     |     Não      |
-|       Preço       |     Não      |
-| Preço promocional |     Não      |
-|  Flag de status   |     Não      |
-|     Categoria     |     Não      |
-
-<br >
-
-## Frontend
-
-#### Tela de Login.
-Ta liberado! Aqui você pode fazer como bem entender! Pode-se autenticar com email/senha ou social media login, tipo Google, Facebook, etc... 
-
-#### Tela de listagem com os produtos
-Faça a listagem como bem entender, traga os produtos do backend via API
-
-#### Criar uma wishlist baseado na lista de produtos.
-Basicamente é adicionar alguns produtos nessa lista de desejos. Você tem autonomia no design, pode colocar em duas telas, numa página a parte, você é o dono da aplicação.
-
-<br >
-
-# Regra de Negócio
-
-- Cada usuario deverá poder criar sua propria wishlist.
-- Utilize algo para gerênciar estado, damos preferencia a utilização de BloC, MobX e Riverpod, mas você é livre para escolher qual você prefere
-- A wishlist poderá ser salva na memória interna do dispositivo.
-- Permitir filtrar produtos por:
-  - Palavra-chave
-  - Produto promocional ou não
-- Ordernação:
-  - Preço
-  - Ordem alfabética
-- No login poderá optar por usar o backend ou usar um Third-party
-
-<br >
-
-# Requisitos não funcionais
-
-#### Documentar no projeto como executar a aplicação.
-Precisamos avaliar o seu projeto! Também valorizamos muito um README.md bem feito. Independente de como você faça, se for local na máquina ou usando Docker, como executar a sua aplicação é fundamental para nós!
-
-#### Extras
-- Cobertura de testes
-- Boas práticas de codificação
-- Apreço com UI
-- Não reinventar a roda, ser capaz de usar libs prontas para gerar valor e produtividade
-- Elabore brevemente os detalhes da arquitetura de sua solução, a escolha de padrões e estruturas.
-
-#### Instrução de Entrega
- - Fazer um fork do repo
- - Abrir uma PR com a branch backend.
- - Abrir uma PR com a branch frontend.
- - Os arquivos serão avaliados e executados.
+A maior dificuldade nesse desenvolvimento (e o que gastou um bom pouco do tempo) foi a tentativa da implementação do BLoC. o mesmo não deu certo, então parti para o BLoC/Cubit, que também, ficou com problemas na realização da chamada POST da API, o GET estava funcionando bem mas o POST não funcionou. Nesse tempo eu parti pro React Native, comecei a desenvolver e fiz o CRUD da Loja, só que como o desafio é voltado ao Flutter, resolvi voltar e continuar no desenvolvimento, com isso utilizei meio que o padrão MVC, não é o mais recomendado para utilizar, mas visto a quantidade de tempo que ainda restavam.
