@@ -4,7 +4,7 @@ Para executar este projeto é necessário ter o Flutter instalado no PC. O Flutt
 
 # Importante
 
-Esse frontend trabalha totalmente conectado com o backend, ambos precisam estar rodando
+Esse frontend trabalha totalmente conectado com o backend, ambos precisam estar rodando.
 
 # Atualizando as dependências
 
