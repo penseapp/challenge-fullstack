@@ -2,20 +2,21 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   border: 1px solid #8257e9;
-  border-radius: 20px;
+  border-radius: 10px;
   position: relative;
   height: 150px;
   text-align: center;
 
   header {
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     background: #8257e5;
     color: #fff;
-    margin-bottom: 10px;
   }
 
   section {
+    padding: 10px;
+
     & + section {
       width: 100%;
       height: 30px;
@@ -23,10 +24,11 @@ export const Container = styled.div`
       justify-content: space-around;
       position: absolute;
       bottom: 0;
+      padding: 0;
 
-      >div {
+      > div {
         background: #8257e5;
-        width: 50%;
+        width: 100%;
 
         button {
           background: transparent;
@@ -36,12 +38,12 @@ export const Container = styled.div`
         }
       }
 
-      >div:first-child {
-        border-bottom-left-radius: 20px;
+      > div:first-child {
+        border-bottom-left-radius: 10px;
       }
 
-      >div:last-child {
-        border-bottom-right-radius: 20px;
+      > div:last-child {
+        border-bottom-right-radius: 10px;
       }
     }
   }

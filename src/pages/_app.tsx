@@ -1,12 +1,14 @@
 import { AppProps } from 'next/app';
-
+import CartContext from '../context';
 import GlobalStyle from '../../styles/global';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <GlobalStyle />
-      <Component {...pageProps} />
+      <CartContext>
+        <Component {...pageProps} />
+      </CartContext>
     </>
   );
 }
