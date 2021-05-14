@@ -33,9 +33,12 @@ const Modal = ({ isOpen, setIsOpen, children }: ModalProps): JSX.Element => {
           borderRadius: '10px',
           width: '500px',
           border: '1px solid #8257e5',
+          overflowX: 'hidden',
         },
         overlay: {
           backgroundColor: 'rgba(130, 87, 229, 0.248)',
+          animation: 'ease-out',
+          animationDuration: '2000ms',
         },
       }}
     >

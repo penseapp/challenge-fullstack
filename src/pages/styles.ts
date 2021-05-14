@@ -13,3 +13,34 @@ export const GridContainer = styled.div`
   margin: 0 auto;
   margin-top: 40px;
 `;
+
+export const ListSettings = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  button {
+    border: 1px solid #8257e5;
+    color: #8257e5;
+    width: 80px;
+    height: 25px;
+    margin-left: 10px;
+  }
+
+  .active {
+    background: #8257e5;
+    color: #fff;
+  }
+
+  > div {
+    text-align: right;
+
+    input {
+      margin-left: 10px;
+    }
+
+    > div {
+      margin-bottom: 10px;
+    }
+  }
+`;

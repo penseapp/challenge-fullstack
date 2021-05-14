@@ -1,6 +1,3 @@
-import { useCallback, useContext, useEffect } from 'react';
-import { FiEdit3, FiTrash } from 'react-icons/fi';
-import { CartContext } from '../../context';
 import { Container } from './styles';
 
 interface Product {
