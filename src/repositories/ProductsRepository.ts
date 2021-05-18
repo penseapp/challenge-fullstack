@@ -16,6 +16,7 @@ interface ProductWithCategory {
   price: number;
   promoPrice: number;
   statusFlag: string;
+  imageUrl: string;
   category: string;
 }
 
@@ -74,6 +75,7 @@ class ProductsRepository extends Repository<Product> {
           price: product.price,
           promoPrice: product.promo_price,
           statusFlag: product.status_flag,
+          imageUrl: product.image_url,
           category: product.category.title,
         };
       },

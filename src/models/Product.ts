@@ -27,6 +27,9 @@ class Product {
   @Column({ nullable: true })
   status_flag: string;
 
+  @Column({ nullable: true })
+  image_url: string;
+
   @ManyToOne(() => Category)
   @JoinColumn({ name: 'category_id' })
   category: Category;

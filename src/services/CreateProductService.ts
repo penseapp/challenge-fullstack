@@ -9,6 +9,7 @@ interface Request {
   price: number;
   promoPrice: number;
   statusFlag: 'Ativo' | 'Inativo';
+  imageUrl: string;
   categoryTitle: string;
 }
 
@@ -19,6 +20,7 @@ class CreateProductService {
     price,
     promoPrice,
     statusFlag,
+    imageUrl,
     categoryTitle,
   }: Request): Promise<Product> {
     const productsRepository = getCustomRepository(ProductsRepository);
@@ -40,6 +42,7 @@ class CreateProductService {
       price,
       promo_price: promoPrice,
       status_flag: statusFlag,
+      image_url: imageUrl,
       category,
     });
 

@@ -34,6 +34,10 @@ export default class CreateProducts1620495556480 implements MigrationInterface {
             type: 'varchar',
           },
           {
+            name: 'image_url',
+            type: 'varchar',
+          },
+          {
             name: 'category_id',
             type: 'varchar',
           },

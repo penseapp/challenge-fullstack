@@ -22,8 +22,15 @@ productsRouter.get('/:order/:filter?', async (request, response) => {
 
 productsRouter.post('/', async (request, response) => {
   try {
-    const { name, description, price, promoPrice, statusFlag, category } =
-      request.body;
+    const {
+      name,
+      description,
+      price,
+      promoPrice,
+      statusFlag,
+      imageUrl,
+      category,
+    } = request.body;
 
     const createProductService = new CreateProductService();
 
@@ -33,20 +40,28 @@ productsRouter.post('/', async (request, response) => {
       price,
       promoPrice,
       statusFlag,
+      imageUrl,
       categoryTitle: category,
     });
 
     return response.json(product);
   } catch (err) {
-    return response.json({ error: err.message });
+    throw new Error(err.message);
   }
 });
 
 productsRouter.put('/:id', async (request, response) => {
   try {
     const { id } = request.params;
-    const { name, description, price, promoPrice, statusFlag, category } =
-      request.body;
+    const {
+      name,
+      description,
+      price,
+      promoPrice,
+      statusFlag,
+      imageUrl,
+      category,
+    } = request.body;
 
     const productsRepository = getCustomRepository(ProductsRepository);
 
@@ -63,6 +78,7 @@ productsRouter.put('/:id', async (request, response) => {
       price,
       promo_price: promoPrice,
       status_flag: statusFlag,
+      image_url: imageUrl,
       category,
     };
 
@@ -70,7 +86,7 @@ productsRouter.put('/:id', async (request, response) => {
 
     return response.json(productUpdated);
   } catch (err) {
-    return response.json({ error: err.message });
+    throw new Error(err.message);
   }
 });
 
