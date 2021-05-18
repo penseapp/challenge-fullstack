@@ -1,13 +1,13 @@
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
-import { useCallback, useState, useEffect, useContext, useRef } from 'react';
+import { useCallback, useState, useEffect, useRef } from 'react';
 import { FiArrowUp, FiArrowDown } from 'react-icons/fi';
 import Header from '../components/Header';
 import Product from '../components/Product';
 import ModalLogin from '../components/ModalLogin';
 import ModalCart from '../components/ModalCart';
 import { api } from '../services/api';
-import { CartContext } from '../context';
+import { useCart } from '../hooks/useCart';
 
 import { GridItem, GridContainer, ListSettings } from './styles';
 
@@ -18,6 +18,7 @@ interface ProductFields {
   price: number;
   promoPrice: number;
   statusFlag: string;
+  imageUrl: string;
   category: string;
 }
 
@@ -61,7 +62,7 @@ export default function Home({ staticProducts }: HomeProps): JSX.Element {
     totalItensInCart,
     increment,
     decrement,
-  } = useContext(CartContext);
+  } = useCart();
 
   useEffect(() => {
     async function filterProducts() {
@@ -100,7 +101,9 @@ export default function Home({ staticProducts }: HomeProps): JSX.Element {
 
   const handleSignIn = useCallback(
     async (loginCredentials: LoginCredentialsData) => {
-      try {
+      if (loginCredentials.email === '' || loginCredentials.password === '') {
+        setInputError('Os dois campos são obrigatórios!');
+      } else {
         const response = await api.post('/sessions', {
           email: loginCredentials.email,
           password: loginCredentials.password,
@@ -112,18 +115,20 @@ export default function Home({ staticProducts }: HomeProps): JSX.Element {
           setInputError(response.data.error);
         } else {
           setInputError('');
-        }
 
-        setUser(response.data);
-      } catch (err) {
-        console.log(err.message);
+          setUser(response.data);
+
+          toggleModal();
+        }
       }
     },
-    [],
+    [toggleModal],
   );
 
   const handleSignOut = useCallback(() => {
     setUser(null);
+
+    localStorage.removeItem('@penseapp:login');
   }, []);
 
   const handleChangeOrder = useCallback(
@@ -161,7 +166,7 @@ export default function Home({ staticProducts }: HomeProps): JSX.Element {
       if (text.current.type === 'text') {
         setFilter(text.current.value);
       } else {
-        filterInputRef.current.disabled = filterPromoRef.current?.checked;
+        filterInputRef.current.hidden = filterPromoRef.current?.checked;
         setPromoFilter(!promoFilter);
       }
     },
@@ -220,11 +225,11 @@ export default function Home({ staticProducts }: HomeProps): JSX.Element {
               </button>
             </div>
             <div>
-              Filtrar por
               <input
                 type="text"
                 ref={filterInputRef}
                 onChange={() => handleFilter(filterInputRef)}
+                placeholder="Filtrar por"
               />
               <input
                 type="checkbox"
@@ -242,6 +247,8 @@ export default function Home({ staticProducts }: HomeProps): JSX.Element {
                 key={product.id}
                 product={product}
                 addToCart={addToCart}
+                edit={null}
+                remove={null}
               />
             );
           })}
@@ -262,6 +269,7 @@ export const getStaticProps: GetStaticProps = async () => {
       price: item.price,
       promoPrice: item.promoPrice,
       statusFlag: item.statusFlag,
+      imageUrl: item.imageUrl,
       category: item.category,
     };
   });

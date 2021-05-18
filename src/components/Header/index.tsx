@@ -4,6 +4,7 @@ import { Container, Content, Logo, Menu } from './styles';
 interface HeaderProps {
   openModalLogin: () => void;
   openModalCart: () => void;
+  openModalAddProduct: () => void;
   user: User;
   signOut: () => void;
   total: number;
@@ -18,6 +19,7 @@ interface User {
 const Header = ({
   openModalLogin,
   openModalCart,
+  openModalAddProduct,
   user,
   signOut,
   total,
@@ -35,9 +37,15 @@ const Header = ({
           <h1>Pense App</h1>
         </Logo>
         <Menu>
-          <button type="button" onClick={openModalCart}>
-            Meu carrinho {total > 0 && `(${total})`}
-          </button>
+          {openModalCart ? (
+            <button type="button" onClick={openModalCart}>
+              Meu carrinho {total > 0 && `(${total})`}
+            </button>
+          ) : (
+            <button type="button" onClick={openModalAddProduct}>
+              Adicionar produto
+            </button>
+          )}
           {user ? (
             <>
               <span>Bem vindo, {user.name}!</span>

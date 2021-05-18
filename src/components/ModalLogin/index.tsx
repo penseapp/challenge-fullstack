@@ -27,20 +27,31 @@ const ModalLogin = ({
         email: emailInputRef.current.value,
         password: passwordInputRef.current.value,
       });
-
+      /*
       if (error.length > 1) {
         setIsOpen();
       }
+      */
     },
-    [setIsOpen, signIn, error],
+    [signIn],
   );
 
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
       <Form ref={formRef} onSubmit={handleSignIn}>
         <h2>Entre na sua conta</h2>
-        <input ref={emailInputRef} name="email" placeholder="E-mail" />
-        <input ref={passwordInputRef} name="password" placeholder="Senha" />
+        <input
+          type="text"
+          ref={emailInputRef}
+          name="email"
+          placeholder="E-mail"
+        />
+        <input
+          type="password"
+          ref={passwordInputRef}
+          name="password"
+          placeholder="Senha"
+        />
 
         <button type="submit">Entrar</button>
         {error && <Error>{error}</Error>}

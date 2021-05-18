@@ -16,6 +16,30 @@ export const ProductItem = styled.li`
   align-items: center;
   margin-bottom: 20px;
 
+  div:first-child {
+    > div {
+      display: flex;
+      margin-bottom: 25px;
+      align-items: center;
+      justify-content: space-between;
+      height: 150px;
+
+      p {
+        margin-left: 20px;
+        width: 250px;
+      }
+
+      img {
+        width: 100px;
+        max-height: 150px;
+      }
+    }
+
+    div + p {
+      font-weight: 600;
+    }
+  }
+
   div + div {
     display: flex;
     justify-content: space-between;
@@ -34,19 +58,26 @@ export const ProductItem = styled.li`
 `;
 
 export const TotalPrice = styled.h1`
-  width: 500px;
+  width: 600px;
   height: 50px;
   background: #8257e5;
   color: #fff;
   position: absolute;
-  bottom: -70px;
-  left: -20px;
+  bottom: 0px;
+  left: -1px;
   text-align: center;
   padding-top: 6px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 `;
 
 export const EmptyCartMessage = styled.h2``;
 
 export const Container = styled.div`
   position: relative;
+  overflow-y: scroll;
+  width: 570px;
+  height: auto;
+  max-height: 500px;
+  margin-bottom: 35px;
 `;

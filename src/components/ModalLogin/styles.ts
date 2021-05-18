@@ -6,7 +6,7 @@ export const Form = styled.form`
   align-items: center;
 
   h2 {
-    margin-bottom: 20px;
+    margin-bottom: 40px;
   }
 
   input {
@@ -18,7 +18,7 @@ export const Form = styled.form`
     padding: 12px 18px;
 
     & + input {
-      margin-top: 10px;
+      margin-top: 20px;
     }
   }
 
@@ -29,7 +29,12 @@ export const Form = styled.form`
     background-color: #8257e5;
     border-radius: 8px;
     color: #fff;
-    margin-top: 20px;
+    margin-top: 30px;
+    transition: background 0.2s;
+
+    &:hover {
+      background: rgba(130, 87, 229, 0.8);
+    }
   }
 `;
 

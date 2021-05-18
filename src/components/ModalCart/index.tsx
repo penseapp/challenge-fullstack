@@ -14,6 +14,7 @@ interface Product {
   price: number;
   promoPrice: number;
   statusFlag: string;
+  imageUrl: string;
   category: string;
   quantity: number;
 }
@@ -41,32 +42,49 @@ const ModalCart = ({
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
       {products.length > 0 ? (
-        <Container>
-          <ProductsList>
-            {products.map(product => (
-              <ProductItem key={product.id}>
-                <div>
-                  <h2>{product.name}</h2>
-                  <p>
-                    Subtotal: R${' '}
-                    {(product.promoPrice ? product.promoPrice : product.price) *
-                      product.quantity}
-                  </p>
-                </div>
-                <div>
-                  <button type="button" onClick={() => decrement(product)}>
-                    -
-                  </button>
-                  <p>{product.quantity}</p>
-                  <button type="button" onClick={() => increment(product)}>
-                    +
-                  </button>
-                </div>
-              </ProductItem>
-            ))}
-          </ProductsList>
-          <TotalPrice>Total: R$ {totalPrice}</TotalPrice>
-        </Container>
+        <>
+          <Container>
+            <ProductsList>
+              {products.map(product => (
+                <ProductItem key={product.id}>
+                  <div>
+                    <div>
+                      <img src={product.imageUrl} alt={product.name} />
+                      <p>{product.name}</p>
+                    </div>
+                    <p>
+                      Subtotal:{` `}
+                      {new Intl.NumberFormat('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL',
+                      }).format(
+                        (product.promoPrice
+                          ? product.promoPrice
+                          : product.price) * product.quantity,
+                      )}
+                    </p>
+                  </div>
+                  <div>
+                    <button type="button" onClick={() => decrement(product)}>
+                      -
+                    </button>
+                    <p>{product.quantity}</p>
+                    <button type="button" onClick={() => increment(product)}>
+                      +
+                    </button>
+                  </div>
+                </ProductItem>
+              ))}
+            </ProductsList>
+          </Container>
+          <TotalPrice>
+            Total:{' '}
+            {new Intl.NumberFormat('pt-BR', {
+              style: 'currency',
+              currency: 'BRL',
+            }).format(totalPrice)}
+          </TotalPrice>
+        </>
       ) : (
         <EmptyCartMessage>Ainda não há produtos no carrinho!</EmptyCartMessage>
       )}
