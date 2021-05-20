@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const ProductsList = styled.ul`
   list-style: none;
   margin-bottom: 50px;
+  margin-right: 10px;
 `;
 
 export const ProductItem = styled.li`

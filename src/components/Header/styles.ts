@@ -20,10 +20,20 @@ export const Content = styled.div`
 `;
 
 export const Logo = styled.div`
-  h1 {
-    font-size: 48px;
-    font-weight: 700;
-  }
+  a {
+    text-decoration: none;
+    color: #8257e5;
+    transition: color 0.2s;
+
+    &:hover {
+      color: rgba(130, 87, 229, 0.8);
+    }
+
+    h1 {
+      font-size: 48px;
+      font-weight: 700;
+    }
+  }  
 `;
 
 export const Menu = styled.div`

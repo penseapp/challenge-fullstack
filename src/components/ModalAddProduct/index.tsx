@@ -28,7 +28,7 @@ const ModalAddProduct = ({
         name: inputNameRef.current.value,
         description: inputDescriptionRef.current.value,
         price: inputPriceRef.current.value,
-        promoPrice: inputPromoPriceRef.current.value ?? null,
+        promoPrice: inputPromoPriceRef.current.value !== '' ? inputPromoPriceRef.current.value : null,
         statusFlag: inputStatusFlagRef.current.value,
         imageUrl: inputImageUrlRef.current.value,
         category: inputCategoryRef.current.value,

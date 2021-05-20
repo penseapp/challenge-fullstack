@@ -42,7 +42,7 @@ const ModalEditProduct = ({
       name: product.name,
       description: product.description,
       price: product.price,
-      promoPrice: product?.promoPrice,
+      promoPrice: product.promoPrice,
       statusFlag: product.statusFlag,
       imageUrl: product.imageUrl,
       category: product.category,
@@ -55,7 +55,7 @@ const ModalEditProduct = ({
         name: productUpdated.name,
         description: productUpdated.description,
         price: productUpdated.price,
-        promoPrice: productUpdated?.promoPrice,
+        promoPrice: productUpdated.promoPrice,
         imageUrl: productUpdated.imageUrl,
         statusFlag: productUpdated.statusFlag,
       });
@@ -83,7 +83,7 @@ const ModalEditProduct = ({
             : productUpdated.price,
         promoPrice:
           ref.current.name === 'promoPrice'
-            ? ref.current.value
+            ? (ref.current.value !== '' ? ref.current.value : null)
             : productUpdated.promoPrice,
         statusFlag:
           ref.current.nane === 'statusFlag'

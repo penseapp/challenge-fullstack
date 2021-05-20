@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useCallback } from 'react';
 import { Container, Content, Logo, Menu } from './styles';
 
@@ -34,7 +35,9 @@ const Header = ({
     <Container>
       <Content>
         <Logo>
-          <h1>Pense App</h1>
+          <Link href="/">
+            <a><h1>Pense App</h1></a>
+          </Link>          
         </Logo>
         <Menu>
           {openModalCart ? (
