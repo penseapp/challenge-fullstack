@@ -183,6 +183,7 @@ export default function Home({ staticProducts }: HomeProps): JSX.Element {
         signOut={handleSignOut}
         openModalLogin={toggleModal}
         openModalCart={toggleModalCart}
+        openModalAddProduct={null}
         total={totalItensInCart}
       />
       <ModalLogin
