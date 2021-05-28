@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
     borderRadius: 140,
     borderWidth: 2,
     borderColor: colors['dark-blue'],
+    position: 'relative',
   },
 
   profileField: {
