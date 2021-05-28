@@ -186,12 +186,14 @@ const styles = StyleSheet.create({
   },
 
   label: {
-    marginTop: 25,
-    marginBottom: -10,
+    fontSize: 18,
+    fontFamily: fonts.text,
+    color: colors['dark-blue'],
+    alignSelf: 'flex-start',
+
+    marginTop: 20,
+    marginBottom: -12,
     marginLeft: 10,
-    fontSize: 14,
-    fontWeight: '500',
-    color: colors.h2
   },
 
 })
