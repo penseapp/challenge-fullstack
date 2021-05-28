@@ -1,6 +1,8 @@
 import React from 'react'
 import { StyleSheet, SafeAreaView, KeyboardAvoidingView, TouchableOpacity, Platform, View, Image, Text } from 'react-native'
 import { Button } from '../components'
+import { useNavigation } from '@react-navigation/native'
+import Icon from '@expo/vector-icons/FontAwesome5'
 
 import colors from '../utils/constants/colors.json'
 import fonts from '../utils/constants/fonts.json'
@@ -8,6 +10,7 @@ import fonts from '../utils/constants/fonts.json'
 import avatar from '../assets/avatar.png'
 
 export default function Account() {
+  const navigation = useNavigation()
 
   return (
     <SafeAreaView style={styles.container}>
@@ -18,9 +21,12 @@ export default function Account() {
         <View style={styles.header}>
           <Text style={styles.headerTitle}>Minha Conta</Text>
 
-          <TouchableOpacity style={styles.editTxt} onPress={() => navigation.goBack()}>
-            <Text style={styles.editTxt}>Editar</Text>
-          </TouchableOpacity>
+          <TouchableOpacity
+              style={styles.goBack}
+              onPress={() => navigation.navigate("EditAccount")}
+            >
+              <Icon name={'user-edit'} size={22} color={colors['dark-blue']} />
+            </TouchableOpacity>
         </View>
 
         <View style={styles.content}>
@@ -85,16 +91,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
 
-  editBtn: {
+  goBack: {
+    width: 30,
+    height: 30,
+    justifyContent: 'center',
     position: 'absolute',
-    right: 0
-  },
-
-  editTxt: {
-    color: colors['light-blue'],
-    fontWeight: 'bold',
-    paddingHorizontal: 5,
-    fontSize: 18,
+    right: 25
   },
 
   profileData: {

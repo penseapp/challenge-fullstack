@@ -1,7 +1,7 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 
-import { Login, SignUp } from '../pages'
+import { Login, SignUp, EditAccount } from '../pages'
 import AuthRoutes from './tab.routes'
 
 const stackRoutes = createStackNavigator()
@@ -20,6 +20,11 @@ export default function AppRoutes() {
       <stackRoutes.Screen
         name="SignUp"
         component={SignUp}
+      />
+
+      <stackRoutes.Screen
+        name="EditAccount"
+        component={EditAccount}
       />
 
       <stackRoutes.Screen
