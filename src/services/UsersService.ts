@@ -47,7 +47,7 @@ class UsersService {
       email: Yup.string().required().email(),
       password: Yup.string().required(),
       name: Yup.string().required(),
-      phone: Yup.string()
+      phone: Yup.string().optional()
     })
 
     await schema.validate(data, {
@@ -82,14 +82,14 @@ class UsersService {
 
     const schema = Yup.object().shape({
       name: name === undefined ? null : Yup.string().required(),
-      phone: phone === undefined ? null : Yup.string()
+      phone: phone === undefined ? null : Yup.string().optional()
     })
 
     await schema.validate(data, {
       abortEarly: false
     })
 
-    await this.usersRepository.update({ id }, data)
+    await this.usersRepository.save(data)
 
     return {
       status: 200,
