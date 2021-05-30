@@ -7,6 +7,7 @@ export default function Favorites() {
 
   if (!favorites.length) {
     return <Warning
+      isBtnVisible={true}
       icon={"heart-broken"}
       title={"Você ainda não possui produtos favoritos"}
       description={"Vá para tela principal para visualizar os produtos e favoritá-los!"}

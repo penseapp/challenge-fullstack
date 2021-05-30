@@ -19,15 +19,6 @@ export default function ProductCard({ data, wish, ...rest }) {
         style={styles.images}
       />
 
-      {/* <View style={styles.wishIcon}>
-        <Icon
-          name="star"
-          solid={wish}
-          size={24}
-          color={wish ? colors['light-blue'] : colors['light-primary']}
-        />
-      </View> */}
-
       <View style={styles.infoContainer}>
         <View style={styles.infoHeader}>
           <Text style={styles.name}>{data.name}</Text>
@@ -51,7 +42,7 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    maxWidth: '85%',
+    maxWidth: '100%',
     backgroundColor: colors['light-secondary'],
     borderRadius: 20,
     paddingVertical: 10,
@@ -86,7 +77,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 
-  statusFlag:{
+  statusFlag: {
     alignSelf: 'flex-end',
     paddingTop: 12,
     fontSize: 14,
@@ -99,13 +90,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: colors.h1
-  },
-
-  wishIcon: {
-    margin: 10,
-    alignSelf: 'flex-end',
-    justifyContent: 'flex-start',
-    position: 'absolute'
   },
 
 })

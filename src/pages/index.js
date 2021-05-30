@@ -4,6 +4,7 @@ import Favorites from './Favorites'
 import Account from './Account'
 import EditAccount from './EditAccount'
 import SignUp from './SignUp'
+import ProductDetails from './ProductDetails'
 
 export {
   Home,
@@ -11,5 +12,6 @@ export {
   Favorites,
   Account,
   EditAccount,
-  SignUp
+  SignUp,
+  ProductDetails
 }
