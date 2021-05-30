@@ -16,7 +16,7 @@ class User {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   phone: string;
  
   @Column()

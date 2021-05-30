@@ -3,7 +3,7 @@ import { UsersService } from '../services/UsersService'
 
 class UsersController {
 
-  async create(req, res: Response): Promise<Response> {
+  async create(req: any, res: Response): Promise<Response> {
     const { email, password, name, phone } = req.body
     const { key: avatar } = req.file || { key: 'default-avatar.png' }
 

@@ -48,7 +48,7 @@
     "name": "Pen Drive - 16GB",
     "description": "Pendrive compacto para transferir e armazenar suas músicas, fotos, vídeos e outros arquivos. Com interface USB 2.0 de alta velocidade e alta taxa de transferência.",
     "price": 30,
-    "promotional_price": 1,
+    "promotional_price": null,
     "status_flag": "Disponível",
     "category": "Periféricos",
     "image_url": null

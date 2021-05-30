@@ -37,6 +37,8 @@ class UsersService {
 
     const secretPassword = await encryptPassword(password)
 
+    if(phone === undefined) phone = ''
+
     const data = {
       email,
       password: secretPassword,

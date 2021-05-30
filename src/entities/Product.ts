@@ -10,22 +10,22 @@ class Product {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
   @Column()
   price: number;
 
-  @Column()
+  @Column({ nullable: true })
   promotional_price: number;
  
-  @Column()
+  @Column({ nullable: true })
   status_flag: string;
  
-  @Column()
+  @Column({ nullable: true })
   category: string;
  
-  @Column()
+  @Column({ nullable: true })
   image_url: string;
 
   @CreateDateColumn()
