@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import {
   Platform, KeyboardAvoidingView, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity
 } from 'react-native'
-import { Input, StepProgress } from '../components'
+import { Input, StepProgress, ImagePickerFunction } from '../components'
 import { ProgressSteps } from 'react-native-progress-steps'
 import { useNavigation } from '@react-navigation/native'
+import api, { STORAGE_URL } from '../services/api'
 import Icon from '@expo/vector-icons/FontAwesome5'
+import { formatPhoneNumber } from '../utils'
 
 import colors from '../utils/constants/colors.json'
 import fonts from '../utils/constants/fonts.json'
@@ -13,6 +15,74 @@ import fonts from '../utils/constants/fonts.json'
 export default function SignUp() {
   const navigation = useNavigation()
   const [activeStep, setActiveStep] = useState(0)
+  const [emailIsValid, setEmailIsValid] = useState(false)
+  const [passwordIsValid, setPasswordIsValid] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
+  const [data, setData] = useState({
+    name: '',
+    email: '',
+    confirmEmail: '',
+    phone: '',
+    password: '',
+    confirmPassword: '',
+    avatar: null
+  })
+
+  const onChange = (type, value) => {
+    setData({ ...data, [type]: value })
+  }
+
+  const signUp = async () => {
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }
+
+    const formData = new FormData()
+
+    formData.append('email', data.email)
+    formData.append('password', data.password)
+    formData.append('name', data.name)
+    formData.append('phone', data.phone)
+    if (data.avatar !== null) {
+      formData.append('file', data.avatar)
+    }
+
+    await api
+      .post('/user', formData, config)
+      .then(res => {
+        navigation.navigate('Login')
+      })
+      .catch(err => {
+        console.error(err)
+      })
+
+  }
+
+  const handleEmail = () => {
+    if (data.email !== data.confirmEmail) {
+      setEmailIsValid(true)
+      setErrorMessage(
+        'Ops, os e-mails são diferentes!\nPara prosseguir, é necessário preencher os campos corretamente!'
+      )
+    } else {
+      setEmailIsValid(false)
+      setErrorMessage('')
+    }
+  }
+
+  const handlePassword = () => {
+    if (data.password !== data.confirmPassword) {
+      setPasswordIsValid(true)
+      setErrorMessage(
+        'Ops, as senha são diferentes!\nPara prosseguir, é necessário preencher os campos corretamente!'
+      )
+    } else {
+      setPasswordIsValid(false)
+      setErrorMessage('')
+    }
+  }
 
   return (
     <KeyboardAvoidingView
@@ -56,12 +126,18 @@ export default function SignUp() {
               <Text style={styles.label}>Nome</Text>
               <Input
                 placeholder={'Ex: Pedro Henrique Santos'}
+                value={data.name}
+                onChangeText={value => onChange('name', value)}
               />
 
               <Text style={styles.label}>Celular</Text>
               <Input
                 placeholder={'(xx)xxxxx-xxxx'}
                 keyboardType={'phone-pad'}
+                value={formatPhoneNumber(data.phone)}
+                onChangeText={value => {
+                  onChange('phone', value)
+                }}
               />
             </View>
           </StepProgress>
@@ -73,21 +149,26 @@ export default function SignUp() {
             label="Login"
             onNext={() => setActiveStep(activeStep + 1)}
             onPrevious={() => setActiveStep(activeStep - 1)}
+            removeBtnRow={emailIsValid}
           >
             <View style={styles.containerInput}>
-
+              <Text style={styles.errorMessage}>{errorMessage}</Text>
               <Text style={styles.label}>E-mail</Text>
               <Input
-                testID="signUp-email-input"
                 placeholder={'Ex: pedrohs@gmail.com'}
                 keyboardType={'email-address'}
+                value={data.email}
+                onChangeText={value => onChange('email', value)}
+                onEndEditing={() => handleEmail()}
               />
 
               <Text style={styles.label}>Confirmar e-mail</Text>
               <Input
-                testID="signUp-confirmEmail-input"
                 placeholder={'Ex: pedrohs@gmail.com'}
                 keyboardType={'email-address'}
+                value={data.confirmEmail}
+                onChangeText={value => onChange('confirmEmail', value)}
+                onEndEditing={() => handleEmail()}
               />
             </View>
           </StepProgress>
@@ -96,26 +177,63 @@ export default function SignUp() {
             key={2}
             label="Senha"
             previousBtnText={true}
-            finishBtnText={true}
+            nextBtnText={true}
+            onNext={() => setActiveStep(activeStep + 1)}
             onPrevious={() => setActiveStep(activeStep - 1)}
+            removeBtnRow={passwordIsValid}
           >
             <View style={styles.containerInput}>
               <Text style={styles.messageValidation}>
                 Para sua segurança, a senha deve ter no mínimo 8 caracteres, com
                 números, letra maiúscula e minúscula e caracteres especiais.
               </Text>
-
+              <Text style={styles.errorMessage}>{errorMessage}</Text>
               <Text style={styles.label}>Senha</Text>
               <Input
                 placeholder={'••••••••'}
                 password={true}
+                value={data.password}
+                onChangeText={value => onChange('password', value)}
+                onEndEditing={() => handlePassword()}
               />
 
               <Text style={styles.label}>Confirmar senha</Text>
               <Input
                 placeholder={'••••••••'}
                 password={true}
+                value={data.confirmPassword}
+                onChangeText={value => onChange('confirmPassword', value)}
+                onEndEditing={() => handlePassword()}
               />
+            </View>
+          </StepProgress>
+
+          <StepProgress
+            key={3}
+            label="Foto"
+            previousBtnText={true}
+            finishBtnText={true}
+            onPrevious={() => setActiveStep(activeStep - 1)}
+            onSubmit={() => signUp()}
+          >
+            <View style={styles.containerInput}>
+              <ImagePickerFunction
+                onChange={image => onChange('avatar', image)}
+              >
+                <Image
+                  source={{
+                    uri: data.avatar
+                      ? data.avatar.uri
+                      : `${STORAGE_URL}/user/default_avatar.png`
+                  }}
+                  style={styles.avatar}
+                />
+              </ImagePickerFunction>
+              <ImagePickerFunction
+                onChange={image => onChange('avatar', image)}
+              >
+                <Text style={styles.avatarText}>Alterar</Text>
+              </ImagePickerFunction>
             </View>
           </StepProgress>
 
@@ -195,5 +313,24 @@ const styles = StyleSheet.create({
     marginBottom: -12,
     marginLeft: 10,
   },
+
+  avatar: {
+    width: 180,
+    height: 180,
+    borderRadius: 180,
+    borderWidth: 3,
+    borderColor: colors.h2,
+    alignSelf: 'center',
+    marginTop: 20
+  },
+
+  avatarText: {
+    color: colors.h2,
+    fontWeight: 'bold',
+    fontSize: 16,
+    marginVertical: 5,
+    textDecorationLine: 'underline',
+    alignSelf: 'center'
+  }
 
 })

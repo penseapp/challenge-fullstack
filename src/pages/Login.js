@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform, Text, View, Image, TouchableOpacity } from 'react-native'
 import { Button, Input } from '../components'
 import { useNavigation } from '@react-navigation/native'
+import { useAuth } from '../contexts/auth'
 
 import logo from '../assets/logo-shop-ligth-blue.png'
 import colors from '../utils/constants/colors.json'
@@ -9,10 +10,28 @@ import fonts from '../utils/constants/fonts.json'
 
 export default function Login() {
   const navigation = useNavigation()
+  const { signIn } = useAuth()
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
 
-  const handleLogin = () => navigation.navigate('Home')
+  const handleLogin = async () => {
+
+    await signIn(email, password)
+      .then(() => {
+        navigation.navigate('Home')
+      })
+      .catch(err => {
+        setErrorMessage('Algo deu errado, tente novamente!')
+        console.log(err)
+      })
+  }
+
+  useEffect(() => {
+    setPassword('')
+    setEmail('')
+  }, [])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -26,6 +45,10 @@ export default function Login() {
             <Image style={styles.logo} resizeMode="contain" source={logo} />
             <Text style={styles.title}>VS STORE</Text>
           </View>
+
+          <Text style={styles.errorMessage}>
+            {errorMessage}
+          </Text>
 
           <View style={styles.form}>
 
@@ -94,6 +117,14 @@ const styles = StyleSheet.create({
     lineHeight: 40,
     textAlign: 'center',
     color: colors['light-blue'],
+  },
+
+  errorMessage: {
+    paddingTop: 10,
+    fontSize: 14,
+    fontWeight: '500',
+    color: colors.danger,
+    textAlign: 'center'
   },
 
   form: {
