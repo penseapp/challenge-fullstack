@@ -6,9 +6,9 @@
   "license": "MIT",
   "scripts": {
     "build": "yarn tsc",
-    "start": "node dist/server.js",
     "dev": "ts-node-dev src/server.ts",
-    "typeorm": "ts-node-dev node_modules/typeorm/cli.js"
+    "typeorm": "ts-node-dev node_modules/typeorm/cli.js",
+    "start": "node dist/server.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
