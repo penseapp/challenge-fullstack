@@ -8,12 +8,15 @@ import { useNavigation } from '@react-navigation/native'
 import api, { STORAGE_URL } from '../services/api'
 import Icon from '@expo/vector-icons/FontAwesome5'
 import { formatPhoneNumber } from '../utils'
+import { useLoading } from '../contexts/loading'
 
 import colors from '../utils/constants/colors.json'
 import fonts from '../utils/constants/fonts.json'
 
 export default function SignUp() {
   const navigation = useNavigation()
+  const { startLoading, stopLoading } = useLoading()
+
   const [activeStep, setActiveStep] = useState(0)
   const [emailIsValid, setEmailIsValid] = useState(false)
   const [passwordIsValid, setPasswordIsValid] = useState(false)
@@ -39,6 +42,8 @@ export default function SignUp() {
       }
     }
 
+    startLoading()
+
     const formData = new FormData()
 
     formData.append('email', data.email)
@@ -56,6 +61,9 @@ export default function SignUp() {
       })
       .catch(err => {
         console.error(err)
+      })
+      .finally(() => {
+        stopLoading()
       })
 
   }

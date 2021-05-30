@@ -3,6 +3,7 @@ import { StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform, Text, View, I
 import { Button, Input } from '../components'
 import { useNavigation } from '@react-navigation/native'
 import { useAuth } from '../contexts/auth'
+import { useLoading } from '../contexts/loading'
 
 import logo from '../assets/logo-shop-ligth-blue.png'
 import colors from '../utils/constants/colors.json'
@@ -11,12 +12,15 @@ import fonts from '../utils/constants/fonts.json'
 export default function Login() {
   const navigation = useNavigation()
   const { signIn } = useAuth()
+  const { startLoading, stopLoading } = useLoading()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
 
   const handleLogin = async () => {
+
+    startLoading()
 
     await signIn(email, password)
       .then(() => {
@@ -25,6 +29,9 @@ export default function Login() {
       .catch(err => {
         setErrorMessage('Algo deu errado, tente novamente!')
         console.log(err)
+      })
+      .finally(() => {
+        stopLoading()
       })
   }
 

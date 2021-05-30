@@ -3,6 +3,7 @@ import React from 'react'
 import AppLoading from 'expo-app-loading'
 import { StatusBar } from 'expo-status-bar'
 import { AuthProvider } from './src/contexts/auth'
+import { LoadingProvider } from './src/contexts/loading'
 
 import { useFonts, RozhaOne_400Regular } from '@expo-google-fonts/rozha-one'
 
@@ -21,7 +22,9 @@ export default function App() {
     <>
       <StatusBar barStyle="light-content" backgroundColor={colors['dark-blue']} />
       <AuthProvider>
-        <Routes />
+        <LoadingProvider>
+          <Routes />
+        </LoadingProvider>
       </AuthProvider>
     </>
   )
