@@ -18,6 +18,9 @@ class User {
 
   @Column()
   phone: string;
+ 
+  @Column()
+  avatar: string;
 
   @CreateDateColumn()
   created_at: Date;

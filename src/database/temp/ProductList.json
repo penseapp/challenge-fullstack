@@ -1,0 +1,92 @@
+[
+  {
+    "name": "Cadeira Gamer - Black Red",
+    "description": "Cadeira gamer com revestimento de couro coberta com costuras de fibra de carbono. Seu estofado é em forma de diamantes construída com firmeza para proporcionar conforto enquanto você desfruta do prazer de jogar seus games favoritos. Da sala de estar para a sala de jogos, você pode planejar a próxima dominação do mundo do conforto de sua cadeira gamer.",
+    "price": 1700,
+    "promotional_price": 1500,
+    "status_flag": "Disponível",
+    "category": "Móveis",
+    "image_url": null
+  },
+  {
+    "name": "Cadeira Gamer - Black",
+    "description": "Design moderno e estilo competitivo vão detonar no campo de batalha. Possui estrutura em aço, assentos especiais com espuma injetada, apoio de braço fixo e rodinhas reforçadas.",
+    "price": 890,
+    "promotional_price": 767,
+    "status_flag": "Disponível",
+    "category": "Móveis",
+    "image_url": null
+  },
+  {
+    "name": "Teclado Mecânico Gamer",
+    "description": null,
+    "price": 350,
+    "promotional_price": null,
+    "status_flag": "Disponível",
+    "category": "Periféricos",
+    "image_url": null
+  },
+  {
+    "name": "Headset - Black",
+    "description": "Tenha um som limpo e surpreenda-se com o microfone omnidirecional. O controle de volume facilita o uso diário, além de possuir haste com altura regulável e protetores de ouvido almofadados.",
+    "price": 50,
+    "promotional_price": null,
+    "status_flag": "Disponível",
+    "category": "Periféricos",
+    "image_url": null
+  },
+  {
+    "name": "Mouse Classic - Full Black",
+    "description": null,
+    "price": 16,
+    "promotional_price": null,
+    "status_flag": "Disponível",
+    "category": "Periféricos",
+    "image_url": null
+  },
+  {
+    "name": "Pen Drive - 16GB",
+    "description": "Pendrive compacto para transferir e armazenar suas músicas, fotos, vídeos e outros arquivos. Com interface USB 2.0 de alta velocidade e alta taxa de transferência.",
+    "price": 30,
+    "promotional_price": 1,
+    "status_flag": "Disponível",
+    "category": "Periféricos",
+    "image_url": null
+  },
+  {
+    "name": "Notebook Lenovo - Intel Core i5, Windows 10",
+    "description": "Notebook Lenovo Ideapad S145 Intel Core i5-1035G1, 8GB, 1TB, Windows 10, 15.6´",
+    "price": 3680,
+    "promotional_price": null,
+    "status_flag": "Disponível",
+    "category": "Eletrônicos",
+    "image_url": null
+  },
+  {
+    "name": "Notebook Acer",
+    "description": "Notebook Acer Aspire 5 Intel Core i5-1035G1, 8GB, 512GB SSD, GeForce MX 350 2GB, 15.6´ FHD 1920x1080, Windows 10 Home, Prata - A515-55G-53QD",
+    "price": 4950,
+    "promotional_price": null,
+    "status_flag": "Disponível",
+    "category": "Eletrônicos",
+    "image_url": null
+  },
+  {
+    "name": "Monitor LG LED 23.8´",
+    "description": "A resolução 1080p Full HD com IPS proporciona imagens brilhantes que surgem com detalhes vibrantes de qualquer ângulo de visualização.",
+    "price": 1340,
+    "promotional_price": 850,
+    "status_flag": "Disponível",
+    "category": "Eletrônicos",
+    "image_url": null
+  },
+  {
+    "name": "Computador Gamer, Processador Ryzen 5 3400G",
+    "description": "Computador Gamer Concórdia, Processador Ryzen 5 3400G, 16GB, SSD 480GB, Fonte 500W, Windows 10 Pro, Preto",
+    "price": 4526,
+    "promotional_price": null,
+    "status_flag": "Indisponível",
+    "category": "Eletrônicos",
+    "image_url": null
+  }
+]

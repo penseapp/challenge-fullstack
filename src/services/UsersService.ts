@@ -9,6 +9,7 @@ interface IUsersCreate {
   password: string;
   name: string;
   phone?: string;
+  avatar?: string;
 }
 
 interface IUsersUpdate {
@@ -24,7 +25,7 @@ class UsersService {
     this.usersRepository = getCustomRepository(UsersRepository)
   }
 
-  async create({ email, password, name, phone }: IUsersCreate) {
+  async create({ email, password, name, phone, avatar }: IUsersCreate) {
 
     const emailExists = await this.usersRepository.findOne({ email })
     if (emailExists) {
@@ -40,14 +41,16 @@ class UsersService {
       email,
       password: secretPassword,
       name,
-      phone
+      phone,
+      avatar
     }
 
     const schema = Yup.object().shape({
       email: Yup.string().required().email(),
       password: Yup.string().required(),
       name: Yup.string().required(),
-      phone: Yup.string().optional()
+      phone: Yup.string().optional(),
+      avatar: Yup.string().optional(),
     })
 
     await schema.validate(data, {

@@ -3,13 +3,14 @@ import { UsersService } from '../services/UsersService'
 
 class UsersController {
 
-  async create(req: Request, res: Response): Promise<Response> {
+  async create(req, res: Response): Promise<Response> {
     const { email, password, name, phone } = req.body
+    const { key: avatar } = req.file || { key: 'default-avatar.png' }
 
     const usersService = new UsersService()
 
     try {
-      const userResponse = await usersService.create({ email, password, name, phone })
+      const userResponse = await usersService.create({ email, password, name, phone, avatar })
 
       if (userResponse.status === 409) {
         return res.status(409).json(userResponse)

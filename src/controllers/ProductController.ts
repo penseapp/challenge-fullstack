@@ -3,16 +3,20 @@ import { ProductsService } from '../services/ProductsService'
 
 class ProductsController {
 
-  async create(req: Request, res: Response): Promise<Response> {
+  async create(req, res: Response): Promise<Response> {
     const {
       name,
       description,
       price,
       promotional_price,
       status_flag,
-      category,
-      image_url
+      category
     } = req.body
+    const { file } = req
+
+    let image_url = null
+
+    if(file) image_url = file.path
 
     const productsService = new ProductsService()
 
