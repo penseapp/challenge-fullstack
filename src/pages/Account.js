@@ -4,14 +4,17 @@ import { Button } from '../components'
 import { useNavigation } from '@react-navigation/native'
 import Icon from '@expo/vector-icons/FontAwesome5'
 import { useAuth } from '../contexts/auth'
+import { useLoading } from '../contexts/loading'
 import api, { STORAGE_URL } from '../services/api'
-import {formatPhoneNumber} from '../utils'
+import { formatPhoneNumber } from '../utils'
 
 import colors from '../utils/constants/colors.json'
 import fonts from '../utils/constants/fonts.json'
 
 export default function Account() {
   const { signOut, signed, user } = useAuth()
+  const { startLoading, stopLoading, loading } = useLoading()
+
   const navigation = useNavigation()
 
   const [userData, setUserData] = useState({
@@ -22,6 +25,7 @@ export default function Account() {
   })
 
   const getUser = async () => {
+    startLoading()
     await api
       .get(`user/${user.id}`)
       .then(res => {
@@ -31,6 +35,9 @@ export default function Account() {
       })
       .catch(err => {
         console.error(err)
+      })
+      .finally(() => {
+        stopLoading()
       })
   }
 
@@ -48,45 +55,48 @@ export default function Account() {
         <View style={styles.header}>
           <Text style={styles.headerTitle}>Minha Conta</Text>
 
-          <TouchableOpacity
+          {!loading && <TouchableOpacity
             style={styles.goBack}
             onPress={() => navigation.navigate("EditAccount")}
           >
             <Icon name={'user-edit'} size={22} color={colors['dark-blue']} />
           </TouchableOpacity>
+          }
         </View>
 
-        <View style={styles.content}>
+        {!loading &&
+          <View style={styles.content}>
 
-          <View style={styles.profileData}>
-            <Image style={styles.avatar} source={{
-              uri: `${STORAGE_URL}/user/${userData.avatar}`
-            }} />
-            <Text style={styles.name}>{userData.name}</Text>
-          </View>
-
-          <View style={styles.profileData}>
-            <View style={styles.profileField}>
-              <Text style={styles.label}>E-mail</Text>
-              <Text style={styles.data}>{userData.email}</Text>
+            <View style={styles.profileData}>
+              <Image style={styles.avatar} source={{
+                uri: `${STORAGE_URL}/user/${userData.avatar}`
+              }} />
+              <Text style={styles.name}>{userData.name}</Text>
             </View>
 
-            <View style={styles.profileField}>
-              <Text style={styles.label}>Celular</Text>
-              <Text style={styles.data}>{userData.phone ? formatPhoneNumber(userData.phone) : '-'}</Text>
+            <View style={styles.profileData}>
+              <View style={styles.profileField}>
+                <Text style={styles.label}>E-mail</Text>
+                <Text style={styles.data}>{userData.email}</Text>
+              </View>
+
+              <View style={styles.profileField}>
+                <Text style={styles.label}>Celular</Text>
+                <Text style={styles.data}>{userData.phone ? formatPhoneNumber(userData.phone) : '-'}</Text>
+              </View>
             </View>
+
+            <Button
+              title={"Sair"}
+              logout={true}
+              onPress={() => {
+                signOut()
+                navigation.navigate('Login')
+              }}
+            />
+
           </View>
-
-          <Button
-            title={"Sair"}
-            logout={true}
-            onPress={() => {
-              signOut()
-              navigation.navigate('Login')
-            }}
-          />
-
-        </View>
+        }
       </KeyboardAvoidingView>
     </SafeAreaView >
   )
@@ -97,7 +107,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     alignItems: 'center',
-    justifyContent: 'center',
   },
 
   content: {

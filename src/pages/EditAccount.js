@@ -4,6 +4,7 @@ import { Button, Input, ImagePickerFunction } from '../components'
 import Icon from '@expo/vector-icons/FontAwesome5'
 import { useNavigation } from '@react-navigation/native'
 import { useAuth } from '../contexts/auth'
+import { useLoading } from '../contexts/loading'
 import api, { STORAGE_URL } from '../services/api'
 
 import { formatPhoneNumber } from '../utils'
@@ -12,6 +13,8 @@ import fonts from '../utils/constants/fonts.json'
 
 export default function EditAccount() {
   const { user, signed } = useAuth()
+  const { startLoading, stopLoading, loading } = useLoading()
+
   const navigation = useNavigation()
 
   const [userData, setUserData] = useState({
@@ -28,6 +31,8 @@ export default function EditAccount() {
       }
     }
 
+    startLoading()
+
     const formData = new FormData()
     formData.append('name', userData.name)
     formData.append('phone', userData.phone)
@@ -40,6 +45,9 @@ export default function EditAccount() {
       })
       .catch(err => {
         console.error(err)
+      })
+      .finally(() => {
+        stopLoading()
       })
   }
 
@@ -112,6 +120,7 @@ export default function EditAccount() {
             </View>
 
             <Button
+              disabled={loading}
               title={"Salvar"}
               onPress={() => { updateUserInfo() }}
             />

@@ -12,7 +12,7 @@ import fonts from '../utils/constants/fonts.json'
 export default function Login() {
   const navigation = useNavigation()
   const { signIn } = useAuth()
-  const { startLoading, stopLoading } = useLoading()
+  const { startLoading, stopLoading, loading } = useLoading()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -77,6 +77,7 @@ export default function Login() {
             />
 
             <Button
+              disabled={loading}
               title="Login"
               onPress={handleLogin}
             />

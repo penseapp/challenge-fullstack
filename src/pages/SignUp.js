@@ -15,7 +15,7 @@ import fonts from '../utils/constants/fonts.json'
 
 export default function SignUp() {
   const navigation = useNavigation()
-  const { startLoading, stopLoading } = useLoading()
+  const { startLoading, stopLoading, loading } = useLoading()
 
   const [activeStep, setActiveStep] = useState(0)
   const [emailIsValid, setEmailIsValid] = useState(false)
@@ -222,7 +222,7 @@ export default function SignUp() {
             previousBtnText={true}
             finishBtnText={true}
             onPrevious={() => setActiveStep(activeStep - 1)}
-            onSubmit={() => signUp()}
+            onSubmit={() => !loading && signUp()}
           >
             <View style={styles.containerInput}>
               <ImagePickerFunction
