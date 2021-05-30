@@ -5,7 +5,8 @@
   "author": "Vanessa Swerts",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node src/server.ts",
+    "build": "yarn tsc",
+    "start": "node dist/server.js",
     "dev": "ts-node-dev src/server.ts",
     "typeorm": "ts-node-dev node_modules/typeorm/cli.js"
   },
