@@ -16,6 +16,7 @@ interface IUsersUpdate {
   id: string;
   name?: string;
   phone?: string;
+  avatar?: string;
 }
 
 class UsersService {
@@ -70,7 +71,7 @@ class UsersService {
     }
   }
 
-  async update({ id, name, phone }: IUsersUpdate) {
+  async update({ id, name, phone, avatar }: IUsersUpdate) {
 
     const userExists = await this.usersRepository.findOne({ id })
     if (!userExists) {
@@ -119,6 +120,22 @@ class UsersService {
       message: 'Usuário deletado com sucesso!'
     }
 
+  }
+
+  async listById(id: string) {
+
+    const list = await this.usersRepository.find({ id })
+    if (!list) {
+      return {
+        status: 409,
+        message: 'Usuário não encontrado!'
+      }
+    }
+
+    return {
+      status: 200,
+      list
+    }
   }
 
 }

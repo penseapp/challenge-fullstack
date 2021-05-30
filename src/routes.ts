@@ -17,7 +17,8 @@ routes.post('/auth/login', authController.login)
 
 // User Routes
 routes.post("/user", multer(multerConfig('/user')).single('file'), usersController.create)
-routes.put("/user/:id", usersController.update)
+routes.get("/user/:id", usersController.listById)
+routes.put("/user/:id", multer(multerConfig('/user')).single('file'), usersController.update)
 routes.delete("/user/:id", usersController.delete)
 
 // Products Routes

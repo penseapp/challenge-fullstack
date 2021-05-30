@@ -28,14 +28,15 @@ class UsersController {
 
   }
 
-  async update(req: Request, res: Response): Promise<Response> {
+  async update(req: any, res: Response): Promise<Response> {
     const { name, phone } = req.body
     const { id } = req.params
+    const { key: avatar } = req.file
 
     const usersService = new UsersService()
 
     try {
-      const userResponse = await usersService.update({ id, name, phone })
+      const userResponse = await usersService.update({ id, name, phone, avatar })
 
       if (userResponse.status === 409) {
         return res.status(409).json(userResponse)
@@ -75,6 +76,32 @@ class UsersController {
       })
     }
   }
+
+  async listById(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params
+
+    const usersService = new UsersService()
+
+    try {
+
+      const userResponse = await usersService.listById(id)
+
+      if (userResponse.status === 409) {
+        return res.status(409).json(userResponse)
+      }
+
+      return res.status(200).json(userResponse.list)
+
+    } catch (error) {
+      console.error(' ERROR ', error)
+      return res.status(500).json({
+        cod: 500,
+        message: 'Ocorreu um erro inesperado! Verifique sua conexão com a internet ou tente novamente mais tarde.'
+      })
+    }
+
+  }
+
 }
 
 export { UsersController }
