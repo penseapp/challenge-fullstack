@@ -7,7 +7,7 @@ import Button from './Button'
 import colors from '../utils/constants/colors.json'
 import fonts from '../utils/constants/fonts.json'
 
-export default function Warning({ title, description, icon, ...rest }) {
+export default function Warning({ title, description, isBtnVisible = false, icon, ...rest }) {
   const navigation = useNavigation()
 
   return (
@@ -22,10 +22,10 @@ export default function Warning({ title, description, icon, ...rest }) {
         <Text style={styles.emptyDescription}>{description}</Text>
       </View>
 
-      <Button
+      { isBtnVisible && <Button
         title={"Tela inicial"}
         onPress={() => navigation.navigate('Home')}
-      />
+      />}
 
     </KeyboardAvoidingView>
   )
