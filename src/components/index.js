@@ -5,6 +5,7 @@ import Loader from './Loader'
 import StepProgress from './StepProgress'
 import Warning from './Warning'
 import ImagePickerFunction from './ImagePicker'
+import ProductCard from './ProductCard'
 
 export {
   Button,
@@ -13,5 +14,6 @@ export {
   Loader,
   StepProgress,
   Warning,
-  ImagePickerFunction
+  ImagePickerFunction,
+  ProductCard
 }

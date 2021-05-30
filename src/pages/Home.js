@@ -1,7 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform, View, Image, Text, FlatList } from 'react-native'
 import { getStatusBarHeight } from 'react-native-iphone-x-helper'
+import Icon from '@expo/vector-icons/FontAwesome5'
 import { CategoryButton, ProductCard } from '../components'
+import { useAuth } from '../contexts/auth'
+import api from '../services/api'
 
 import colors from '../utils/constants/colors.json'
 import fonts from '../utils/constants/fonts.json'
@@ -9,9 +12,50 @@ import fonts from '../utils/constants/fonts.json'
 import logo from '../assets/logo-shop-ligth-blue.png'
 
 export default function Home() {
+  const { signed, user } = useAuth()
   const [filteredProducts, setFilteredProducts] = useState([])
-  const [category, setCategory] = useState(["Todos", "Móveis", "Eletrônicos", "Periféricos"])
+  const [products, setProducts] = useState([])
+  const categories = ["Todos", "Promoção", "Móveis", "Eletrônicos", "Periféricos"]
   const [categorySelected, setCategorySelected] = useState('Todos')
+
+  const filterCategory = (categoryFilter) => {
+    if (products.length) {
+      if (categoryFilter === "Todos")
+        setFilteredProducts(products)
+      else if (categoryFilter === "Promoção")
+        setFilteredProducts(products.filter(({ promotional_price }) => promotional_price))
+      else
+        setFilteredProducts(products.filter(({ category }) => category === categoryFilter))
+    }
+  }
+
+  const getProducts = async () => {
+    await api
+      .get('/products')
+      .then(res => {
+        setProducts(res.data)
+        setFilteredProducts(res.data)
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }
+
+  useEffect(() => {
+    getProducts()
+  }, [signed])
+
+
+  const emptyList = () => {
+    return (
+      <View style={styles.emptyContainer}>
+        <Icon name="frown" size={120} color={colors['light-blue']} />
+        <Text style={styles.emptyList}>
+          Ops, nenhum produto encontrado!
+        </Text>
+      </View>
+    )
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -22,32 +66,54 @@ export default function Home() {
         <View style={styles.headerContainer}>
           <View style={styles.header}>
             <View>
-              <Text style={styles.greeting}>Olá,</Text>
-              <Text style={styles.userName}>Vanessa</Text>
-            </View>
+            <Text style={styles.title}>Bem vindo</Text>
+            <Text style={styles.title}>a VS STORE!</Text>
+          </View>
             <Image source={logo} style={styles.image} />
           </View>
 
-          <Text style={styles.title}>Bem vindo a VS STORE!</Text>
+          <Text style={styles.greeting}>Olá,{user ? user.name : ''}</Text>
           <Text style={styles.subtitle}>Qual tipo de produto você está procurando?</Text>
         </View>
 
         <View>
           <FlatList
-            data={category}
-            keyExtractor={(item) => item}
+            data={categories}
+            keyExtractor={(category) => category}
             renderItem={({ item }) => (
               <CategoryButton
                 title={item}
                 active={item === categorySelected}
-                onPress={() => setCategorySelected(item) }
+                onPress={() => {
+                  filterCategory(item)
+                  setCategorySelected(item)
+                }}
               />
             )}
             horizontal
             showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.categoryList}
+          />
+        </View>
+
+        <View style={{ flex: 1 }}>
+          <FlatList
+            data={filteredProducts}
+            keyExtractor={(item) => item.id}
+            ListEmptyComponent={!products.length ? emptyList : <></>}
+            renderItem={({ item }) => (
+              <ProductCard
+                data={item}
+                wish={false}
+              // onPress={() => console.log(item)}
+              />
+            )}
+            showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.productList}
           />
         </View>
+
+
 
 
       </KeyboardAvoidingView>
@@ -75,45 +141,38 @@ const styles = StyleSheet.create({
   },
 
   image: {
-    width: 85,
-    height: 85,
-  },
-
-  greeting: {
-    fontSize: 32,
-    color: colors['light-blue'],
-    fontFamily: fonts.text
-  },
-
-  userName: {
-    fontSize: 32,
-    fontFamily: fonts.text,
-    color: colors['light-blue'],
-    lineHeight: 40,
+    width: 90,
+    height: 90,
+    marginRight: "8%",
   },
 
   title: {
-    fontSize: 22,
-    color: colors['light-blue'],
+    fontSize: 28,
     fontFamily: fonts.text,
-    lineHeight: 22,
-    marginTop: 10
+    color: colors['light-blue'],
+    lineHeight: 36,
+  },
+
+  greeting: {
+    fontSize: 20,
+    color: colors['light-blue'],
+    fontFamily: fonts.text
   },
 
   subtitle: {
     fontFamily: fonts.text,
     fontSize: 16,
-    lineHeight: 20,
+    lineHeight: 18,
     color: colors.h2,
   },
 
-  productList: {
+  categoryList: {
     height: 40,
     justifyContent: 'flex-start',
     paddingBottom: 5,
     marginLeft: 32,
-    marginVertical: 32,
-    paddingRight: 32
+    paddingRight: 32,
+    marginVertical: 20,
   },
 
 })
