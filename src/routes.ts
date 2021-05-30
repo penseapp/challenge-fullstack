@@ -14,7 +14,6 @@ const productController = new ProductsController()
 
 // Authentication routes
 routes.post('/auth/login', authController.login)
-// routes.put('/auth/renew', authMiddleware.required, authController.renew_token)
 
 // User Routes
 routes.post("/user", multer(multerConfig('/user')).single('file'), usersController.create)
