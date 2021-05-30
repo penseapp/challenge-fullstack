@@ -1,16 +1,43 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, SafeAreaView, KeyboardAvoidingView, TouchableOpacity, Platform, View, Image, Text } from 'react-native'
 import { Button } from '../components'
 import { useNavigation } from '@react-navigation/native'
 import Icon from '@expo/vector-icons/FontAwesome5'
+import { useAuth } from '../contexts/auth'
+import api, { STORAGE_URL } from '../services/api'
+import {formatPhoneNumber} from '../utils'
 
 import colors from '../utils/constants/colors.json'
 import fonts from '../utils/constants/fonts.json'
 
-import avatar from '../assets/avatar.png'
-
 export default function Account() {
+  const { signOut, signed, user } = useAuth()
   const navigation = useNavigation()
+
+  const [userData, setUserData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    avatar: 'default-avatar.png'
+  })
+
+  const getUser = async () => {
+    await api
+      .get(`user/${user.id}`)
+      .then(res => {
+        setUserData({
+          ...res.data[0],
+        })
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }
+
+  useEffect(() => {
+    if (signed)
+      getUser()
+  }, [signed])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -22,35 +49,41 @@ export default function Account() {
           <Text style={styles.headerTitle}>Minha Conta</Text>
 
           <TouchableOpacity
-              style={styles.goBack}
-              onPress={() => navigation.navigate("EditAccount")}
-            >
-              <Icon name={'user-edit'} size={22} color={colors['dark-blue']} />
-            </TouchableOpacity>
+            style={styles.goBack}
+            onPress={() => navigation.navigate("EditAccount")}
+          >
+            <Icon name={'user-edit'} size={22} color={colors['dark-blue']} />
+          </TouchableOpacity>
         </View>
 
         <View style={styles.content}>
 
           <View style={styles.profileData}>
-            <Image style={styles.avatar} source={avatar} />
-            <Text style={styles.name}>Pedro Santos</Text>
+            <Image style={styles.avatar} source={{
+              uri: `${STORAGE_URL}/user/${userData.avatar}`
+            }} />
+            <Text style={styles.name}>{userData.name}</Text>
           </View>
 
           <View style={styles.profileData}>
             <View style={styles.profileField}>
               <Text style={styles.label}>E-mail</Text>
-              <Text style={styles.data}>PedroSantos@gmail.com.br</Text>
+              <Text style={styles.data}>{userData.email}</Text>
             </View>
 
             <View style={styles.profileField}>
               <Text style={styles.label}>Celular</Text>
-              <Text style={styles.data}>(35) 9998-7766</Text>
+              <Text style={styles.data}>{userData.phone ? formatPhoneNumber(userData.phone) : '-'}</Text>
             </View>
           </View>
 
           <Button
             title={"Sair"}
             logout={true}
+            onPress={() => {
+              signOut()
+              navigation.navigate('Login')
+            }}
           />
 
         </View>
@@ -104,13 +137,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     borderBottomWidth: 2,
     borderBottomColor: colors['h2'],
-    // paddingVertical: 12,
+    marginBottom: 12,
   },
 
   avatar: {
-    width: 140,
-    height: 140,
-    borderRadius: 140,
+    width: 150,
+    height: 150,
+    borderRadius: 150,
     borderWidth: 2,
     borderColor: colors['dark-blue'],
   },

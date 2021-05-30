@@ -1,16 +1,54 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, SafeAreaView, KeyboardAvoidingView, TouchableOpacity, Platform, View, Image, Text, ScrollView } from 'react-native'
 import { Button, Input, ImagePickerFunction } from '../components'
 import Icon from '@expo/vector-icons/FontAwesome5'
 import { useNavigation } from '@react-navigation/native'
+import { useAuth } from '../contexts/auth'
+import api, { STORAGE_URL } from '../services/api'
 
+import { formatPhoneNumber } from '../utils'
 import colors from '../utils/constants/colors.json'
 import fonts from '../utils/constants/fonts.json'
 
-import avatar from '../assets/avatar.png'
-
 export default function EditAccount() {
+  const { user, signed } = useAuth()
   const navigation = useNavigation()
+
+  const [userData, setUserData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    avatar: 'default-avatar.png'
+  })
+
+  const updateUserInfo = async () => {
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }
+
+    const formData = new FormData()
+    formData.append('name', userData.name)
+    formData.append('phone', userData.phone)
+    formData.append('file', userData.avatar)
+
+    await api
+      .put(`user/${user.id}`, formData, config)
+      .then(res => {
+        navigation.goBack()
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }
+
+  const onChange = (type, value) => setUserData({ ...userData, [type]: value })
+
+  useEffect(() => {
+    if (signed)
+      setUserData(user)
+  }, [signed])
 
 
   return (
@@ -36,8 +74,10 @@ export default function EditAccount() {
           <View style={styles.content}>
 
             <View style={styles.profileData}>
-              <ImagePickerFunction onChange={image => console.log(image)}>
-                <Image style={styles.avatar} source={avatar} />
+              <ImagePickerFunction onChange={image => onChange('phone', image.name)}>
+                <Image style={styles.avatar} source={{
+                  uri: `${STORAGE_URL}/user/${userData.avatar}`
+                }} />
               </ImagePickerFunction>
             </View>
 
@@ -47,13 +87,16 @@ export default function EditAccount() {
                 <Text style={styles.label}>Nome</Text>
                 <Input
                   placeholder={'Ex: Pedro Henrique Santos'}
+                  value={userData.name}
+                  onChangeText={value => onChange('name', value)}
                 />
               </View>
 
               <View style={styles.profileField}>
                 <Text style={styles.label}>E-mail</Text>
                 <Input
-                  placeholder={'Ex: pedrosantos@gmail.com.br'}
+                  disabled
+                  value={userData.email}
                 />
               </View>
 
@@ -62,12 +105,15 @@ export default function EditAccount() {
                 <Input
                   placeholder={'(xx)xxxxx-xxxx'}
                   keyboardType={'phone-pad'}
+                  value={formatPhoneNumber(userData.phone)}
+                  onChangeText={value => onChange('phone', value)}
                 />
               </View>
             </View>
 
             <Button
               title={"Salvar"}
+              onPress={() => { updateUserInfo() }}
             />
 
           </View>
