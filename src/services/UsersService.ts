@@ -80,15 +80,18 @@ class UsersService {
         message: 'Nenhum usuário foi encontrado!'
       }
     }
-
     const data = {
+      id,
       name,
-      phone
+      phone,
+      avatar
     }
 
     const schema = Yup.object().shape({
+      id: Yup.string().required(),
       name: name === undefined ? null : Yup.string().required(),
-      phone: phone === undefined ? null : Yup.string().optional()
+      phone: phone === undefined ? null : Yup.string().optional(),
+      avatar: Yup.string().optional(),
     })
 
     await schema.validate(data, {

@@ -31,7 +31,7 @@ class UsersController {
   async update(req: any, res: Response): Promise<Response> {
     const { name, phone } = req.body
     const { id } = req.params
-    const { key: avatar } = req.file
+    const { key: avatar } = req.file || { key: undefined }
 
     const usersService = new UsersService()
 
