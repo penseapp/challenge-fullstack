@@ -15,4 +15,17 @@ const formatPhoneNumber = text => {
   return str.replace(regex, '($1) $2-$3')
 }
 
-export { formatCurrency, formatPhoneNumber }
+const compareObjects = (prod1, prod2, key) => {
+  const produto1 = prod1[key].toUpperCase()
+  const produto2 = prod2[key].toUpperCase()
+
+  if (produto1 < produto2) {
+    return -1
+  }
+  if (produto1 > produto2) {
+    return 1
+  }
+  return 0
+}
+
+export { formatCurrency, formatPhoneNumber, compareObjects }

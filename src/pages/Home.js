@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform, View, Image, Text, FlatList } from 'react-native'
+import { StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform, View, Image, Text, FlatList, TouchableOpacity } from 'react-native'
 import { getStatusBarHeight } from 'react-native-iphone-x-helper'
-import Icon from '@expo/vector-icons/FontAwesome5'
 import { CategoryButton, ProductCard, Warning } from '../components'
 import { useAuth } from '../contexts/auth'
 import { useLoading } from '../contexts/loading'
 import { useNavigation } from '@react-navigation/native'
 import api from '../services/api'
+import { compareObjects } from '../utils'
 
 import colors from '../utils/constants/colors.json'
 import fonts from '../utils/constants/fonts.json'
@@ -18,19 +18,36 @@ export default function Home() {
   const { signed, user } = useAuth()
   const { startLoading, stopLoading, loading } = useLoading()
 
+  const [sortOption, setSortOption] = useState('Normal')
+  const [productsList, setProductsList] = useState([])
   const [filteredProducts, setFilteredProducts] = useState([])
-  const [products, setProducts] = useState([])
-  const categories = ["Todos", "Promoção", "Móveis", "Eletrônicos", "Periféricos"]
+  const categories = ["Todos", "Promoção", "Móveis", "Eletrônicos", "Periféricos", "Disponiveis"]
   const [categorySelected, setCategorySelected] = useState('Todos')
 
   const filterCategory = (categoryFilter) => {
-    if (products.length) {
+    if (productsList.length) {
       if (categoryFilter === "Todos")
-        setFilteredProducts(products)
+        setFilteredProducts(productsList)
       else if (categoryFilter === "Promoção")
-        setFilteredProducts(products.filter(({ promotional_price }) => promotional_price))
+        setFilteredProducts(productsList.filter(({ promotional_price }) => promotional_price))
+      else if (categoryFilter === "Disponiveis")
+        setFilteredProducts(productsList.filter(({ status_flag }) => status_flag === 'Disponível'))
       else
-        setFilteredProducts(products.filter(({ category }) => category === categoryFilter))
+        setFilteredProducts(productsList.filter(({ category }) => category === categoryFilter))
+    }
+  }
+
+  const orderList = (type) => {
+    if (filteredProducts.length) {
+      if (type === 'Normal') setFilteredProducts(productsList)
+      else if (type === 'Name') {
+        const byName = filteredProducts.sort((a, b) => compareObjects(a, b, 'name'))
+        setFilteredProducts(byName)
+      }
+      else if (type === 'Price') {
+        const byPrice = filteredProducts.sort((a, b) => a.price - b.price)
+        setFilteredProducts(byPrice)
+      }
     }
   }
 
@@ -40,8 +57,9 @@ export default function Home() {
     await api
       .get('/products')
       .then(res => {
-        setProducts(res.data)
+        setProductsList(res.data)
         setFilteredProducts(res.data)
+        filterCategory("Todos")
       })
       .catch(err => {
         console.error(err)
@@ -105,6 +123,54 @@ export default function Home() {
           />
         </View>
 
+
+        <Text style={[styles.subtitle, { marginVertical: 8 }]}>Ordernar listar de produtos:</Text>
+        <View
+          style={[styles.optionContainer, { justifyContent: 'flex-start', marginLeft: 32, }]}
+        >
+          <TouchableOpacity
+            onPress={() => {
+              setSortOption('Normal')
+              orderList('Normal')
+            }}
+            style={[styles.optionButton, sortOption === "Normal" ? styles.optionSelected : {}
+            ]}>
+            <Text
+              style={[styles.optionButtonText, sortOption === "Normal" ? styles.optionSelectedText : {}
+              ]}>
+              Normal
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => {
+              setSortOption('Name')
+              orderList('Name')
+            }}
+            style={[styles.optionButton, sortOption === "Name" ? styles.optionSelected : {}
+            ]}>
+            <Text
+              style={[styles.optionButtonText, sortOption === "Name" ? styles.optionSelectedText : {}
+              ]}>
+              Por nome
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => {
+              setSortOption('Price')
+              orderList('Price')
+            }}
+            style={[styles.optionButton, sortOption === "Price" ? styles.optionSelected : {}
+            ]}>
+            <Text
+              style={[styles.optionButtonText, sortOption === "Price" ? styles.optionSelectedText : {}
+              ]}>
+              Por preço
+            </Text>
+          </TouchableOpacity>
+        </View>
+
         <View style={{ flex: 1 }}>
           <FlatList
             data={filteredProducts}
@@ -145,7 +211,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 18,
+    paddingVertical: 5,
     marginTop: getStatusBarHeight(),
   },
 
@@ -159,7 +225,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontFamily: fonts.text,
     color: colors['light-blue'],
-    lineHeight: 36,
+    lineHeight: 34,
   },
 
   greeting: {
@@ -181,7 +247,39 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     marginLeft: 32,
     paddingRight: 32,
-    marginVertical: 20,
+    marginVertical: 8,
   },
+
+  optionContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+
+  optionButton: {
+    backgroundColor: colors['light-secondary'],
+    borderRadius: 12,
+    height: 35,
+    minWidth: 35,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 10,
+    padding: 10
+  },
+
+  optionSelected: {
+    backgroundColor: colors['dark-blue']
+  },
+
+  optionSelectedText: {
+    fontFamily: fonts.text,
+    color: colors['light-secondary']
+  },
+
+  optionButtonText: {
+    fontFamily: fonts.text,
+    color: colors['light-blue'],
+    fontSize: 13
+  },
+
 
 })
