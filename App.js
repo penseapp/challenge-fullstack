@@ -2,6 +2,8 @@ import 'react-native-gesture-handler'
 import React from 'react'
 import AppLoading from 'expo-app-loading'
 import { StatusBar } from 'expo-status-bar'
+
+// Contexts
 import { AuthProvider } from './src/contexts/auth'
 import { LoadingProvider } from './src/contexts/loading'
 
@@ -22,9 +24,9 @@ export default function App() {
     <>
       <StatusBar barStyle="light-content" backgroundColor={colors['dark-blue']} />
       <AuthProvider>
-        <LoadingProvider>
-          <Routes />
-        </LoadingProvider>
+          <LoadingProvider>
+            <Routes />
+          </LoadingProvider>
       </AuthProvider>
     </>
   )

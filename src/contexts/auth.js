@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react'
+import React, { createContext, useContext, useState } from 'react'
 import api from '../services/api'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
@@ -39,8 +39,13 @@ export const AuthProvider = ({ children }) => {
     setUser(null)
   }
 
+  const updateUserData = async (newUserData) => {
+    setUser(newUserData)
+    await AsyncStorage.setItem('user-data', JSON.stringify(newUserData))
+  }
+
   return (
-    <AuthContext.Provider value={{ signed: !!user, user, signIn, signOut }}>
+    <AuthContext.Provider value={{ signed: !!user, user, signIn, signOut, updateUserData }}>
       {children}
     </AuthContext.Provider>
   )

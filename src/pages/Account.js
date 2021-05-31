@@ -7,12 +7,13 @@ import { useAuth } from '../contexts/auth'
 import { useLoading } from '../contexts/loading'
 import api, { STORAGE_URL } from '../services/api'
 import { formatPhoneNumber } from '../utils'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import colors from '../utils/constants/colors.json'
 import fonts from '../utils/constants/fonts.json'
 
 export default function Account() {
-  const { signOut, signed, user } = useAuth()
+  const { signOut, user, updateUserData, signed } = useAuth()
   const { startLoading, stopLoading, loading } = useLoading()
 
   const navigation = useNavigation()
@@ -24,6 +25,7 @@ export default function Account() {
     avatar: 'default-avatar.png'
   })
 
+
   const getUser = async () => {
     startLoading()
     await api
@@ -32,6 +34,7 @@ export default function Account() {
         setUserData({
           ...res.data[0],
         })
+        updateUserData(res.data[0])
       })
       .catch(err => {
         console.error(err)

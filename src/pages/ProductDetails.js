@@ -14,16 +14,13 @@ export default function ProductDetails() {
   const route = useRoute()
   const navigation = useNavigation()
   const { startLoading, stopLoading, loading } = useLoading()
+
   const { product_id } = route.params
 
   const [favorites, setFavorites] = useState([])
-  const [isFavorite, setIsFavorite] = useState(false)
+  const [isFavorite, setIsFavorite] = useState(true)
 
   const [product, setProduct] = useState({})
-
-  const addFavorite = () => {
-
-  }
 
   const getProduct = async () => {
     startLoading()
