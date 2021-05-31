@@ -23,7 +23,9 @@
 
 ## 💻 Sobre o projeto
 
-VS Store App é um projeto desenvolvido para ao processo seletivo da PenseAPP. O aplicativo foi desenvolvido utilizando o framework React Native em conjunto com o Expo, utilizando Javascript.  
+VS Store App é um projeto desenvolvido para ao processo seletivo da PenseAPP.
+
+O aplicativo foi desenvolvido em Javascript utilizando o framework React Native em conjunto com o Expo. Também foi utilizado o Design Pattern Provider Pattern, para o controle de estado com os Contexts.
 
 ---
 
