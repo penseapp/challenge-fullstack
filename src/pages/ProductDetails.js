@@ -4,6 +4,7 @@ import Icon from '@expo/vector-icons/FontAwesome5'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import api from '../services/api'
 import { formatCurrency } from '../utils'
+import { useAuth } from '../contexts/auth'
 import { useLoading } from '../contexts/loading'
 import { Button } from '../components'
 
@@ -13,12 +14,11 @@ import fonts from '../utils/constants/fonts.json'
 export default function ProductDetails() {
   const route = useRoute()
   const navigation = useNavigation()
+  const { user } = useAuth()
   const { startLoading, stopLoading, loading } = useLoading()
 
   const { product_id } = route.params
-
-  const [favorites, setFavorites] = useState([])
-  const [isFavorite, setIsFavorite] = useState(true)
+  const [isFavorite, setIsFavorite] = useState(false)
 
   const [product, setProduct] = useState({})
 
@@ -26,11 +26,44 @@ export default function ProductDetails() {
     startLoading()
 
     await api
-      .get(`product/${product_id}`)
+      .get(`product/${user.id}/${product_id}`)
       .then(res => {
         setProduct({
-          ...res.data[0],
+          ...res.data,
         })
+        setIsFavorite(res.data.isFavorite)
+      })
+      .catch(err => {
+        console.error(err)
+      })
+      .finally(() => {
+        stopLoading()
+      })
+  }
+
+  const addFavoriteProduct = async () => {
+    startLoading()
+
+    await api
+      .post(`favorite/${user.id}/${product_id}`, null)
+      .then(res => {
+        setIsFavorite(true)
+      })
+      .catch(err => {
+        console.error(err)
+      })
+      .finally(() => {
+        stopLoading()
+      })
+  }
+
+  const removeFavoriteProduct = async () => {
+    startLoading()
+
+    await api
+      .delete(`favorite/${user.id}/${product_id}`, null, null)
+      .then(res => {
+        setIsFavorite(false)
       })
       .catch(err => {
         console.error(err)
@@ -45,7 +78,6 @@ export default function ProductDetails() {
       getProduct()
     }
   }, [product_id])
-
 
   return (
     <ScrollView
@@ -126,9 +158,22 @@ export default function ProductDetails() {
               </Text>
             </View>}
 
-            <Button
-              title={isFavorite ? "Remover dos Favoritos" : "Adicionar em Favoritos"}
-            />
+            {isFavorite
+              ? (
+                <Button
+                  title={"Remover dos Favoritos"}
+                  onPress={() => removeFavoriteProduct()}
+                />
+              )
+              : (
+                <Button
+                  title={"Adicionar em Favoritos"}
+                  onPress={() => addFavoriteProduct()}
+                />
+              )
+            }
+
+
           </View>
         }
       </View>

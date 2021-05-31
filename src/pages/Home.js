@@ -21,6 +21,7 @@ export default function Home() {
 
   const [searchTxt, setSearchTxt] = useState('')
   const [filterOpen, setFilterOpen] = useState(false)
+  const [refresh, setRefresh] = useState(false)
   const [productsList, setProductsList] = useState([])
   const [filteredProducts, setFilteredProducts] = useState([])
 
@@ -80,6 +81,7 @@ export default function Home() {
       })
       .finally(() => {
         stopLoading()
+        setRefresh(false)
       })
   }
 
@@ -146,6 +148,11 @@ export default function Home() {
           <FlatList
             data={filteredProducts}
             keyExtractor={(item) => item.id}
+            onRefresh={() => {
+              setRefresh(true)
+              getProducts()
+            }}
+            refreshing={refresh}
             ListEmptyComponent={!loading ? emptyList : <></>}
             renderItem={({ item }) => (
               <ProductCard
