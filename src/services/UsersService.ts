@@ -45,7 +45,7 @@ class UsersService {
       password: secretPassword,
       name,
       phone,
-      avatar
+      avatar,
     }
 
     const schema = Yup.object().shape({

@@ -1,5 +1,7 @@
-import { Entity, PrimaryColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Entity, PrimaryColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm'
 import { v4 as uuid } from 'uuid'
+import { Favorite } from './Favorite'
+import { Product } from './Product';
 
 @Entity("users")
 class User {
@@ -18,9 +20,12 @@ class User {
 
   @Column({ nullable: true })
   phone: string;
- 
+
   @Column()
   avatar: string;
+
+  @OneToMany(type => Favorite, user => user.product, { cascade: true })
+  favorites: Product[];
 
   @CreateDateColumn()
   created_at: Date;
