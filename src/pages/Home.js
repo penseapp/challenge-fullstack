@@ -40,7 +40,7 @@ export default function Home() {
 
   const orderList = (sortOption) => {
     if (filteredProducts.length) {
-      if (sortOption === 'Normal') setFilteredProducts(productsList)
+      if (sortOption === 'Normal') getProducts()
       else if (sortOption === 'Name') {
         const byName = filteredProducts.sort((a, b) => compareObjects(a, b, 'name'))
         setFilteredProducts(byName)

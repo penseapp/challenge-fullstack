@@ -41,7 +41,7 @@ export default function EditAccount() {
     await api
       .put(`user/${user.id}`, formData, config)
       .then(res => {
-        navigation.goBack()
+        navigation.navigate('Minha conta', { updated: true })
       })
       .catch(err => {
         console.error(err)

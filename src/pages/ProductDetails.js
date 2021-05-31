@@ -48,6 +48,11 @@ export default function ProductDetails() {
       .post(`favorite/${user.id}/${product_id}`, null)
       .then(res => {
         setIsFavorite(true)
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Favoritos' }],
+          key: 'Home'
+        })
       })
       .catch(err => {
         console.error(err)
@@ -64,6 +69,11 @@ export default function ProductDetails() {
       .delete(`favorite/${user.id}/${product_id}`, null, null)
       .then(res => {
         setIsFavorite(false)
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Favoritos' }],
+          key: 'Home'
+        })
       })
       .catch(err => {
         console.error(err)

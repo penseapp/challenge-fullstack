@@ -37,7 +37,7 @@ export default function Favorites() {
   useEffect(() => {
     if (signed)
       getFavoritesProduct()
-  }, [user.id, signed])
+  }, [signed])
 
   if (!favorites.length && !loading) {
     return <Warning

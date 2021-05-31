@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, SafeAreaView, KeyboardAvoidingView, TouchableOpacity, Platform, View, Image, Text } from 'react-native'
 import { Button } from '../components'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import Icon from '@expo/vector-icons/FontAwesome5'
 import { useAuth } from '../contexts/auth'
 import { useLoading } from '../contexts/loading'
 import api, { STORAGE_URL } from '../services/api'
 import { formatPhoneNumber } from '../utils'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import colors from '../utils/constants/colors.json'
 import fonts from '../utils/constants/fonts.json'
@@ -15,6 +14,8 @@ import fonts from '../utils/constants/fonts.json'
 export default function Account() {
   const { signOut, user, updateUserData, signed } = useAuth()
   const { startLoading, stopLoading, loading } = useLoading()
+  const route = useRoute()
+  const { updated } = route.params
 
   const navigation = useNavigation()
 
@@ -48,6 +49,11 @@ export default function Account() {
       getUser()
   }, [signed])
 
+  useEffect(() => {
+    if (updated)
+      getUser()
+  }, [updated])
+
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
@@ -55,7 +61,10 @@ export default function Account() {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
         <View style={styles.header}>
-          <Text style={styles.headerTitle}>Minha Conta</Text>
+          <TouchableOpacity
+            onPress={() => getUser()} >
+            <Text style={styles.headerTitle}>Minha Conta</Text>
+          </TouchableOpacity>
 
           {!loading && <TouchableOpacity
             style={styles.goBack}

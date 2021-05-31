@@ -35,7 +35,7 @@ export default function AuthRoutes() {
     >
       <tabRoutes.Screen name="Home" component={Home} />
       <tabRoutes.Screen name="Favoritos" component={Favorites} />
-      <tabRoutes.Screen name="Minha conta" component={Account} />
+      <tabRoutes.Screen name="Minha conta" component={Account} initialParams={{ updated: false }} />
     </tabRoutes.Navigator>
   )
 }

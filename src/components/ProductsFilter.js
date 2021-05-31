@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {
   StyleSheet,
-  ScrollView,
   View,
   Modal,
   TouchableOpacity,
@@ -26,6 +25,13 @@ export default function ProductFilter({ isOpen, toggle, applyFilters }) {
   const onChange = (type, value) => {
     setOptions({ ...options, [type]: value })
   }
+
+  useEffect(() => {
+    setOptions({
+      categoryOption: null,
+      sortOption: null
+    })
+  }, [isOpen])
 
   if (!isOpen) {
     return null
