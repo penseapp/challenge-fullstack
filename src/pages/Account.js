@@ -25,7 +25,6 @@ export default function Account() {
     avatar: 'default-avatar.png'
   })
 
-
   const getUser = async () => {
     startLoading()
     await api

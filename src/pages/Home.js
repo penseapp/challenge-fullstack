@@ -57,9 +57,9 @@ export default function Home() {
 
     if (productsList.length) {
       searchList = productsList.filter(({ name, description }) => {
-        if (description) return name.includes(search) || description.includes(search)
+        if (description) return name.toLowerCase().includes(search) || description.toLowerCase().includes(search)
 
-        return name.includes(search)
+        return name.toLowerCase().includes(search)
       })
       setFilteredProducts(searchList)
     }
@@ -123,7 +123,7 @@ export default function Home() {
               placeholder={'Pesquise por algum produto'}
               prefixIcon={'search'}
               value={searchTxt}
-              onChangeText={value => searchProduct(value)}
+              onChangeText={value => searchProduct(value.toLowerCase())}
             />
           </View>
 
@@ -158,9 +158,6 @@ export default function Home() {
             contentContainerStyle={styles.productList}
           />
         </View>
-
-
-
 
       </KeyboardAvoidingView>
     </SafeAreaView >
