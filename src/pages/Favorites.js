@@ -1,8 +1,14 @@
-import React, { useState } from 'react'
-import { StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform, View } from 'react-native'
-import { Warning } from '../components'
+import React, { useEffect, useState } from 'react'
+import { StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform, View, Image, Text, FlatList } from 'react-native'
+import { ProductCard, Warning } from '../components'
+import { useLoading } from '../contexts/loading'
+import { useNavigation } from '@react-navigation/native'
+
+import colors from '../utils/constants/colors.json'
+import fonts from '../utils/constants/fonts.json'
 
 export default function Favorites() {
+  const navigation = useNavigation()
   const [favorites, setFavorites] = useState([])
 
   if (!favorites.length) {
@@ -20,8 +26,23 @@ export default function Favorites() {
         style={styles.container}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <View style={styles.content}>
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>Favoritos</Text>
+        </View>
 
+        <View style={{ flex: 1 }}>
+          <FlatList
+            data={favorites}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <ProductCard
+                data={item}
+                onPress={() => navigation.navigate('ProductDetails', { product_id: item.id })}
+              />
+            )}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.productList}
+          />
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView >
@@ -31,13 +52,30 @@ export default function Favorites() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingHorizontal: 25,
   },
 
-  content: {
+  headerContainer: {
     width: '100%',
+  },
+
+
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 35,
+    width: "100%",
+  },
+
+  headerTitle: {
+    fontSize: 25,
+    fontFamily: fonts.text,
+    color: colors.h1,
+    opacity: 0.6,
+    textAlign: 'center',
+    alignSelf: 'center'
   },
 
 })
+

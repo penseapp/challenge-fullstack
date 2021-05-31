@@ -25,6 +25,8 @@ export default function Login() {
     await signIn(email, password)
       .then(() => {
         navigation.navigate('Home')
+        setPassword('')
+        setEmail('')
       })
       .catch(err => {
         setErrorMessage('Algo deu errado, tente novamente!')
@@ -34,11 +36,6 @@ export default function Login() {
         stopLoading()
       })
   }
-
-  useEffect(() => {
-    setPassword('')
-    setEmail('')
-  }, [])
 
   return (
     <SafeAreaView style={styles.container}>
