@@ -27,7 +27,7 @@ export class CreateFavorites1622427954201 implements MigrationInterface {
                   default: "now()"
                 },
                 {
-                  name: "uptaded_at",
+                  name: "updated_at",
                   type: "timestamp",
                   default: "now()"
                 },

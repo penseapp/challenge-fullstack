@@ -9,14 +9,14 @@ class Favorite {
   @PrimaryColumn()
   id: string;
 
-  @JoinColumn({ name: "user_id", referencedColumnName: "id" })
+  @JoinColumn({ name: "user_id"})
   @ManyToOne(user => User, favorites => favorites.favorites)
   user: User;
 
   @Column()
   user_id: string;
 
-  @JoinColumn({ name: "product_id", referencedColumnName: "id" })
+  @JoinColumn({ name: "product_id"})
   @ManyToOne(() => Product)
   product: Product;
 
