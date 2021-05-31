@@ -157,11 +157,14 @@ class ProductsService {
       }
     }
 
+    product['isFavorite'] = false
+
     const userFavorites = await this.favoritesRepository.find({ user_id })
     const productId = product_id
-
-    const isFavorite = userFavorites.find(({ product_id }) => product_id === productId)
-    product['isFavorite'] = isFavorite
+    if (userFavorites) {
+      const isFavorite = userFavorites.find(({ product_id }) => product_id === productId)
+      product['isFavorite'] = isFavorite ? true : false
+    }
 
     return {
       status: 200,
