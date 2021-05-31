@@ -1,6 +1,8 @@
 import { getCustomRepository, Repository } from "typeorm"
 import * as Yup from 'yup'
+import { Favorite } from "../entities/Favorite"
 import { Product } from "../entities/Product"
+import { FavoriteRepository } from "../repositories/FavoriteRepository"
 import { ProductsRepository } from "../repositories/ProductRepository"
 
 interface ICreateProducts {
@@ -26,9 +28,12 @@ interface IUpdateProducts {
 
 class ProductsService {
   private productsRepository: Repository<Product>
+  private favoritesRepository: Repository<Favorite>
+
 
   constructor() {
     this.productsRepository = getCustomRepository(ProductsRepository)
+    this.favoritesRepository = getCustomRepository(FavoriteRepository)
   }
 
   async create({ name, description, price, promotional_price, status_flag, category, image_url }: ICreateProducts) {
@@ -142,19 +147,25 @@ class ProductsService {
     }
   }
 
-  async listById(id: string) {
+  async listById(product_id: string, user_id: string) {
 
-    const list = await this.productsRepository.find({ id })
-    if (!list) {
+    const product = await this.productsRepository.findOne({ id: product_id })
+    if (!product) {
       return {
         status: 409,
         message: 'Produto não foi encontrado!'
       }
     }
 
+    const userFavorites = await this.favoritesRepository.find({ user_id })
+    const productId = product_id
+
+    const isFavorite = userFavorites.find(({ product_id }) => product_id === productId)
+    product['isFavorite'] = isFavorite
+
     return {
       status: 200,
-      list
+      product
     }
   }
 

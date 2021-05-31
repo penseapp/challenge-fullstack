@@ -16,7 +16,7 @@ class ProductsController {
 
     let image_url = null
 
-    if(file) image_url = file.path
+    if (file) image_url = file.path
 
     const productsService = new ProductsService()
 
@@ -132,18 +132,18 @@ class ProductsController {
   }
 
   async listById(req: Request, res: Response): Promise<Response> {
-    const { id } = req.params
+    const { product_id, user_id } = req.params
     const productsService = new ProductsService()
 
     try {
 
-      const productResponse = await productsService.listById(id)
+      const productResponse = await productsService.listById(product_id, user_id)
 
       if (productResponse.status === 409) {
         return res.status(409).json(productResponse)
       }
 
-      return res.status(200).json(productResponse.list)
+      return res.status(200).json(productResponse.product)
 
     } catch (error) {
       console.error(' ERROR ', error)

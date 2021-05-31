@@ -28,7 +28,7 @@ routes.post("/product",multer(multerConfig('/product')).single('file'), productC
 routes.put("/product/:id", productController.update)
 routes.delete("/product/:id", productController.delete)
 routes.get("/products", productController.list_all)
-routes.get("/product/:id", productController.listById)
+routes.get("/product/:user_id/:product_id", productController.listById)
 
 // Favorites
 routes.post("/favorite/:user_id/:product_id", favoritesController.add)
