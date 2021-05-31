@@ -28,6 +28,8 @@ VS Store API - é o backend do aplicativo VS Store, onde está toda regra de neg
 
 Esta API também está hospedada no Heroku no endereço https://vs-store-api.herokuapp.com/.
 
+Para testar a API, você pode utilzar o arquivo para o [Insomnia](https://insomnia.rest): [VS Store API Insomnia](https://github.com/VanessaSwerts/challenge-flutter-fullstack/blob/backend/VsStoreInsomnia.json)
+
 ---
 
 ## 🚀 Como executar o projeto
