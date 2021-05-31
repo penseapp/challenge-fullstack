@@ -80,7 +80,7 @@ Esta API está disponível em https://vs-store-api.herokuapp.com/, rodando com u
 
 	```bash
 	# Execute a aplicação
-	$ yarn start
+	$ yarn dev
 	
 	# Acesse http://localhost:5000 e veja a api em execução.
 	```
