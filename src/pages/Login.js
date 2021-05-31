@@ -27,6 +27,7 @@ export default function Login() {
         navigation.navigate('Home')
         setPassword('')
         setEmail('')
+        setErrorMessage('')
       })
       .catch(err => {
         setErrorMessage('Algo deu errado, tente novamente!')

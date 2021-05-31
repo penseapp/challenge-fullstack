@@ -6,6 +6,7 @@ import StepProgress from './StepProgress'
 import Warning from './Warning'
 import ImagePickerFunction from './ImagePicker'
 import ProductCard from './ProductCard'
+import ProductFilter from './ProductsFilter'
 
 export {
   Button,
@@ -15,5 +16,6 @@ export {
   StepProgress,
   Warning,
   ImagePickerFunction,
-  ProductCard
+  ProductCard,
+  ProductFilter
 }

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform, View, Image, Text, FlatList, TouchableOpacity } from 'react-native'
 import { getStatusBarHeight } from 'react-native-iphone-x-helper'
-import { CategoryButton, ProductCard, Warning } from '../components'
+import { ProductCard, Warning, ProductFilter, Input } from '../components'
 import { useAuth } from '../contexts/auth'
 import { useLoading } from '../contexts/loading'
 import { useNavigation } from '@react-navigation/native'
+import Icon from '@expo/vector-icons/FontAwesome5'
 import api from '../services/api'
 import { compareObjects } from '../utils'
 
@@ -18,36 +19,49 @@ export default function Home() {
   const { signed, user } = useAuth()
   const { startLoading, stopLoading, loading } = useLoading()
 
-  const [sortOption, setSortOption] = useState('Normal')
+  const [searchTxt, setSearchTxt] = useState('')
+  const [filterOpen, setFilterOpen] = useState(false)
   const [productsList, setProductsList] = useState([])
   const [filteredProducts, setFilteredProducts] = useState([])
-  const categories = ["Todos", "Promoção", "Móveis", "Eletrônicos", "Periféricos", "Disponiveis"]
-  const [categorySelected, setCategorySelected] = useState('Todos')
 
-  const filterCategory = (categoryFilter) => {
+  const filterCategory = (categoryOption) => {
     if (productsList.length) {
-      if (categoryFilter === "Todos")
+      if (categoryOption === "Todos")
         setFilteredProducts(productsList)
-      else if (categoryFilter === "Promoção")
+      else if (categoryOption === "Promoção")
         setFilteredProducts(productsList.filter(({ promotional_price }) => promotional_price))
-      else if (categoryFilter === "Disponiveis")
+      else if (categoryOption === "Disponiveis")
         setFilteredProducts(productsList.filter(({ status_flag }) => status_flag === 'Disponível'))
       else
-        setFilteredProducts(productsList.filter(({ category }) => category === categoryFilter))
+        setFilteredProducts(productsList.filter(({ category }) => category === categoryOption))
     }
   }
 
-  const orderList = (type) => {
+  const orderList = (sortOption) => {
     if (filteredProducts.length) {
-      if (type === 'Normal') setFilteredProducts(productsList)
-      else if (type === 'Name') {
+      if (sortOption === 'Normal') setFilteredProducts(productsList)
+      else if (sortOption === 'Name') {
         const byName = filteredProducts.sort((a, b) => compareObjects(a, b, 'name'))
         setFilteredProducts(byName)
       }
-      else if (type === 'Price') {
+      else if (sortOption === 'Price') {
         const byPrice = filteredProducts.sort((a, b) => a.price - b.price)
         setFilteredProducts(byPrice)
       }
+    }
+  }
+
+  const searchProduct = (search) => {
+    setSearchTxt(search)
+    let searchList
+
+    if (productsList.length) {
+      searchList = productsList.filter(({ name, description }) => {
+        if (description) return name.includes(search) || description.includes(search)
+
+        return name.includes(search)
+      })
+      setFilteredProducts(searchList)
     }
   }
 
@@ -103,73 +117,30 @@ export default function Home() {
           <Text style={styles.subtitle}>Qual tipo de produto você está procurando?</Text>
         </View>
 
-        <View>
-          <FlatList
-            data={categories}
-            keyExtractor={(category) => category}
-            renderItem={({ item }) => (
-              <CategoryButton
-                title={item}
-                active={item === categorySelected}
-                onPress={() => {
-                  filterCategory(item)
-                  setCategorySelected(item)
-                }}
-              />
-            )}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.categoryList}
-          />
-        </View>
+        <View style={styles.filterContainer}>
+          <View style={{ maxWidth: '90%' }}>
+            <Input
+              placeholder={'Pesquise por algum produto'}
+              prefixIcon={'search'}
+              value={searchTxt}
+              onChangeText={value => searchProduct(value)}
+            />
+          </View>
 
-
-        <Text style={[styles.subtitle, { marginVertical: 8 }]}>Ordernar listar de produtos:</Text>
-        <View
-          style={[styles.optionContainer, { justifyContent: 'flex-start', marginLeft: 32, }]}
-        >
-          <TouchableOpacity
-            onPress={() => {
-              setSortOption('Normal')
-              orderList('Normal')
-            }}
-            style={[styles.optionButton, sortOption === "Normal" ? styles.optionSelected : {}
-            ]}>
-            <Text
-              style={[styles.optionButtonText, sortOption === "Normal" ? styles.optionSelectedText : {}
-              ]}>
-              Normal
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => {
-              setSortOption('Name')
-              orderList('Name')
-            }}
-            style={[styles.optionButton, sortOption === "Name" ? styles.optionSelected : {}
-            ]}>
-            <Text
-              style={[styles.optionButtonText, sortOption === "Name" ? styles.optionSelectedText : {}
-              ]}>
-              Por nome
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => {
-              setSortOption('Price')
-              orderList('Price')
-            }}
-            style={[styles.optionButton, sortOption === "Price" ? styles.optionSelected : {}
-            ]}>
-            <Text
-              style={[styles.optionButtonText, sortOption === "Price" ? styles.optionSelectedText : {}
-              ]}>
-              Por preço
-            </Text>
+          <TouchableOpacity style={styles.filterButton} onPress={() => setFilterOpen(true)}>
+            <Icon name="filter" size={20} color={colors['light-blue']} />
           </TouchableOpacity>
         </View>
+
+        <ProductFilter
+          isOpen={filterOpen}
+          toggle={() => setFilterOpen(false)}
+          applyFilters={({ sortOption, categoryOption }) => {
+            setFilterOpen(false)
+            if (categoryOption) filterCategory(categoryOption)
+            if (sortOption) orderList(sortOption)
+          }}
+        />
 
         <View style={{ flex: 1 }}>
           <FlatList
@@ -241,45 +212,20 @@ const styles = StyleSheet.create({
     color: colors.h2,
   },
 
-  categoryList: {
-    height: 40,
-    justifyContent: 'flex-start',
-    paddingBottom: 5,
-    marginLeft: 32,
-    paddingRight: 32,
-    marginVertical: 8,
-  },
-
-  optionContainer: {
+  filterContainer: {
+    paddingHorizontal: 5,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 
-  optionButton: {
-    backgroundColor: colors['light-secondary'],
-    borderRadius: 12,
-    height: 35,
-    minWidth: 35,
+  filterButton: {
+    marginTop: 10,
+    marginLeft: 5,
+    width: 30,
+    height: 30,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 10,
-    padding: 10
   },
-
-  optionSelected: {
-    backgroundColor: colors['dark-blue']
-  },
-
-  optionSelectedText: {
-    fontFamily: fonts.text,
-    color: colors['light-secondary']
-  },
-
-  optionButtonText: {
-    fontFamily: fonts.text,
-    color: colors['light-blue'],
-    fontSize: 13
-  },
-
 
 })

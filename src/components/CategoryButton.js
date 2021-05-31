@@ -32,11 +32,12 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors['light-secondary'],
     width: 95,
-    height: 35,
+    height: 40,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 12,
-    marginHorizontal: 5
+    marginHorizontal: 8,
+    marginTop: 12,
   },
 
   containerActive: {

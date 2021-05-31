@@ -1,11 +1,9 @@
 import React from 'react'
 import { StyleSheet, Text, Image, View } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
-import Icon from '@expo/vector-icons/FontAwesome5'
 import { formatCurrency } from '../utils'
 
 import colors from '../utils/constants/colors.json'
-import fonts from '../utils/constants/fonts.json'
 
 export default function ProductCard({ data, wish, ...rest }) {
   return (
