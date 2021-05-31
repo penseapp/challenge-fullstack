@@ -14,12 +14,11 @@ export class CreateFavorites1622427954201 implements MigrationInterface {
                 },
                 {
                   name: "user_id",
-                  type: "uuid",
-                  isNullable: true,
+                  type: "varchar",
                 },
                 {
                   name: "product_id",
-                  type: "uuid",
+                  type: "varchar",
                 },
                 {
                   name: "created_at",

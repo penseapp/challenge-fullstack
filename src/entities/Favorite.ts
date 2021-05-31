@@ -10,7 +10,7 @@ class Favorite {
   id: string;
 
   @JoinColumn({ name: "user_id"})
-  @ManyToOne(user => User, favorites => favorites.favorites)
+  @ManyToOne(() => User)
   user: User;
 
   @Column()

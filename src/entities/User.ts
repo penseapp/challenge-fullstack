@@ -24,9 +24,6 @@ class User {
   @Column()
   avatar: string;
 
-  @OneToMany(type => Favorite, user => user.product, { cascade: true })
-  favorites: Product[];
-
   @CreateDateColumn()
   created_at: Date;
 

@@ -5,7 +5,7 @@ class UsersController {
 
   async create(req: any, res: Response): Promise<Response> {
     const { email, password, name, phone } = req.body
-    const { key: avatar } = req.file || { key: 'default-avatar.png' }
+    const { key: avatar } = req.file || { key: 'default_avatar.png' }
 
     const usersService = new UsersService()
 
