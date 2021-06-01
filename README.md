@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 <p align="center">  
   <a href="https://github.com/VanessaSwerts/challenge-flutter-fullstack/commits/backend">
@@ -200,5 +201,3 @@ Veja o arquivo  [package.json](https://github.com/VanessaSwerts/challenge-flutte
 Este projeto esta sobe a licença [MIT](./LICENSE).
 
 <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen">  
-
-
