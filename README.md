@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 <p align="center">  
   <a href="https://github.com/VanessaSwerts/challenge-flutter-fullstack/commits/backend">
     <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/VanessaSwerts/challenge-flutter-fullstack/backend">
