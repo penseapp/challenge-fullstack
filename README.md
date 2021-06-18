@@ -1,4 +1,4 @@
-# Desafio FullStack Penseapp (WORK IN PROGRESS)
+# Desafio FullStack Penseapp
 
 Criamos softwares sob medida para nossos clientes, assim queremos avaliar a sua capacidade técnica agora.
 
@@ -6,6 +6,8 @@ Essa é uma vaga para fullStack, gostariamos de avaliar um pouquinho das duas pa
 
 Como esta aplicação será um sucesso mundial, ela deve estar preparada para ser acessível, responsiva, tolerante a falhas e resiliente. 
 É altamente recomendável usar o Flutter para criar o aplicativo.
+
+Ahh, crie um novo repo para fazer isso, beleza? O código tem que estar no github!
 
 ## Desafio backend
 
@@ -71,3 +73,9 @@ Precisamos avaliar o seu projeto! Também valorizamos muito um README.md bem fei
 - Apreço com UI
 - Não reinventar a roda, ser capaz de usar libs prontas para gerar valor e produtividade
 - Elabore brevemente os detalhes da arquitetura de sua solução, a escolha de padrões e estruturas.
+
+#### Instrução de Entrega
+ - Fazer um fork do repo
+ - Abrir uma PR com a branch backend.
+ - Abrir uma PR com a branch frontend.
+ - Os arquivos serão avaliados e executados.

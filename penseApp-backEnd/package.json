@@ -1,0 +1,30 @@
+{
+  "name": "pense-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc && node ./build/index.js",
+    "dev-start": "ts-node-dev ./src/index.ts",
+    "migrations": "tsc && node ./build/migrations/index.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@types/jsonwebtoken": "^8.5.1",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.95.6",
+    "meow": "^3.7.0",
+    "mysql": "^2.18.1",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/cors": "^2.8.10",
+    "@types/express": "^4.17.12",
+    "@types/uuid": "^8.3.0",
+    "ts-node-dev": "^1.1.6"
+  }
+}
