@@ -12,7 +12,7 @@ export default async function searchProduct(
         const search = req.params.search
         
 
-        const [products] = await connection.raw(`SELECT * FROM ${productsTableName} WHERE name LIKE "%${search}%" OR description LIKE "%${search}%" 
+        const [products] = await connection.raw(`SELECT * FROM ${productsTableName} WHERE name LIKE "%${search}%" OR description LIKE "%${search}%" OR category LIKE "%${search}%" ORDER BY price ASC 
        `)
          
     
