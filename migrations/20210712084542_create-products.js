@@ -7,7 +7,7 @@ export const up = function (knex) {
     table.float("promotional-price");
     table.string("flag-status");
     table.string("category");
-    table.integer("shop_id").references("shops.id");
+    table.integer("shop_id").references("shops.id").notNullable();
   });
 };
 
