@@ -1,0 +1,113 @@
+.loginPage {
+  background-image: url("../../images//login.59fc83e2.jpeg");
+  background-size: cover;
+  background-position: center center;
+}
+
+.loginPage::before {
+  background-color: rgba(0, 0, 0, 0.65);
+}
+
+@media (min-width: 768px) {
+  .loginContainer {
+    width: 750px;
+  }
+}
+
+@media (min-width: 992px) {
+  .loginContainer {
+    width: 970px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .loginContainer {
+    width: 1170px;
+  }
+}
+
+.loginContainer {
+  z-index: 4;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.loginGrid {
+  width: calc(100% + 30px);
+  margin: 0 -15px;
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  justify-content: center;
+}
+
+@media (min-width: 600px) {
+  .loginItem {
+    flex-grow: 0;
+    max-width: 50%;
+    flex-basis: 50%;
+
+  }
+}
+
+@media (min-width: 960px) {
+  .loginItem {
+    flex-grow: 0;
+    max-width: 33.333333%;
+    flex-basis: 33.333333%;
+
+  }
+}
+
+.loginItem {
+  padding: 0 15px !important;
+}
+
+.loginFlex {
+  color: rgba(0, 0, 0, 0.87);
+  width: 100%;
+  border: 0;
+  display: flex;
+  position: relative;
+  font-size: .875rem;
+  min-width: 0;
+  word-wrap: break-word;
+  background: #FFF;
+  box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);
+  margin-top: 30px;
+  border-radius: 6px;
+  margin-bottom: 30px;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.loginFlex .login-header {
+  width: 85%;
+  padding: 15px;
+  margin-top: -20px;
+  border-radius: 3px;
+  background: linear-gradient(60deg, #ec407a, #d81b60);
+  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(233 30 99 / 40%);  
+  text-align: center;
+}
+
+.loginFlex .login-header h4 {
+  color: #FFF;
+  margin-top: 0;
+  min-height: auto;
+  font-size: 1.3em;
+  font-weight: 300;
+  margin-bottom: 3px;
+  text-decoration: none;
+}
+
+.loginFlex .login-form {
+  flex: 1 1 auto;
+  padding: 0.9375rem 20px;
+  padding-top: 0;
+  position: relative;
+  -webkit-box-flex: 1;
+}
