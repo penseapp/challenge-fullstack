@@ -4,12 +4,10 @@ import { useHistory } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import Input from "../../components/Input/Input";
 
-//import { AuthContext } from '../../context/AuthContext'
 import { login } from "../../services/auth";
 
 import api from "../../api/request";
 
-// import { BiFace } from "react-icons/bi";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 
