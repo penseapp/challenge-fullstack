@@ -6,13 +6,11 @@ import api from "../../../api/request";
 import { getInfos } from "../../../services/auth"
 
 export default function Home() {
-  const [allProducts, setAllProducts] = useState([])
   const [products, setProducts] = useState([])
 
   const fetchProducts = async () => {
     const response = await api.get('/products/')
 
-    setAllProducts(response.data)
     setProducts(response.data)
   }
   
