@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv-safe";
 
 import { createUser, readUser } from "../models/UserModel.js";
+import { create as createWishlist, readByUserId } from "../models/WishlistModel.js";
 
 dotenv.config();
 
@@ -9,17 +10,20 @@ export async function Register(req, res) {
   try {
     const user = await createUser(req.body);
 
+    const wishlist = await createWishlist(user[0].id)
+
     const token = jwt.sign(
       {
         user: {
-          email: user.email,
+          email: user[0].email,
         },
       },
       process.env.SECRET
     );
 
-    res.status(201).json({ token });
+    res.status(201).json({ token, user: { id: user[0].id, name: user[0].name, email: user[0].email, wishlist_id: wishlist[0].id } });
   } catch (error) {
+    console.log(error)
     res.status(500).send(error);
   }
 }
@@ -38,14 +42,28 @@ export async function Login(req, res) {
     const token = jwt.sign(
       {
         user: {
-          email: user.email,
+          email: user[0].email,
         },
       },
       process.env.SECRET
     );
 
-    res.status(200).json({ token });
+    const wishlist = await readByUserId(user[0].id)
+
+    res.status(200).json({ token, user: { id: user[0].id, name: user[0].name, email: user[0].email, wishlist_id: wishlist.id } });
+  } catch (error) {
+    console.log(error)
+    res.status(500).send(error);
+  }
+}
+
+export async function getInfos(req, res) {
+  try {
+    const user = await createUser(req.body);
+
+    res.status(200).json(user);
   } catch (error) {
     res.status(500).send(error);
+
   }
 }

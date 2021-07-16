@@ -8,6 +8,10 @@ export async function list() {
   return await knex.from("products").select();
 }
 
+export async function getById(id) {
+  return await knex.from("products").select().where('id', id);
+}
+
 export async function update(id, product) {
   return await knex("products").where('id', id).update(product).returning("*");
 }
