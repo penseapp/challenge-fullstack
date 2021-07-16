@@ -7,6 +7,7 @@ import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 
 import Home from "../pages/Users/Home/Home"
+import Wishlist from "../pages/Users/Wishlist/Wishlist"
 
 function PrivateRoute({user, admin, Component, ...args}) {
 
@@ -27,9 +28,9 @@ const Routes = () => {
   return (
     <Switch>
       <PrivateRoute user exact path="/" Component={Home} />
+      <PrivateRoute user exact path="/wishlist" Component={Wishlist} />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
-      {/*<Redirect from="/" to="/login" />*/}
     </Switch>
   );
 };

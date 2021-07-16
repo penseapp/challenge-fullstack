@@ -32,7 +32,7 @@ function Register() {
 
     const { data } = await api.post('/register', user);
 
-    login(data.token);
+    await login(data.token, data.user);
 
     history.push('/');
   }

@@ -6,31 +6,33 @@ import api from "../../../api/request";
 import { getInfos } from "../../../services/auth"
 
 export default function Home() {
-  const [allProducts, setAllProducts] = useState([])
   const [products, setProducts] = useState([])
 
-  const fetchProducts = async () => {
-    const response = await api.get('/products/')
-
-    setAllProducts(response.data)
-    setProducts(response.data)
-  }
-  
-  const handleAddProductInWishlist = async (product_id) => {
+  const fetchWishlist = async () => {
     const user = JSON.parse(getInfos())
 
-    await api.post("/wishlist/addproduct", {wishlist_id: user.wishlist_id, product_id: product_id})
+    const response = await api.get(`/wishlist/${user.wishlist_id}`)
+
+    setProducts(response.data.products)
+  }
+  
+  const handleRemoveProductInWishlist = async (product_id) => {
+    const user = JSON.parse(getInfos())
+
+    await api.delete(`/wishlist/removeProduct/${user.wishlist_id}/${product_id}`)
+
+    fetchWishlist()
   }
 
   useEffect(() => {
-    fetchProducts()
+    fetchWishlist()
   }, [])
 
   return (
     <div className="p-4">
       <header className="flex">
-        <h1>Produtos</h1>
-        <Link className="ml-8 p-4 border rounded-lg" to="/wishlist">Lista de Desejos</Link>
+        <h1>Lista de Desejos</h1>
+        <Link className="ml-8 p-4 border rounded-lg" to="/">Todos os Produtos</Link>
       </header>
       <div className="mt-4">
         {products?.map((product) => {
@@ -45,7 +47,7 @@ export default function Home() {
                     <h2>Descrição: {product.description}</h2>
                     <h2>Preço: {product.price}</h2>
                   </div>
-                  <button className="p-4 border rounded-lg" onClick={() => handleAddProductInWishlist(product.id)}>Adicionar na Lista de Desejos</button>
+                  <button className="p-4 border rounded-lg" onClick={() => handleRemoveProductInWishlist(product.id)}>Remover da Lista de Deseja</button>
                 </div>
               </div>
             </div>

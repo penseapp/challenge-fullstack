@@ -31,7 +31,7 @@ function Login() {
 
     const { data } = await api.post("/login", user);
 
-    login(data.token);
+    await login(data.token, data.user);
 
     history.push("/");
   };
