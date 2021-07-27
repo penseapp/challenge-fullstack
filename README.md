@@ -5,7 +5,7 @@ Criamos softwares sob medida para nossos clientes, assim queremos avaliar a sua 
 Essa é uma vaga para fullStack, gostariamos de avaliar um pouquinho das duas partes, por isso, pensamos em um teste simples para avaliar o desempenho nas duas stacks.
 
 Como esta aplicação será um sucesso mundial, ela deve estar preparada para ser acessível, responsiva, tolerante a falhas e resiliente. 
-É altamente recomendável usar o Flutter para criar o aplicativo.
+É altamente recomendável usar o Flutter/React native ou React para criar a aplicação.
 
 Ahh, crie um novo repo para fazer isso, beleza? O código tem que estar no github!
 
