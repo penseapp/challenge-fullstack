@@ -5,7 +5,12 @@ Para a persistência dos produtos, utilizei o banco de dados PostgreSQL em conju
 
 Da forma que está, a API permite criar, alterar, excluir os produtos. Também é possível fazer uma busca geral, ordenada pelo nome ou pelo preço dos produtos, além de filtrar produtos por palavra chave ou os que estão com preço promocional.
 
+
 Cada produto possui uma categoria específica. Ao criar um novo produto, a aplicação verifica se a categoria já existe no banco de dados. Se não houver, a nova categoria é criada. Se houver, apenas atrela ao produto criado.
+
+Como esta aplicação será um sucesso mundial, ela deve estar preparada para ser acessível, responsiva, tolerante a falhas e resiliente. 
+É altamente recomendável usar o Flutter/React native ou React para criar a aplicação.
+
 
 Para fazer a autenticação da aplicação, a aplicação permite a criação de um novo usuário com nome, email e senha, e ao efetuar o login é gerado um token, que será utilizado para atrelar os produtos da wishlist.
 
