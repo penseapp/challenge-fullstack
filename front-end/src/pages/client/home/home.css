@@ -1,0 +1,204 @@
+@import url("https://fonts.googleapis.com/css2?family=Ephesis&display=swap");
+
+:root {
+  --font: "Open Sans Condensed";
+  --align: left;
+}
+
+span {
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1rem;
+}
+.container {
+  width: 100%;
+  height: 100vh;
+}
+
+.dashboard {
+  width: 20%;
+}
+
+.listContainer {
+  height: 100%;
+  width: 19%;
+  left: 0;
+  display: block;
+
+  position: fixed;
+  overflow-x: hidden;
+  background-color: #4b0066;
+
+  padding: 0.5rem 1rem;
+  margin-top: -2rem;
+  margin-bottom: -2rem;
+
+  align-items: center;
+  text-align: var(--align);
+}
+
+.listTitle {
+  font-family: var(--font);
+  font-size: 2rem;
+  color: #fff;
+
+  padding-top: 2rem;
+  text-align: center;
+}
+
+.sidebarMenu {
+  margin-top: 1rem;
+}
+
+.menu {
+  text-align: var(--align);
+  padding: 1% 1% 1% 5%;
+}
+
+.menuItem {
+  margin-top: 1rem;
+  list-style-type: none;
+  margin-bottom: 1rem;
+}
+
+.active {
+  font-family: "Open Sans";
+  color: #fff;
+  font-size: 1.3rem;
+  text-decoration: none;
+}
+
+.pageSeparator {
+  width: 100%;
+  border: 0.5px solid #c878e4;
+  margin-top: 1rem;
+}
+
+.DashContainer {
+  background-image: url(../../../public/background.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+.gridCards {
+  margin-top: 1.5rem;
+  width: 80%;
+  display: grid;
+  grid-auto-columns: 55%;
+}
+
+.cards {
+  display: table;
+  margin: 0px 1% 0px 20%;
+  align-items: center;
+  justify-content: center;
+}
+
+.listContent {
+  float: left;
+  height: 15%;
+  width: 100%;
+  padding: 4% 3%;
+}
+
+.listCard {
+  background-color: #f1f1f1;
+  box-shadow: 7px 7px 13px 0px rgb(50 50 50 / 22%);
+  border-radius: 0.25rem;
+
+  padding: 10%;
+  text-align: center;
+  align-items: center;
+}
+
+.titleCard {
+  color: #f2ccff;
+  -webkit-text-stroke: 1px #d966ff;
+  font-size: 3rem;
+  font-family: "Ephesis";
+}
+
+.cardBox {
+  text-align: var(--align);
+  padding: 2rem;
+  justify-content: center;
+}
+
+.cardPrice {
+  color: #484747;
+  font-size: 1rem;
+  font-family: var(--font);
+}
+
+.cardButton {
+  padding: 5% 5%;
+  background-color: #d966ff;
+  border: 0;
+  border-radius: 0.25rem;
+
+  color: #f1f1f1;
+  font-size: 1.2rem;
+  font-family: "Open Sans ";
+}
+
+.cardButton:hover {
+  color: #f1f1f1;
+  background-color: #b143d6;
+}
+
+.productContainer {
+  padding: 1% 1%;
+}
+
+.product {
+  margin: 0;
+  display: block;
+  padding: 1% 1%;
+
+  text-align: var(--align);
+  justify-content: left;
+}
+
+.productTitle {
+  padding: 5% 1%;
+  font-size: 1.5rem;
+  color: #fff;
+  font-family: var(--font);
+}
+
+.productSubtitle {
+  padding: 5% 1%;
+  font-size: 1.2rem;
+
+  color: #fff;
+  font-family: var(--font);
+}
+
+.productInput {
+  padding: 4% 1%;
+  border-radius: 0.25rem;
+  border: 0;
+}
+.productInput:focus {
+  background-color: #fff;
+  border-color: #fff;
+  box-shadow: inset 0 1px 1px rgba(39, 44, 51, 0.075), 0 0 0 1px #cb86e2;
+  color: #272c33;
+  outline: 0;
+}
+.productButton {
+  width: 28%;
+  padding: 2% 0%;
+  margin-top: 1rem;
+
+  background-color: #fff;
+  border: 1px solid #fff;
+  border-radius: 0.25rem;
+
+  color: #4b0066;
+  font-family: var(--font);
+  font-size: 1.2rem;
+  font-weight: bold;
+}
