@@ -1,13 +1,16 @@
 part of 'login_bloc.dart';
 
-@immutable
 abstract class LoginState {}
 
 class LoginInitial extends LoginState {}
 
 class LoginInProgress extends LoginState {}
 
-class LoginSuccess extends LoginState {}
+class LoginSuccess extends LoginState {
+  LoginSuccess(this.session);
+  
+  final Session session;
+}
 
 class LoginInvalid extends LoginState {}
 

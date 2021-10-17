@@ -1,10 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_riverpod/bloc_riverpod.dart';
 import 'package:meta/meta.dart';
+import 'package:multiple_result/multiple_result.dart';
 import 'package:penseapp/features/auth/error/failures.dart';
 import 'package:penseapp/features/auth/models/user_signin_model.dart';
 import 'package:penseapp/features/auth/packages/login/usecases/login_with_email_and_password.dart';
 import 'package:penseapp/features/auth/packages/login/usecases/save_token.dart';
+import 'package:penseapp/features/session/models/session.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
@@ -55,7 +57,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       },
       (token) {
         saveToken(token);
-        return LoginSuccess();
+        final session = Session.fromToken(token);
+        return LoginSuccess(session);
       },
     );
   }

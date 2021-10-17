@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:penseapp/features/auth/packages/login/bloc/login_bloc.dart';
 import 'package:penseapp/features/auth/packages/signUp/sign_up_page.dart';
+import 'package:penseapp/features/home/packages/home/home_page.dart';
 import 'package:penseapp/shared/consts/app_strings.dart';
 import 'package:penseapp/shared/utils/validations.dart';
 import 'package:penseapp/shared/widgets/background/auth_background_widget.dart';
@@ -121,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
   void showSnackbarByLoginState(BuildContext context, LoginState state, LoginBloc loginBloc) {
     SnackBar? snackBar;
     if (state is LoginSuccess) {
-      //TODO: Go to HomePage
+      Navigator.pushReplacementNamed(context, HomePage.routeName);
     } else if (state is LoginFail) {
       snackBar = SnackBar(
         content: Text(AppStrings.loginFail),

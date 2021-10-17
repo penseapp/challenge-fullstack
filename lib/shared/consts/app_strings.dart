@@ -14,4 +14,5 @@ class AppStrings {
   static const String connectionFail = 'Falha de conexão, verifique se há conexão de internet.';
   static const String name = 'Nome';
   static const String nameRequired = 'Insira um nome';
+  static const String productsList = 'Lista de produtos';
 }

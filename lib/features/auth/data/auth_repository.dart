@@ -30,7 +30,7 @@ class AuthRepository {
       );
 
       if (response.statusCode == 200) {
-        return Success(response.data['accessToken'] as String);
+        return Success(response.data['token'] as String);
       }
 
       return Error(UserNotFoundFailure());

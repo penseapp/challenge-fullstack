@@ -12,7 +12,6 @@ class AuthBackgroundWidget extends StatelessWidget {
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        
         image: DecorationImage(
           colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.15), BlendMode.dstATop),
           image: ExactAssetImage(
