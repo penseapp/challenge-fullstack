@@ -11,9 +11,14 @@ import 'package:penseapp/shared/widgets/buttons/link_button.dart';
 import 'package:penseapp/shared/widgets/text_field/custom_text_field.dart';
 import 'package:penseapp/shared/utils/utils.dart';
 
-class LoginPage extends HookWidget {
+class LoginPage extends StatefulHookWidget {
   static const String routeName = '/login';
 
+  @override
+  State<StatefulWidget> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final formKey = GlobalKey<FormState>();
   final emailTextEditingController = TextEditingController();
   final passwordTextEditingController = TextEditingController();
@@ -61,7 +66,7 @@ class LoginPage extends HookWidget {
           loginButton(context, loginBloc),
           SizedBox(height: context.hp(4)),
           LinkButton(
-            function:  () => Navigator.pushNamed(context, SignUpPage.routeName),
+            function:  () => Navigator.pushReplacementNamed(context, SignUpPage.routeName),
             label: AppStrings.register
           ),
           SizedBox(height: context.hp(4)),
@@ -133,5 +138,13 @@ class LoginPage extends HookWidget {
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
       loginBloc.add(ResetLoginEvent());
     }
+  }
+
+  @override
+  dispose() {
+    emailTextEditingController.dispose();
+    passwordTextEditingController.dispose();
+    
+    super.dispose();
   }
 }

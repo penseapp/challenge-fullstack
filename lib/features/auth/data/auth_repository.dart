@@ -43,7 +43,7 @@ class AuthRepository {
     deviceStorageDriver.delete(userTokenKey);
   }
 
-  Future<Result<Failure, String>> signUp(
+  Future<Result<Failure, bool>> signUp(
       UserSignUpModel userSignUpModel) async {
     try {
       final response = await httpDriver.post(
@@ -52,10 +52,10 @@ class AuthRepository {
       );
 
       if (response.statusCode == 200) {
-        return Success(response.data['accessToken'] as String);
+        return Success(true);
       }
 
-      return Error(UserNotFoundFailure());
+      return Error(CantRegisterUserFailure());
     } catch (e) {
       return Error(ServerFailure());
     }

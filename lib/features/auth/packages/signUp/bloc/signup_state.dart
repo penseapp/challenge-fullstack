@@ -1,6 +1,13 @@
 part of 'signup_bloc.dart';
 
-@immutable
-abstract class SignupState {}
+abstract class SignUpState {}
 
-class SignupInitial extends SignupState {}
+class SignUpInitial extends SignUpState {}
+
+class SignUpInProgress extends SignUpState {}
+
+class SignUpSuccess extends SignUpState {}
+
+class SignUpFail extends SignUpState {}
+
+class SignUpConnectionFail extends SignUpState {}

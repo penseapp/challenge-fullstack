@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:penseapp/features/auth/packages/login/bloc/login_bloc.dart';
 import 'package:penseapp/features/auth/packages/login/login_page.dart';
+import 'package:penseapp/features/auth/packages/signUp/bloc/signup_bloc.dart';
 import 'package:penseapp/shared/consts/app_strings.dart';
 import 'package:penseapp/shared/utils/validations.dart';
 import 'package:penseapp/shared/widgets/background/auth_background_widget.dart';
@@ -12,9 +12,14 @@ import 'package:penseapp/shared/widgets/buttons/link_button.dart';
 import 'package:penseapp/shared/widgets/text_field/custom_text_field.dart';
 import 'package:penseapp/shared/utils/utils.dart';
 
-class SignUpPage extends HookWidget {
+class SignUpPage extends StatefulHookWidget {
   static const String routeName = '/signUp';
 
+  @override
+  State<StatefulWidget> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
   final formKey = GlobalKey<FormState>();
   final nameTextEditingController = TextEditingController();
   final emailTextEditingController = TextEditingController();
@@ -22,11 +27,11 @@ class SignUpPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final loginBloc = useProvider(loginBlocProvider);
-    final state = loginBloc.state;
+    final signUpBloc = useProvider(signUpBlocProvider);
+    final state = signUpBloc.state;
 
     WidgetsBinding.instance!.addPostFrameCallback(
-        (_) => showSnackbarByLoginState(context, state, loginBloc));
+        (_) => showSnackbarBySignUpState(context, state, signUpBloc));
 
     return Scaffold(
         body: AuthBackgroundWidget(
@@ -36,11 +41,11 @@ class SignUpPage extends HookWidget {
             SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 50),
-                child: signUpBody(context, loginBloc),
+                child: signUpBody(context, signUpBloc),
               ),
             ),
             Visibility(
-              visible: loginBloc.state is LoginInProgress,
+              visible: state is SignUpInProgress,
               child: Container(
                 color: Colors.black26,
                 height: double.infinity,
@@ -54,12 +59,12 @@ class SignUpPage extends HookWidget {
     ));
   }
 
-  Widget signUpBody(BuildContext context, LoginBloc loginBloc) => Column(
+  Widget signUpBody(BuildContext context, SignUpBloc signUpBloc) => Column(
         children: [
           SizedBox(height: context.hp(25)),
           signUpForm(context),
           SizedBox(height: context.hp(6)),
-          signUpButton(context, loginBloc),
+          signUpButton(context, signUpBloc),
           SizedBox(height: context.hp(4)),
           LinkButton(
               function: () => Navigator.pushNamed(context, LoginPage.routeName),
@@ -108,30 +113,31 @@ class SignUpPage extends HookWidget {
     );
   }
 
-  Widget signUpButton(BuildContext context, LoginBloc loginBloc) {
+  Widget signUpButton(BuildContext context, SignUpBloc signUpBloc) {
     return AuthButton(
       key: ValueKey('signUpButton'),
       onPressed: () {
         if (formKey.currentState!.validate()) {
-          // loginBloc.add(UserSignInEvent(emailTextEditingController.text,
-          //     passwordTextEditingController.text));
+          signUpBloc.add(UserSignUpEvent(nameTextEditingController.text, emailTextEditingController.text,
+              passwordTextEditingController.text));
         }
       },
       label: AppStrings.signUp,
     );
   }
 
-  void showSnackbarByLoginState(
-      BuildContext context, LoginState state, LoginBloc loginBloc) {
+  void showSnackbarBySignUpState(
+      BuildContext context, SignUpState state, SignUpBloc signUpBloc) {
     SnackBar? snackBar;
-    if (state is LoginSuccess) {
-      //TODO: Go to HomePage
-    } else if (state is LoginFail) {
+    
+    if (state is SignUpSuccess) {
+      Navigator.pushReplacementNamed(context, LoginPage.routeName);
+    } else if (state is SignUpFail) {
       snackBar = SnackBar(
-        content: Text(AppStrings.loginFail),
-        key: ValueKey('loginFail'),
+        content: Text(AppStrings.signUpFail),
+        key: ValueKey('signUpFail'),
       );
-    } else if (state is ConnectionFail) {
+    } else if (state is SignUpConnectionFail) {
       snackBar = SnackBar(
         content: Text(AppStrings.connectionFail),
         key: ValueKey('connectionFail'),
@@ -140,7 +146,16 @@ class SignUpPage extends HookWidget {
 
     if (snackBar != null) {
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      loginBloc.add(ResetLoginEvent());
+      signUpBloc.add(ResetSignUpEvent());
     }
+  }
+
+  @override
+  dispose() {
+    nameTextEditingController.dispose();
+    emailTextEditingController.dispose();
+    passwordTextEditingController.dispose();
+    
+    super.dispose();
   }
 }

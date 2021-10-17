@@ -1,9 +1,10 @@
 
 class AppStrings {
   static const String login = 'Login';
-  static const String signUp = 'Cadastrar-se';
   static const String loginFail = 'Falha ao realizar login. Tente novamente!';
   static const String loginInvalid = 'Login inválido. Corrija as informações e tente novamente!';
+  static const String signUp = 'Cadastrar-se';
+  static const String signUpFail = 'Falha ao cadastrar usuário. Tente novamente!';
   static const String register = 'Ainda não tem uma conta? Cadastre-se';
   static const String backtoLogin = 'Voltar para o login';
   static const String email = 'Email';
