@@ -15,4 +15,8 @@ class AppStrings {
   static const String name = 'Nome';
   static const String nameRequired = 'Insira um nome';
   static const String productsList = 'Lista de produtos';
+  static const String productsLoadFailMessage = 'Falha ao listar produtos';
+  static const String wishListTitle = 'Sua lista de desejos';
+  static const String wishListSaveFailMessage = 'Falha ao salvar lista de desejos.';
+  static const String wishListSavedSuccess = 'Lista salva com sucesso!';
 }

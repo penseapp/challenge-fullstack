@@ -3,9 +3,13 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 
 class CustomAppBar extends HookWidget implements PreferredSizeWidget {
-  const CustomAppBar({required this.title, Key? key}) : super(key: key);
+  const CustomAppBar({
+    required this.title,
+    required this.icon,
+    Key? key}) : super(key: key);
 
   final String title;
+  final Widget? icon;
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight + 10);
@@ -21,29 +25,11 @@ class CustomAppBar extends HookWidget implements PreferredSizeWidget {
         ),
       ),
       centerTitle: true,
-      // leading: IconButton(
-      //   onPressed: () {},
-      //   icon: Icon(
-      //     Icons.menu,
-      //     size: 30,
-      //     color: Colors.black,
-      //   ),
-      //   tooltip: 'menu',
-      // ),
       backgroundColor: Colors.purple,
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 5),
-          child: IconButton(
-            //TODO: Redirect for wishlist page
-            onPressed: () {},
-            icon: Icon(
-              Icons.shopping_bag,
-              size: 30,
-              color: Colors.black,
-            ),
-            tooltip: 'wishlist',
-          ),
+          child: icon,
         ),
       ],
     );

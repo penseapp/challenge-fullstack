@@ -23,8 +23,6 @@ class _AppWidgetState extends State<AppWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final appCubit = useProvider(appCubitProvider);
-
     return MaterialApp(
       title: 'PenseApp',
       debugShowCheckedModeBanner: false,
