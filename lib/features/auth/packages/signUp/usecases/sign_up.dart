@@ -6,22 +6,16 @@ import 'package:penseapp/features/auth/models/user_signup_model.dart';
 import 'package:penseapp/shared/error/failures.dart';
 import 'package:penseapp/shared/services/connection/connection_check_service.dart';
 
-final signUpProvider = Provider(
-  (ref) => SignUp(
+final signUpProvider = Provider((ref) => SignUp(
     authRepository: ref.read(authRepositoryProvider),
-    connectionCheckService: ref.read(connectionCheckServiceProvider)
-  )
-);
+    connectionCheckService: ref.read(connectionCheckServiceProvider)));
 
 class SignUp {
-  SignUp({
-    required this.authRepository,
-    required this.connectionCheckService
-  });
-  
+  SignUp({required this.authRepository, required this.connectionCheckService});
+
   final AuthRepository authRepository;
   final ConnectionCheckService connectionCheckService;
-  
+
   Future<Result<Failure, bool>> call(UserSignUpModel userSignUpModel) async {
     if (await connectionCheckService.hasConnection()) {
       final name = userSignUpModel.name;

@@ -118,7 +118,9 @@ class _SignUpPageState extends State<SignUpPage> {
       key: ValueKey('signUpButton'),
       onPressed: () {
         if (formKey.currentState!.validate()) {
-          signUpBloc.add(UserSignUpEvent(nameTextEditingController.text, emailTextEditingController.text,
+          signUpBloc.add(UserSignUpEvent(
+              nameTextEditingController.text,
+              emailTextEditingController.text,
               passwordTextEditingController.text));
         }
       },
@@ -129,7 +131,7 @@ class _SignUpPageState extends State<SignUpPage> {
   void showSnackbarBySignUpState(
       BuildContext context, SignUpState state, SignUpBloc signUpBloc) {
     SnackBar? snackBar;
-    
+
     if (state is SignUpSuccess) {
       Navigator.pushReplacementNamed(context, LoginPage.routeName);
     } else if (state is SignUpFail) {
@@ -155,7 +157,7 @@ class _SignUpPageState extends State<SignUpPage> {
     nameTextEditingController.dispose();
     emailTextEditingController.dispose();
     passwordTextEditingController.dispose();
-    
+
     super.dispose();
   }
 }

@@ -22,8 +22,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   Stream<SignUpState> mapEventToState(SignUpEvent event) async* {
     if (event is UserSignUpEvent) {
       yield* mapUserSignedIn(event);
-    } 
-    else if (event is ResetSignUpEvent) {
+    } else if (event is ResetSignUpEvent) {
       yield SignUpInitial();
     }
   }
@@ -35,7 +34,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
     yield SignUpInProgress();
 
-    final userModel = UserSignUpModel(name: name, email: email, password: password);
+    final userModel =
+        UserSignUpModel(name: name, email: email, password: password);
     final result = await signUp(userModel);
 
     yield result.when(

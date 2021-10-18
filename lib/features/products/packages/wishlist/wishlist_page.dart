@@ -23,7 +23,9 @@ class _WishListPageState extends State<WishListPage> {
         (_) => showSnackbarByWishListState(context, state, wishListBloc));
 
     return Scaffold(
-      appBar: CustomAppBar(title: AppStrings.wishListTitle, icon: IconButton(
+      appBar: CustomAppBar(
+          title: AppStrings.wishListTitle,
+          icon: IconButton(
             onPressed: () => wishListBloc.add(SaveWishListToPdf()),
             icon: Icon(
               Icons.download,
@@ -36,20 +38,23 @@ class _WishListPageState extends State<WishListPage> {
         child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 50),
             child: Column(
-                  children: wishListBloc.products.isNotEmpty ? wishListBloc.products.
-                      map((e) => ListTile(
-                            contentPadding: EdgeInsets.only(top: 10),
-                            title: Text(
-                              "${e.name} - R\$ ${e.promoPrice}",
-                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                            ),
-                            subtitle: Text(
-                              e.description,
-                              style: TextStyle(fontSize: 18),
-                            ),
-                            leading: Image.network(e.imageUrl),
-                          ))
-                      .toList() : [])),
+                children: wishListBloc.products.isNotEmpty
+                    ? wishListBloc.products
+                        .map((e) => ListTile(
+                              contentPadding: EdgeInsets.only(top: 10),
+                              title: Text(
+                                "${e.name} - R\$ ${e.promoPrice}",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w500),
+                              ),
+                              subtitle: Text(
+                                e.description,
+                                style: TextStyle(fontSize: 18),
+                              ),
+                              leading: Image.network(e.imageUrl),
+                            ))
+                        .toList()
+                    : [])),
       ),
     );
   }
@@ -57,7 +62,7 @@ class _WishListPageState extends State<WishListPage> {
   void showSnackbarByWishListState(
       BuildContext context, WishListState state, WishListBloc productsBloc) {
     SnackBar? snackBar;
-    if(state is WishListSaved) {
+    if (state is WishListSaved) {
       snackBar = SnackBar(
         content: Text(AppStrings.wishListSavedSuccess),
         key: ValueKey('wishListSaved'),

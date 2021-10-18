@@ -34,7 +34,6 @@ class CustomTextField extends StatelessWidget {
       inputFormatters: inputFormatters,
       keyboardType: keyboardType,
       obscureText: obscureText,
-
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.only(bottom: 12),
         floatingLabelBehavior: FloatingLabelBehavior.always,

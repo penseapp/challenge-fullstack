@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LinkButton extends StatelessWidget {
-  const LinkButton(
-      {Key? key, required this.function, required this.label})
+  const LinkButton({Key? key, required this.function, required this.label})
       : super(key: key);
 
   final String label;
@@ -18,12 +17,10 @@ class LinkButton extends StatelessWidget {
         softWrap: true,
         textAlign: TextAlign.center,
         style: TextStyle(
-          fontSize: 22,
-
-          color: Colors.blueAccent,
-          fontWeight: FontWeight.w400,
-          decoration: TextDecoration.underline
-        ),
+            fontSize: 22,
+            color: Colors.blueAccent,
+            fontWeight: FontWeight.w400,
+            decoration: TextDecoration.underline),
       ),
     );
   }

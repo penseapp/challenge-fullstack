@@ -21,7 +21,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     required this.loginWithEmailAndPassword,
     required this.saveToken,
   }) : super(LoginInitial());
-  
+
   final LoginWithEmailAndPassword loginWithEmailAndPassword;
   final SaveToken saveToken;
 
@@ -29,8 +29,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
     if (event is UserSignInEvent) {
       yield* mapUserSignedIn(event);
-    } 
-    else if (event is ResetLoginEvent) {
+    } else if (event is ResetLoginEvent) {
       yield LoginInitial();
     }
   }

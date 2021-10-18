@@ -18,14 +18,12 @@ class AppCubit extends Cubit<AppState> {
   final GetToken getToken;
 
   Future<void> initApp() async {
-
     final userToken = getToken().get() as String;
     final isUserLogged = userToken.isNotEmpty;
 
     Session? session;
 
     if (isUserLogged) session = Session.fromToken(userToken);
-
 
     emit(
       AppStateSuccess(session: session),

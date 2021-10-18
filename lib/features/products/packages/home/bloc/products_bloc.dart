@@ -18,7 +18,7 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
     add(LoadProducts());
   }
 
-  final List<ProductModel> products = [];
+  List<ProductModel> products = [];
 
   final ListProducts listProducts;
   @override
@@ -36,6 +36,7 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
           return ProductsLoadFail();
         },
         (list) {
+          products = list;
           return ProductsLoadSuccess(products: list);
         },
       );

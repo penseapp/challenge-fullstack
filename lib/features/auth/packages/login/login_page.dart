@@ -29,34 +29,33 @@ class _LoginPageState extends State<LoginPage> {
     final loginBloc = useProvider(loginBlocProvider);
     final state = loginBloc.state;
 
-    WidgetsBinding.instance!
-        .addPostFrameCallback((_) => showSnackbarByLoginState(context, state, loginBloc));
+    WidgetsBinding.instance!.addPostFrameCallback(
+        (_) => showSnackbarByLoginState(context, state, loginBloc));
 
     return Scaffold(
-      body: AuthBackgroundWidget(
-        child: SafeArea(
-          child: Stack(
-            children: [
-              SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 50),
-                  child: loginBody(context, loginBloc),
-                ),
+        body: AuthBackgroundWidget(
+      child: SafeArea(
+        child: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 50),
+                child: loginBody(context, loginBloc),
               ),
-              Visibility(
-                visible: loginBloc.state is LoginInProgress,
-                child: Container(
-                  color: Colors.black26,
-                  height: double.infinity,
-                  width: double.infinity,
-                  child: Center(child: CircularProgressIndicator()),
-                ),
+            ),
+            Visibility(
+              visible: loginBloc.state is LoginInProgress,
+              child: Container(
+                color: Colors.black26,
+                height: double.infinity,
+                width: double.infinity,
+                child: Center(child: CircularProgressIndicator()),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      )
-    );
+      ),
+    ));
   }
 
   Widget loginBody(BuildContext context, LoginBloc loginBloc) => Column(
@@ -67,9 +66,9 @@ class _LoginPageState extends State<LoginPage> {
           loginButton(context, loginBloc),
           SizedBox(height: context.hp(4)),
           LinkButton(
-            function:  () => Navigator.pushReplacementNamed(context, SignUpPage.routeName),
-            label: AppStrings.register
-          ),
+              function: () =>
+                  Navigator.pushReplacementNamed(context, SignUpPage.routeName),
+              label: AppStrings.register),
           SizedBox(height: context.hp(4)),
         ],
       );
@@ -85,7 +84,8 @@ class _LoginPageState extends State<LoginPage> {
             keyboardType: TextInputType.emailAddress,
             labelText: AppStrings.email,
             suffixIcon: Icon(Icons.email),
-            validator: (value) => Validations.validateEmail(value, AppStrings.emailRequired),
+            validator: (value) =>
+                Validations.validateEmail(value, AppStrings.emailRequired),
           ),
           SizedBox(height: context.hp(3)),
           CustomTextField(
@@ -96,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
             suffixIcon: Icon(Icons.password),
             validator: (value) => Validations.validatePassword(
               value,
-               AppStrings.passwordRequired,
+              AppStrings.passwordRequired,
             ),
           ),
         ],
@@ -109,17 +109,16 @@ class _LoginPageState extends State<LoginPage> {
       key: ValueKey('loginButton'),
       onPressed: () {
         if (formKey.currentState!.validate()) {
-            loginBloc.add(UserSignInEvent(
-              emailTextEditingController.text,
-              passwordTextEditingController.text
-            ));
-          }
-        },
+          loginBloc.add(UserSignInEvent(emailTextEditingController.text,
+              passwordTextEditingController.text));
+        }
+      },
       label: AppStrings.login,
     );
   }
 
-  void showSnackbarByLoginState(BuildContext context, LoginState state, LoginBloc loginBloc) {
+  void showSnackbarByLoginState(
+      BuildContext context, LoginState state, LoginBloc loginBloc) {
     SnackBar? snackBar;
     if (state is LoginSuccess) {
       Navigator.pushReplacementNamed(context, ProductsPage.routeName);
@@ -145,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
   dispose() {
     emailTextEditingController.dispose();
     passwordTextEditingController.dispose();
-    
+
     super.dispose();
   }
 }

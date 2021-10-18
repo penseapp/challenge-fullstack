@@ -21,13 +21,10 @@ class AuthButton extends StatelessWidget {
       height: height,
       child: ElevatedButton(
         style: ButtonStyle(
-           backgroundColor: MaterialStateProperty.all(Colors.green),
-           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                        RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(10)
-                                        )
-                                      )
-        ),
+            backgroundColor: MaterialStateProperty.all(Colors.green),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)))),
         onPressed: onPressed,
         child: Text(
           label,

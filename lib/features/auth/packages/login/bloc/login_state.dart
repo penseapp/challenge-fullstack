@@ -8,7 +8,7 @@ class LoginInProgress extends LoginState {}
 
 class LoginSuccess extends LoginState {
   LoginSuccess(this.session);
-  
+
   final Session session;
 }
 

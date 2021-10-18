@@ -8,11 +8,9 @@ import 'package:penseapp/features/products/packages/wishlist/usecases/save_wishl
 part 'wish_list_event.dart';
 part 'wish_list_state.dart';
 
-final wishListBlocProvider = BlocProvider.autoDispose(
-  (ref) => WishListBloc(
-    ref.read(saveWishListProvider),
-  )
-);
+final wishListBlocProvider = BlocProvider.autoDispose((ref) => WishListBloc(
+      ref.read(saveWishListProvider),
+    ));
 
 class WishListBloc extends Bloc<WishListEvent, WishListState> {
   WishListBloc(this.saveWishList) : super(WishListInitial());

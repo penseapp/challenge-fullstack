@@ -8,17 +8,15 @@ import 'package:penseapp/shared/consts/app_consts.dart';
 Future<void> main() async {
   await Hive.initFlutter();
   await Hive.openBox(deviceStorageKey);
-  
+
   runApp(const PenseApp());
 }
 
 class PenseApp extends StatelessWidget {
   const PenseApp({Key? key}) : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
-    return ProviderScope(
-      child: AppWidget()
-    );
+    return ProviderScope(child: AppWidget());
   }
 }

@@ -43,8 +43,7 @@ class AuthRepository {
     deviceStorageDriver.delete(userTokenKey);
   }
 
-  Future<Result<Failure, bool>> signUp(
-      UserSignUpModel userSignUpModel) async {
+  Future<Result<Failure, bool>> signUp(UserSignUpModel userSignUpModel) async {
     try {
       final response = await httpDriver.post(
         subPath: 'users',

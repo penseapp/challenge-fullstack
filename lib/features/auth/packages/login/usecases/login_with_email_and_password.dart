@@ -6,22 +6,18 @@ import 'package:penseapp/features/auth/models/user_signin_model.dart';
 import 'package:penseapp/shared/error/failures.dart';
 import 'package:penseapp/shared/services/connection/connection_check_service.dart';
 
-final loginWithEmailAndPasswordProvider = Provider(
-  (ref) => LoginWithEmailAndPassword(
-    authRepository: ref.read(authRepositoryProvider),
-    connectionCheckService: ref.read(connectionCheckServiceProvider)
-  )
-);
+final loginWithEmailAndPasswordProvider = Provider((ref) =>
+    LoginWithEmailAndPassword(
+        authRepository: ref.read(authRepositoryProvider),
+        connectionCheckService: ref.read(connectionCheckServiceProvider)));
 
 class LoginWithEmailAndPassword {
-  LoginWithEmailAndPassword({
-    required this.authRepository,
-    required this.connectionCheckService
-  });
-  
+  LoginWithEmailAndPassword(
+      {required this.authRepository, required this.connectionCheckService});
+
   final AuthRepository authRepository;
   final ConnectionCheckService connectionCheckService;
-  
+
   Future<Result<Failure, String>> call(UserSignInModel userSignInModel) async {
     if (await connectionCheckService.hasConnection()) {
       final email = userSignInModel.email;
@@ -31,9 +27,7 @@ class LoginWithEmailAndPassword {
         return Error(UserNotFoundFailure());
       }
 
-      return authRepository.signIn(
-        userSignInModel
-      );
+      return authRepository.signIn(userSignInModel);
     } else {
       return Error(LoginConnectionFailure());
     }

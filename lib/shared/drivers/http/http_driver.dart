@@ -28,7 +28,8 @@ class DioDriverImpl implements HttpDriver {
     _configHttpsCertificate();
   }
 
-  final String serverUrl = Platform.isAndroid ? 'http://10.0.2.2:3333/' : 'http://127.0.0.1:3333/';
+  final String serverUrl =
+      Platform.isAndroid ? 'http://10.0.2.2:3333/' : 'http://127.0.0.1:3333/';
 
   late final Dio _dio;
 

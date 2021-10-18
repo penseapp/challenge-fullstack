@@ -35,15 +35,14 @@ class ProductModel extends Equatable {
 
   @override
   List<Object?> get props => [
-    name,
-    description,
-    price,
-    promoPrice,
-    statusFlag,
-    imageUrl,
-    category,
-  ];
-
+        name,
+        description,
+        price,
+        promoPrice,
+        statusFlag,
+        imageUrl,
+        category,
+      ];
 
   Map<String, dynamic> toMap() {
     return {

@@ -17,9 +17,10 @@ class SplashPage extends HookWidget {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (state is SplashComplete) {
         if (state.session != null) {
-          Navigator.pushReplacementNamed(context, ProductsPage.routeName,
-              );
-              //arguments: state.session
+          Navigator.pushReplacementNamed(
+            context,
+            ProductsPage.routeName,
+          );
         } else {
           Navigator.pushReplacementNamed(context, LoginPage.routeName);
         }

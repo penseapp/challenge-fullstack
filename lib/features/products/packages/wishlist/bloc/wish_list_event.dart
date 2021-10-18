@@ -8,7 +8,7 @@ class AddProductToList extends WishListEvent {
   AddProductToList({
     required this.product,
   });
-  
+
   final ProductModel product;
 }
 

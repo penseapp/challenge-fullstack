@@ -62,7 +62,7 @@ class ProductsRepository {
       final file = File("${output.path}/wishlist.pdf");
       final result = await file.writeAsBytes(await pdf.save());
 
-      if(await result.exists()) {
+      if (await result.exists()) {
         return Success('');
       }
 
