@@ -18,6 +18,8 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
     add(LoadProducts());
   }
 
+  final List<ProductModel> products = [];
+
   final ListProducts listProducts;
   @override
   Stream<ProductsState> mapEventToState(ProductsEvent event) async* {

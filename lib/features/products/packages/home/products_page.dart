@@ -21,11 +21,6 @@ class _ProductsPageState extends State<ProductsPage> {
     final wishListBloc = useProvider(wishListBlocProvider);
 
     final state = productsBloc.state;
-    late final ProductsLoadSuccess? products;
-
-    if(state is ProductsLoadSuccess) {
-      products = state;
-    }
 
     WidgetsBinding.instance!.addPostFrameCallback(
         (_) => showSnackbarByProductsState(context, state, productsBloc));
@@ -40,31 +35,28 @@ class _ProductsPageState extends State<ProductsPage> {
             ),
             tooltip: 'wishlist',
           )),
-      body: Visibility(
-        visible: products?.products.isNotEmpty ?? products != null,
-        child: SingleChildScrollView(
-          child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 50),
-              child: Column(
-                  children: products?.products != null ? products!.products.
-                      map((e) => ListTile(
-                            contentPadding: EdgeInsets.only(top: 10),
-                            title: Text(
-                              "${e.name} - R\$ ${e.promoPrice}",
-                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                            ),
-                            subtitle: Text(
-                              e.description,
-                              style: TextStyle(fontSize: 18),
-                            ),
-                            leading: Image.network(e.imageUrl),
-                            trailing: IconButton(
-                                onPressed: () => wishListBloc
-                                    .add(AddProductToList(product: e)),
-                                icon: Icon(Icons.add, size: 30, color: Colors.black)),
-                          ))
-                      .toList() : [])),
-        ),
+      body: SingleChildScrollView(
+        child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 50),
+            child: Column(
+                children: productsBloc.products.isNotEmpty ? productsBloc.products.
+                    map((e) => ListTile(
+                          contentPadding: EdgeInsets.only(top: 10),
+                          title: Text(
+                            "${e.name} - R\$ ${e.promoPrice}",
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                          ),
+                          subtitle: Text(
+                            e.description,
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          leading: Image.network(e.imageUrl),
+                          trailing: IconButton(
+                              onPressed: () => wishListBloc
+                                  .add(AddProductToList(product: e)),
+                              icon: Icon(Icons.add, size: 30, color: Colors.black)),
+                        ))
+                    .toList() : [])),
       ),
     );
   }
