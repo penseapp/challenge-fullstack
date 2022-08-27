@@ -3,9 +3,8 @@ import {
   ReactNode,
   useCallback,
   useContext,
-  useState,
+  useState
 } from 'react'
-import { useHistory } from 'react-router-dom'
 import { api } from '../services/api'
 
 interface childrenProps {
@@ -54,17 +53,12 @@ const AuthProvider = ({ children }: childrenProps) => {
     return {} as AuthState
   })
 
-  const history = useHistory()
-
   const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
-    console.log('teste')
     const response = await api.post('/login', { email, password })
     const { accessToken, user } = response.data
     localStorage.setItem('@Doit:accessToken', accessToken)
     localStorage.setItem('@Doit:user', JSON.stringify(user))
-    console.log('teste2')
-
-    history.push('/dashboard')
+    setData({ user, accessToken })
   }, [])
 
   const signOut = useCallback(() => {
@@ -87,3 +81,4 @@ const AuthProvider = ({ children }: childrenProps) => {
 }
 
 export { AuthProvider, useAuth }
+

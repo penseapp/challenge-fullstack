@@ -15,7 +15,7 @@ export const Header = () => {
       paddingY='2'
     >
       <Flex align='center'>
-        <Image src={Logo} boxSize='60px' />
+        <Image src={Logo} mr={3} boxSize='60px' />
         <Heading>Dashboard</Heading>
       </Flex>
       <Center ml='auto' onClick={onToggle} as='button' fontSize='2rem'>

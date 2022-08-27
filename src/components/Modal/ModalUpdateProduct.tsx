@@ -11,29 +11,31 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { FaClipboard, FaDollarSign, FaTimes } from 'react-icons/fa'
+import { FaClipboard, FaTimes } from 'react-icons/fa'
 import * as yup from 'yup'
 import { useProducts } from '../../contexts/ProductsContext'
 import { theme } from '../../styles/theme'
 import { Input } from '../Form/Input'
 import { TextArea } from '../Form/TextArea'
 
+interface ProductData {
+  id: string
+  name: string
+  description?: string
+  price?: string
+  promo_price?: string
+  category?: string
+}
+
 interface ModalCreateProdProps {
   isOpen: boolean
   onClose: () => void
+  product: ProductData
 }
 
-interface ProductData {
-  id?: string
-  name: string
-  description: string
-  price: string
-  promo_price: string
-  category: string
-}
-
-const createProductSchema = yup.object().shape({
+const updateProductSchema = yup.object().shape({
   name: yup.string().required('Required Field'),
   description: yup.string(),
   price: yup.string(),
@@ -41,24 +43,28 @@ const createProductSchema = yup.object().shape({
   category: yup.string(),
 })
 
-export const ModalCreateProduct = ({
+export const ModalUpdateProduct = ({
   isOpen,
   onClose,
+  product,
 }: ModalCreateProdProps) => {
   const {
     formState: { errors },
     register,
     handleSubmit,
   } = useForm<ProductData>({
-    resolver: yupResolver(createProductSchema),
+    resolver: yupResolver(updateProductSchema),
   })
 
-  const { createProduct } = useProducts()
+  const { loadProducts, updateProduct } = useProducts()
 
-  const handleCreateProduct: SubmitHandler<ProductData> = (
+  const handleUpdateProduct: SubmitHandler<ProductData> = (
     data: ProductData
   ) => {
-    createProduct(data).then((res) => onClose())
+    updateProduct(product.id, data).then((res) => {
+      onClose()
+    })
+    loadProducts()
   }
 
   return (
@@ -66,7 +72,7 @@ export const ModalCreateProduct = ({
       <ModalOverlay />
       <ModalContent
         as='form'
-        onSubmit={handleSubmit(handleCreateProduct)}
+        onSubmit={handleSubmit(handleUpdateProduct)}
         padding='2'
         bg='white'
         color='gray.800'
@@ -76,7 +82,7 @@ export const ModalCreateProduct = ({
             <FaClipboard color={theme.colors.white} />
           </Center>
           <Text fontWeight='bold' ml='2'>
-            Add a product
+            Update Product
           </Text>
           <Center
             onClick={onClose}
@@ -97,34 +103,31 @@ export const ModalCreateProduct = ({
               label='Name'
               error={errors.name}
               {...register('name')}
-              placeholder='What is the product name?'
+              placeholder={product.name}
             />
             <TextArea
               label='Description'
               error={errors.description}
               {...register('description')}
-              placeholder='What is the product description?'
+              placeholder={product.description}
             />
-
             <Input
-              icon={FaDollarSign}
               label='Price'
               error={errors.price}
               {...register('price')}
-              placeholder='What is the product price?'
+              placeholder={product.price}
             />
             <Input
-              icon={FaDollarSign}
               label='Promotional Price'
               error={errors.promo_price}
               {...register('promo_price')}
-              placeholder='Have a promotional price?'
+              placeholder={product.promo_price}
             />
             <Input
               label='Category'
               error={errors.category}
               {...register('category')}
-              placeholder='What is the product category?'
+              placeholder={product.category}
             />
           </VStack>
         </ModalBody>

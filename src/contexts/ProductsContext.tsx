@@ -16,14 +16,17 @@ interface Product {
   id: string
   name: string
   description?: string
-  price?: number
-  promo_price?: number
+  price?: string
+  promo_price?: string
   category?: string
 }
 
 interface ProductsContextData {
   products: Product[]
+  loadProducts: () => Promise<void>
   createProduct: (data: Omit<Product, 'id'>) => Promise<void>
+  deleteProduct: (productId: string) => Promise<void>
+  updateProduct: (productId: string, product: Product) => Promise<void>
 }
 
 const ProductsContext = createContext<ProductsContextData>(
@@ -42,8 +45,15 @@ const useProducts = () => {
 const ProductsProvider = ({ children }: ProductsProviderProps) => {
   const [products, setProducts] = useState<Product[]>([])
 
-  const createProduct = useCallback(async (data: Omit<Product, 'id'>) => {
+  const loadProducts = useCallback(async () => {
     api
+      .get('/products')
+      .then((response) => setProducts(response.data))
+      .catch((err) => console.log(err))
+  }, [])
+
+  const createProduct = useCallback(async (data: Omit<Product, 'id'>) => {
+    await api
       .post('/products', data)
       .then((response: AxiosResponse<Product>) =>
         setProducts((oldProducts) => [...oldProducts, response.data])
@@ -51,8 +61,50 @@ const ProductsProvider = ({ children }: ProductsProviderProps) => {
       .catch((err) => console.log(err))
   }, [])
 
+  const deleteProduct = useCallback(
+    async (productId: string) => {
+      await api
+        .delete(`/products/${productId}`)
+        .then((_) => {
+          const filteredProducts = products.filter(
+            (prod) => prod.id !== productId
+          )
+          setProducts(filteredProducts)
+        })
+        .catch((err) => console.log(err))
+    },
+    [products]
+  )
+
+  const updateProduct = useCallback(
+    async (productId: string, data: Product) => {
+      await api
+        .patch(`/products/${productId}`, data)
+        .then((_) => {
+          const filteredProducts = products.filter(
+            (prod) => prod.id !== productId
+          )
+          const product = products.find((prod) => prod.id === productId)
+
+          if (product) {
+            setProducts([...filteredProducts, product])
+          }
+        })
+        .catch((err) => console.log(err))
+    },
+    [products]
+  )
+
   return (
-    <ProductsContext.Provider value={{ products, createProduct }}>
+    <ProductsContext.Provider
+      value={{
+        products,
+        loadProducts,
+        createProduct,
+        deleteProduct,
+        updateProduct,
+      }}
+    >
       {children}
     </ProductsContext.Provider>
   )

@@ -20,7 +20,11 @@ export const SearchBox = () => {
         borderColor='gray.50'
       >
         <Flex as='form'>
-          <Input name='title' placeholder='Pesquisar por produto' w='35vw' />
+          <Input
+            name='title'
+            placeholder='What are you looking for?'
+            w='35vw'
+          />
           <Center
             borderRadius='8px'
             as='button'
@@ -43,7 +47,7 @@ export const SearchBox = () => {
           onClick={onOpen}
           _hover={{ bg: 'purple.600' }}
         >
-          Adicionar um novo produto
+          Add new product
         </Button>
       </Flex>
     </>

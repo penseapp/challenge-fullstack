@@ -13,6 +13,7 @@ import {
 import { useAuth } from '../../contexts/AuthContext'
 import { theme } from '../../styles/theme'
 import { FiLogOut } from 'react-icons/fi'
+import { FaEdit, FaStore } from 'react-icons/fa'
 
 interface MenuProps {
   isOpen: boolean
@@ -29,11 +30,59 @@ export const Menu = ({ isOpen, onClose }: MenuProps) => {
         <DrawerHeader
           borderBottomWidth='1px'
           borderColor='gray.50'
-          color='gray.300'
+          color='gray.500'
         >
-          {user.name}
+          Welcome, {user.name}
         </DrawerHeader>
         <DrawerBody>
+          <Flex
+            mb={2}
+            align='center'
+            onClick={signOut}
+            _hover={{ cursor: 'pointer' }}
+          >
+            <Center
+              w='60px'
+              h='60px'
+              bg='purple.600'
+              fontSize='2xl'
+              borderRadius='md'
+            >
+              <FaStore color={theme.colors.white} />
+            </Center>
+            <Box ml='4'>
+              <Heading as='h2' fontSize='lg'>
+                Products
+              </Heading>
+              <Text color='gray.300' fontSize='small'>
+                Main display
+              </Text>
+            </Box>
+          </Flex>
+          <Flex
+            mb={2}
+            align='center'
+            onClick={signOut}
+            _hover={{ cursor: 'pointer' }}
+          >
+            <Center
+              w='60px'
+              h='60px'
+              bg='gray.600'
+              fontSize='2xl'
+              borderRadius='md'
+            >
+              <FaEdit color={theme.colors.white} />
+            </Center>
+            <Box ml='4'>
+              <Heading as='h2' fontSize='lg'>
+                Admin Panel
+              </Heading>
+              <Text color='gray.300' fontSize='small'>
+                Manage your products
+              </Text>
+            </Box>
+          </Flex>
           <Flex align='center' onClick={signOut} _hover={{ cursor: 'pointer' }}>
             <Center
               w='60px'
@@ -47,10 +96,10 @@ export const Menu = ({ isOpen, onClose }: MenuProps) => {
             </Center>
             <Box ml='4'>
               <Heading as='h2' fontSize='lg'>
-                Sair da minha conta
+                Logout
               </Heading>
               <Text color='gray.300' fontSize='small'>
-                Sair da minha conta agora
+                Logout of your account immediately
               </Text>
             </Box>
           </Flex>
