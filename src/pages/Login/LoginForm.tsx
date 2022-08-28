@@ -41,11 +41,11 @@ export const LoginForm = ({
       bg='white'
       color='gray.900'
     >
-      <Heading size='lg'> Bem vindo de volta!</Heading>
+      <Heading size='lg'> Login with your account</Heading>
       <VStack mt='6' spacing='5'>
         <Box w='100%'>
           <Input
-            placeholder='Digite seu login'
+            placeholder='Type your email'
             icon={FaEnvelope}
             label='Login'
             type='email'
@@ -54,12 +54,12 @@ export const LoginForm = ({
           />
           {!errors.email && (
             <Text ml='1' mt='1' color='gray.300'>
-              Exemplo: nome@email.com
+              Example: john@penseapp.com.br
             </Text>
           )}
         </Box>
         <Input
-          placeholder='Digite sua senha'
+          placeholder='Type your password'
           icon={FaLock}
           type='password'
           error={errors?.password}
@@ -77,9 +77,9 @@ export const LoginForm = ({
           _hover={{ background: 'purple.900' }}
           type='submit'
         >
-          Entrar
+          Login
         </Button>
-        <Text color='gray.400'>Ainda não possui uma conta?</Text>
+        <Text color='gray.400'>Don't have an account yet?</Text>
         <Button
           onClick={() => history.push('/signup')}
           bg='gray.100'
@@ -89,7 +89,7 @@ export const LoginForm = ({
           borderRadius='8px'
           _hover={{ background: 'gray.200' }}
         >
-          Cadastrar
+          Create your account
         </Button>
       </VStack>
     </Grid>

@@ -39,10 +39,10 @@ export const SignupForm = ({
     bg='white'
     color='gray.900'
   >
-    <Heading size='lg'>Crie sua conta</Heading>
+    <Heading size='lg'>Create your account</Heading>
     <VStack mt='6' spacing='5'>
       <Input
-        placeholder='Digite seu nome'
+        placeholder='Example: John'
         icon={FaUser}
         label='Name'
         error={errors?.name!}
@@ -50,7 +50,7 @@ export const SignupForm = ({
       />
       <Box w='100%'>
         <Input
-          placeholder='Digite seu login'
+          placeholder='Your email here'
           icon={FaEnvelope}
           label='Login'
           type='email'
@@ -59,19 +59,19 @@ export const SignupForm = ({
         />
         {!errors.email && (
           <Text ml='1' mt='1' color='gray.300'>
-            Exemplo: nome@email.com
+            Example: john@penseapp.com.br
           </Text>
         )}
       </Box>
       <Input
-        placeholder='Digite sua senha'
+        placeholder='Type your password'
         icon={FaLock}
         type='password'
         error={errors?.password}
         {...register('password')}
       />
       <Input
-        placeholder='Confirme sua senha'
+        placeholder='Confirm your password'
         icon={FaLock}
         type='password'
         error={errors?.confirm_password}
@@ -89,7 +89,7 @@ export const SignupForm = ({
       _hover={{ background: 'purple.900' }}
       type='submit'
     >
-      Finalizar cadastro
+      Create Account
     </Button>
   </Grid>
 )

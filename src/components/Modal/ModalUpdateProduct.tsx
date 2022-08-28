@@ -11,7 +11,6 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { FaClipboard, FaTimes } from 'react-icons/fa'
 import * as yup from 'yup'

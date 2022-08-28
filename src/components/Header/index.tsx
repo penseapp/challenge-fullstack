@@ -4,7 +4,11 @@ import Logo from '../../assets/logo.png'
 import { theme } from '../../styles/theme'
 import { Menu } from './Menu'
 
-export const Header = () => {
+interface HeaderProps {
+  title: string
+}
+
+export const Header = ({title}: HeaderProps) => {
   const { isOpen, onClose, onToggle } = useDisclosure()
 
   return (
@@ -16,7 +20,7 @@ export const Header = () => {
     >
       <Flex align='center'>
         <Image src={Logo} mr={3} boxSize='60px' />
-        <Heading>Dashboard</Heading>
+        <Heading>{title}</Heading>
       </Flex>
       <Center ml='auto' onClick={onToggle} as='button' fontSize='2rem'>
         <FaTh color={theme.colors.gray[300]} />

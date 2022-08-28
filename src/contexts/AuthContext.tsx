@@ -5,6 +5,7 @@ import {
   useContext,
   useState,
 } from 'react'
+import { toast } from 'react-toastify'
 import { api } from '../services/api'
 
 interface childrenProps {
@@ -58,11 +59,15 @@ const AuthProvider = ({ children }: childrenProps) => {
   })
 
   const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
-    const response = await api.post('/login', { email, password })
-    const { accessToken, user } = response.data
-    localStorage.setItem('@Penseapp:accessToken', accessToken)
-    localStorage.setItem('@Penseapp:user', JSON.stringify(user))
-    setData({ user, accessToken })
+    try {
+      const response = await api.post('/login', { email, password })
+      const { accessToken, user } = response.data
+      localStorage.setItem('@Penseapp:accessToken', accessToken)
+      localStorage.setItem('@Penseapp:user', JSON.stringify(user))
+      setData({ user, accessToken })
+    } catch (_) {
+      toast.error('Invalid email or password.')
+    }
   }, [])
 
   const signOut = useCallback(() => {

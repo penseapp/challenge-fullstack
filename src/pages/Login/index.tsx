@@ -7,11 +7,10 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { useAuth } from '../../contexts/AuthContext'
 import { LoginForm } from './LoginForm'
 import { LoginInfo } from './LoginInfo'
-import { useHistory } from 'react-router-dom'
 
 const signInSchema = yup.object().shape({
-  email: yup.string().required('Email obrigatório').email('Email inválido'),
-  password: yup.string().required('Senha obrigatória'),
+  email: yup.string().required('Email required').email('Invalid email'),
+  password: yup.string().required('Password required'),
 })
 
 interface SignInData {
@@ -22,7 +21,7 @@ interface SignInData {
 export const Login = () => {
   const [loading, setLoading] = useState(false)
 
-  const { signIn, accessToken } = useAuth()
+  const { signIn } = useAuth()
 
   const {
     formState: { errors },

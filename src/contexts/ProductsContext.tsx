@@ -7,6 +7,7 @@ import {
   useState,
 } from 'react'
 import { api } from '../services/api'
+import { toast } from 'react-toastify'
 
 interface ProductsProviderProps {
   children: ReactNode
@@ -24,12 +25,15 @@ interface Product {
 interface ProductsContextData {
   products: Product[]
   loadProducts: () => Promise<void>
+  addToWishlist: (product: Product) => void
+  delFromWishlist: (product: Product) => void
   searchProduct: (productName: string) => Promise<void>
   createProduct: (data: Omit<Product, 'id'>) => Promise<void>
   updateProduct: (productId: string, product: Product) => Promise<void>
   deleteProduct: (productId: string) => Promise<void>
   notFound: Boolean
   prodNotFound: string
+  wishlist: Product[]
 }
 
 const ProductsContext = createContext<ProductsContextData>(
@@ -50,11 +54,40 @@ const ProductsProvider = ({ children }: ProductsProviderProps) => {
   const [notFound, setnotFound] = useState(false)
   const [prodNotFound, setProdNotFound] = useState('')
 
+  const [wishlist, setWishlist] = useState(() => {
+    try {
+      const wishlist = localStorage.getItem('@Penseapp:wishlist')
+
+      if (!wishlist) {
+        return []
+      }
+
+      return JSON.parse(wishlist) as Product[]
+    } catch {
+      return []
+    }
+  })
+
+  const addToWishlist = (product: Product) => {
+    setWishlist([...wishlist, product])
+    localStorage.setItem('@Penseapp:wishlist', JSON.stringify(wishlist))
+    toast.success(`${product.name} added to your wishlist`)
+    console.log(wishlist)
+  }
+
+  const delFromWishlist = (product: Product) => {
+    const newWishlist = wishlist.filter((prod) => prod.id !== product.id)
+    setWishlist(newWishlist)
+    localStorage.setItem('@Penseapp:wishlist', JSON.stringify(newWishlist))
+    toast.success(`${product.name} removed from your wishlist`)
+    console.log(wishlist)
+  }
+
   const loadProducts = useCallback(async () => {
     api
       .get('/products')
       .then((response) => setProducts(response.data))
-      .catch((err) => console.log(err))
+      .catch((err) => toast.error(err.message))
   }, [])
 
   const searchProduct = useCallback(async (productName: string) => {
@@ -75,7 +108,7 @@ const ProductsProvider = ({ children }: ProductsProviderProps) => {
       .then((response: AxiosResponse<Product>) =>
         setProducts((oldProducts) => [...oldProducts, response.data])
       )
-      .catch((err) => console.log(err))
+      .catch((err) => toast.error(err.message))
   }, [])
 
   const updateProduct = useCallback(
@@ -91,8 +124,10 @@ const ProductsProvider = ({ children }: ProductsProviderProps) => {
           if (product) {
             setProducts([...filteredProducts, product])
           }
+
+          loadProducts()
         })
-        .catch((err) => console.log(err))
+        .catch((err) => toast.error(err.message))
     },
     [products]
   )
@@ -107,7 +142,7 @@ const ProductsProvider = ({ children }: ProductsProviderProps) => {
           )
           setProducts(filteredProducts)
         })
-        .catch((err) => console.log(err))
+        .catch((err) => toast.error(err.message))
     },
     [products]
   )
@@ -123,6 +158,9 @@ const ProductsProvider = ({ children }: ProductsProviderProps) => {
         deleteProduct,
         notFound,
         prodNotFound,
+        addToWishlist,
+        delFromWishlist,
+        wishlist,
       }}
     >
       {children}

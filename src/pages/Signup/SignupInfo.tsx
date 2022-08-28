@@ -8,7 +8,7 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
-import { FaForward } from 'react-icons/fa'
+import { FaForward, FaLock } from 'react-icons/fa'
 import Logo from '../../assets/logo.png'
 import { theme } from '../../styles/theme'
 
@@ -28,20 +28,22 @@ export const SignupInfo = () => (
           <FaForward color={theme.colors.purple['800']} size={25} />
         </Center>
         <Box ml='4'>
-          <Heading size='lg'>Agilidade</Heading>
+          <Heading size='lg'>High Performance</Heading>
           <Text>
-            Agilize seus projetos com rapidez <br /> e muita performance
+            Our system developed in React offers customers <br />
+            the highest performance and productivity.
           </Text>
         </Box>
       </Flex>
       <Flex w='100%'>
         <Center borderRadius='5px' bg='white' w='50px' h='40px'>
-          <FaForward color={theme.colors.purple['800']} size={25} />
+          <FaLock color={theme.colors.purple['800']} size={25} />
         </Center>
         <Box ml='4'>
-          <Heading size='lg'>Agilidade</Heading>
+          <Heading size='lg'>Security</Heading>
           <Text>
-            Agilize seus projetos com rapidez <br /> e muita performance
+            In addition to our secure code, you have a <br />
+            security certificate on our domain.
           </Text>
         </Box>
       </Flex>

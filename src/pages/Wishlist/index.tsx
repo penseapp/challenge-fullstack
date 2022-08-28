@@ -17,9 +17,9 @@ import { Header } from '../../components/Header'
 import { ModalCreateProduct } from '../../components/Modal/ModalCreateProduct'
 import { useProducts } from '../../contexts/ProductsContext'
 
-export const Dashboard = () => {
+export const Wishlist = () => {
   const [loading, setLoading] = useState(true)
-  const { products, loadProducts, notFound, prodNotFound } = useProducts()
+  const { loadProducts, notFound, prodNotFound, wishlist } = useProducts()
 
   useEffect(() => {
     loadProducts().then((res) => setLoading(false))
@@ -36,7 +36,7 @@ export const Dashboard = () => {
     return (
       <>
         <Box>
-          <Header title='Dashboard' />
+          <Header title='Wishlist' />
           <SearchBox />
           <Center mt='4' textAlign='center' display='flex' flexDir='column'>
             <Heading size='lg'>No results were found for: </Heading>
@@ -89,13 +89,13 @@ export const Dashboard = () => {
 
   return (
     <>
-      {!loading && !products.length ? (
+      {!loading && !wishlist.length ? (
         <>
           <ModalCreateProduct
             isOpen={isCreateProdOpen}
             onClose={onCreateProdClose}
           />
-          <Header title='Dashboard' />
+          <Header title='Wishlist' />
           <Box
             mt='4'
             w='90vw'
@@ -139,8 +139,7 @@ export const Dashboard = () => {
         </>
       ) : (
         <Box>
-          <Header title='Dashboard' />
-          <SearchBox />
+          <Header title='Wishlist' />
           <Grid
             w='100%'
             templateColumns='repeat(auto-fill, minmax(420px, 1fr))'
@@ -148,8 +147,8 @@ export const Dashboard = () => {
             paddingX='8'
             mt='8'
           >
-            {products.map((product, index) => (
-              <Card product={product} key={index} />
+            {wishlist.map((product, index) => (
+              <Card wish={true} product={product} key={index} />
             ))}
           </Grid>
         </Box>

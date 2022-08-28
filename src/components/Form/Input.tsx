@@ -5,7 +5,7 @@ import {
   Input as ChakraInput,
   InputGroup,
   InputLeftElement,
-  InputProps as ChakraInputProps,
+  InputProps as ChakraInputProps
 } from '@chakra-ui/react'
 
 import { forwardRef, useCallback, useEffect, useState } from 'react'

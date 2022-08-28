@@ -1,15 +1,14 @@
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  ModalFooter,
-  Button,
-  Text,
-  Center,
   Box,
+  Button,
+  Center,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
 } from '@chakra-ui/react'
 import { FaExclamation, FaTimes } from 'react-icons/fa'
 import { theme } from '../../styles/theme'

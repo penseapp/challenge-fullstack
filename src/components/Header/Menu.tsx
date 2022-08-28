@@ -10,10 +10,11 @@ import {
   Heading,
   Text,
 } from '@chakra-ui/react'
+import { FaEdit, FaStore } from 'react-icons/fa'
+import { FiLogOut } from 'react-icons/fi'
+import { useHistory } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import { theme } from '../../styles/theme'
-import { FiLogOut } from 'react-icons/fi'
-import { FaEdit, FaStore } from 'react-icons/fa'
 
 interface MenuProps {
   isOpen: boolean
@@ -22,6 +23,8 @@ interface MenuProps {
 
 export const Menu = ({ isOpen, onClose }: MenuProps) => {
   const { user, signOut, adminMode } = useAuth()
+
+  const history = useHistory()
 
   return (
     <Drawer placement='top' onClose={onClose} isOpen={isOpen}>
@@ -38,7 +41,7 @@ export const Menu = ({ isOpen, onClose }: MenuProps) => {
           <Flex
             mb={2}
             align='center'
-            onClick={() => adminMode(false)}
+            onClick={() => history.push('/dashboard')}
             _hover={{ cursor: 'pointer' }}
           >
             <Center
@@ -62,7 +65,31 @@ export const Menu = ({ isOpen, onClose }: MenuProps) => {
           <Flex
             mb={2}
             align='center'
+            onClick={() => history.push('/wishlist')}
+            _hover={{ cursor: 'pointer' }}
+          >
+            <Center
+              w='60px'
+              h='60px'
+              bg='blue.600'
+              fontSize='2xl'
+              borderRadius='md'
+            >
+              <FaStore color={theme.colors.white} />
+            </Center>
+            <Box ml='4'>
+              <Heading as='h2' fontSize='lg'>
+                Wishlist
+              </Heading>
+              <Text color='gray.300' fontSize='small'>
+                Add your favorite products
+              </Text>
+            </Box>
+          </Flex>
+          <Flex
+            mb={2}
             onClick={() => adminMode(true)}
+            align='center'
             _hover={{ cursor: 'pointer' }}
           >
             <Center

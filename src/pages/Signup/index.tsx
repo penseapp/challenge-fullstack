@@ -4,23 +4,22 @@ import * as yup from 'yup'
 
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useAuth } from '../../contexts/AuthContext'
+import { useHistory } from 'react-router-dom'
+import { ModalError } from '../../components/Modal/ModalError'
+import { ModalSuccess } from '../../components/Modal/ModalSuccess'
+import { api } from '../../services/api'
 import { GoBackButton } from './GoBackButton'
 import { SignupForm } from './SignupForm'
 import { SignupInfo } from './SignupInfo'
-import { api } from '../../services/api'
-import { ModalSuccess } from '../../components/Modal/ModalSuccess'
-import { ModalError } from '../../components/Modal/ModalError'
-import { useHistory } from 'react-router-dom'
 
 const signUpSchema = yup.object().shape({
-  name: yup.string().required('Nome obrigatório'),
-  email: yup.string().required('Email obrigatório').email('Email inválido'),
-  password: yup.string().required('Senha inválida'),
+  name: yup.string().required('Name required'),
+  email: yup.string().required('Email required').email('Invalid email'),
+  password: yup.string().required('Required password'),
   confirm_password: yup
     .string()
-    .required('Confrimação de senha obrigatoria')
-    .oneOf([yup.ref('password')], 'Senhas diferentes'),
+    .required('Confirm password is required')
+    .oneOf([yup.ref('password')], 'The passwords do not match'),
 })
 
 interface SignupData {
@@ -32,8 +31,6 @@ interface SignupData {
 
 export const Signup = () => {
   const [loading, setLoading] = useState(false)
-
-  const { signIn, accessToken } = useAuth()
 
   const {
     formState: { errors },
@@ -80,18 +77,18 @@ export const Signup = () => {
   return (
     <>
       <ModalSuccess
-        buttonMessage='Ir para o login agora'
-        message='Seu cadastro deu super certo, <b>vamos la</b>'
+        buttonMessage='Go to login now'
+        message='Successfully registered, <b>log into your account</b>'
         onClick={() => history.push('/')}
-        secondaryText='Voce ja pode comecar criando <b>suas lista</b> de tarefas agora mesmo...'
+        secondaryText='After logging in you can add <b>products</b> in your store'
         isOpen={isModalSuccessOpen}
         onClose={onModalSuccessClose}
       />
       <ModalError
-        error='Ocorreu um erro, tente novamente por favor.'
+        error='An error has occurred, please try again'
         isOpen={isModalErrorOpen}
         onClose={onModalErrorClose}
-        secondaryText='Voce ja pode comecar criando <b>suas lista</b> de tarefas agora mesmo...'
+        secondaryText=''
       />
       <Flex
         padding={['10px 15px', '10px 15px', '0px', '0px']}

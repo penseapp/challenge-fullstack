@@ -5,11 +5,12 @@ import {
   Flex,
   Icon,
   Image,
+  Stack,
   useColorModeValue,
   useDisclosure,
   VStack,
 } from '@chakra-ui/react'
-import { FiShoppingCart } from 'react-icons/fi'
+import { FaHeart } from 'react-icons/fa'
 import { useAuth } from '../../contexts/AuthContext'
 import { useProducts } from '../../contexts/ProductsContext'
 import { theme } from '../../styles/theme'
@@ -26,14 +27,15 @@ interface Product {
 
 interface ProductProps {
   product: Product
+  wish?: boolean
 }
 
-export const Card = ({ product }: ProductProps) => {
-  const { deleteProduct } = useProducts()
+export const Card = ({ product, wish }: ProductProps) => {
+  const { deleteProduct, addToWishlist, delFromWishlist } = useProducts()
   const { isAdm } = useAuth()
 
   const data = {
-    isAdm: isAdm,
+    isAdm: wish ? true : isAdm,
     imageURL:
       'https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=4600&q=80',
     name: product.name,
@@ -73,7 +75,7 @@ export const Card = ({ product }: ProductProps) => {
 
           <Box p='6'>
             <Box display='flex' alignItems='baseline'>
-              {data.isAdm && (
+              {data.isAdm && !wish && (
                 <Badge
                   onClick={onProductUpdateOpen}
                   as='button'
@@ -84,7 +86,7 @@ export const Card = ({ product }: ProductProps) => {
                   size='10px'
                   position='absolute'
                   top={2}
-                  left={2}
+                  left={75}
                   bg='green.200'
                 >
                   Edit
@@ -92,7 +94,11 @@ export const Card = ({ product }: ProductProps) => {
               )}
               {data.isAdm && (
                 <Badge
-                  onClick={() => deleteProduct(product.id)}
+                  onClick={
+                    wish
+                      ? () => delFromWishlist(product)
+                      : () => deleteProduct(product.id)
+                  }
                   as='button'
                   rounded='full'
                   px='2'
@@ -101,7 +107,7 @@ export const Card = ({ product }: ProductProps) => {
                   size='10px'
                   position='absolute'
                   top={2}
-                  left={75}
+                  left={2}
                   bg='red.200'
                 >
                   Delete
@@ -126,7 +132,7 @@ export const Card = ({ product }: ProductProps) => {
               )}
             </Box>
             <Flex mt='1' justifyContent='space-between' alignContent='center'>
-              <VStack>
+              <Stack maxW='90%'>
                 <Box
                   fontSize='2xl'
                   fontWeight='semibold'
@@ -139,11 +145,12 @@ export const Card = ({ product }: ProductProps) => {
                 <Box fontSize='sm' as='h4' lineHeight='tight'>
                   {data.description}
                 </Box>
-              </VStack>
+              </Stack>
 
-              <chakra.a href={'#'} display={'flex'}>
+              <chakra.a as='button' display={'flex'}>
                 <Icon
-                  as={FiShoppingCart}
+                  as={FaHeart}
+                  onClick={() => addToWishlist(product)}
                   color={theme.colors.purple[500]}
                   h={7}
                   w={7}
