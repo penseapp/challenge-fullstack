@@ -10,6 +10,7 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { FiShoppingCart } from 'react-icons/fi'
+import { useAuth } from '../../contexts/AuthContext'
 import { useProducts } from '../../contexts/ProductsContext'
 import { theme } from '../../styles/theme'
 import { ModalUpdateProduct } from '../Modal/ModalUpdateProduct'
@@ -28,10 +29,11 @@ interface ProductProps {
 }
 
 export const Card = ({ product }: ProductProps) => {
-  const { deleteProduct, updateProduct } = useProducts()
+  const { deleteProduct } = useProducts()
+  const { isAdm } = useAuth()
 
   const data = {
-    isAdm: true,
+    isAdm: isAdm,
     imageURL:
       'https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=4600&q=80',
     name: product.name,
@@ -130,6 +132,7 @@ export const Card = ({ product }: ProductProps) => {
                   fontWeight='semibold'
                   as='h4'
                   lineHeight='tight'
+                  textTransform='uppercase'
                 >
                   {data.name}
                 </Box>

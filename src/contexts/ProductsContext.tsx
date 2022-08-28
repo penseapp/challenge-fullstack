@@ -24,9 +24,12 @@ interface Product {
 interface ProductsContextData {
   products: Product[]
   loadProducts: () => Promise<void>
+  searchProduct: (productName: string) => Promise<void>
   createProduct: (data: Omit<Product, 'id'>) => Promise<void>
-  deleteProduct: (productId: string) => Promise<void>
   updateProduct: (productId: string, product: Product) => Promise<void>
+  deleteProduct: (productId: string) => Promise<void>
+  notFound: Boolean
+  prodNotFound: string
 }
 
 const ProductsContext = createContext<ProductsContextData>(
@@ -44,12 +47,26 @@ const useProducts = () => {
 
 const ProductsProvider = ({ children }: ProductsProviderProps) => {
   const [products, setProducts] = useState<Product[]>([])
+  const [notFound, setnotFound] = useState(false)
+  const [prodNotFound, setProdNotFound] = useState('')
 
   const loadProducts = useCallback(async () => {
     api
       .get('/products')
       .then((response) => setProducts(response.data))
       .catch((err) => console.log(err))
+  }, [])
+
+  const searchProduct = useCallback(async (productName: string) => {
+    const response = await api.get(`/products?name_like=${productName}`)
+
+    if (!response.data.length) {
+      setProdNotFound(productName)
+      return setnotFound(true)
+    }
+
+    setnotFound(false)
+    setProducts(response.data)
   }, [])
 
   const createProduct = useCallback(async (data: Omit<Product, 'id'>) => {
@@ -60,21 +77,6 @@ const ProductsProvider = ({ children }: ProductsProviderProps) => {
       )
       .catch((err) => console.log(err))
   }, [])
-
-  const deleteProduct = useCallback(
-    async (productId: string) => {
-      await api
-        .delete(`/products/${productId}`)
-        .then((_) => {
-          const filteredProducts = products.filter(
-            (prod) => prod.id !== productId
-          )
-          setProducts(filteredProducts)
-        })
-        .catch((err) => console.log(err))
-    },
-    [products]
-  )
 
   const updateProduct = useCallback(
     async (productId: string, data: Product) => {
@@ -95,14 +97,32 @@ const ProductsProvider = ({ children }: ProductsProviderProps) => {
     [products]
   )
 
+  const deleteProduct = useCallback(
+    async (productId: string) => {
+      await api
+        .delete(`/products/${productId}`)
+        .then((_) => {
+          const filteredProducts = products.filter(
+            (prod) => prod.id !== productId
+          )
+          setProducts(filteredProducts)
+        })
+        .catch((err) => console.log(err))
+    },
+    [products]
+  )
+
   return (
     <ProductsContext.Provider
       value={{
         products,
         loadProducts,
+        searchProduct,
         createProduct,
-        deleteProduct,
         updateProduct,
+        deleteProduct,
+        notFound,
+        prodNotFound,
       }}
     >
       {children}

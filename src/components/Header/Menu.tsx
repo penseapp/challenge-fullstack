@@ -21,7 +21,7 @@ interface MenuProps {
 }
 
 export const Menu = ({ isOpen, onClose }: MenuProps) => {
-  const { user, signOut } = useAuth()
+  const { user, signOut, adminMode } = useAuth()
 
   return (
     <Drawer placement='top' onClose={onClose} isOpen={isOpen}>
@@ -38,7 +38,7 @@ export const Menu = ({ isOpen, onClose }: MenuProps) => {
           <Flex
             mb={2}
             align='center'
-            onClick={signOut}
+            onClick={() => adminMode(false)}
             _hover={{ cursor: 'pointer' }}
           >
             <Center
@@ -62,7 +62,7 @@ export const Menu = ({ isOpen, onClose }: MenuProps) => {
           <Flex
             mb={2}
             align='center'
-            onClick={signOut}
+            onClick={() => adminMode(true)}
             _hover={{ cursor: 'pointer' }}
           >
             <Center
@@ -76,7 +76,7 @@ export const Menu = ({ isOpen, onClose }: MenuProps) => {
             </Center>
             <Box ml='4'>
               <Heading as='h2' fontSize='lg'>
-                Admin Panel
+                Admin Mode
               </Heading>
               <Text color='gray.300' fontSize='small'>
                 Manage your products
@@ -91,7 +91,6 @@ export const Menu = ({ isOpen, onClose }: MenuProps) => {
               fontSize='2xl'
               borderRadius='md'
             >
-              {' '}
               <FiLogOut color={theme.colors.white} />
             </Center>
             <Box ml='4'>

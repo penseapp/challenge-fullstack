@@ -3,7 +3,7 @@ import {
   ReactNode,
   useCallback,
   useContext,
-  useState
+  useState,
 } from 'react'
 import { api } from '../services/api'
 
@@ -31,6 +31,8 @@ interface AuthContextData {
   accessToken: string
   signIn: (credentials: SignInCredentials) => Promise<void>
   signOut: () => void
+  adminMode: (option: Boolean) => void
+  isAdm: Boolean
 }
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
@@ -44,9 +46,11 @@ const useAuth = () => {
 }
 
 const AuthProvider = ({ children }: childrenProps) => {
+  const [isAdm, setIsAdm] = useState<Boolean>(false)
+
   const [data, setData] = useState<AuthState>(() => {
-    const accessToken = localStorage.getItem('@Doit:accessToken')
-    const user = localStorage.getItem('@Doit:user')
+    const accessToken = localStorage.getItem('@Penseapp:accessToken')
+    const user = localStorage.getItem('@Penseapp:user')
     if (accessToken && user) {
       return { accessToken, user: JSON.parse(user) }
     }
@@ -56,16 +60,21 @@ const AuthProvider = ({ children }: childrenProps) => {
   const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
     const response = await api.post('/login', { email, password })
     const { accessToken, user } = response.data
-    localStorage.setItem('@Doit:accessToken', accessToken)
-    localStorage.setItem('@Doit:user', JSON.stringify(user))
+    localStorage.setItem('@Penseapp:accessToken', accessToken)
+    localStorage.setItem('@Penseapp:user', JSON.stringify(user))
     setData({ user, accessToken })
   }, [])
 
   const signOut = useCallback(() => {
-    localStorage.removeItem('@Doit:accessToken')
-    localStorage.removeItem('@Doit:user')
+    localStorage.removeItem('@Penseapp:accessToken')
+    localStorage.removeItem('@Penseapp:user')
     setData({} as AuthState)
   }, [])
+
+  const adminMode = useCallback((option: Boolean) => {
+    setIsAdm(option)
+  }, [])
+
   return (
     <AuthContext.Provider
       value={{
@@ -73,6 +82,8 @@ const AuthProvider = ({ children }: childrenProps) => {
         user: data.user,
         signIn,
         signOut,
+        adminMode,
+        isAdm,
       }}
     >
       {children}
@@ -81,4 +92,3 @@ const AuthProvider = ({ children }: childrenProps) => {
 }
 
 export { AuthProvider, useAuth }
-
