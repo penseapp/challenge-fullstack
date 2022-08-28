@@ -1,0 +1,20 @@
+.box {
+    @apply flex w-full p-4 h-36  bg-white  hover:shadow-lg transition
+}
+
+.produtoInfo {
+    @apply 
+        flex flex-col h-auto w-full cursor-pointer max-w-2xl mr-auto max-h-full justify-center
+} 
+
+.categoria {
+    @apply font-bold text-sm  text-gray-500 opacity-60 
+}
+
+.dadosProtudo{
+    @apply flex flex-col justify-center space-y-2 pl-4
+}
+
+.nome{
+    @apply  font-bold capitalize text-ellipsis sm:text-lg text-justify break-all overflow-hidden 
+}

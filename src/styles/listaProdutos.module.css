@@ -1,0 +1,66 @@
+.listaProdutos {
+    @apply
+        w-full 
+        flex 
+        flex-col 
+        space-y-4  
+        border 
+        md:pt-4
+}
+
+.header {
+    @apply 
+        w-full  
+        py-4 
+        items-center
+}
+
+.listaProdutosBox {
+    @apply flex items-center w-full  flex-col md:flex-row 
+}
+
+.tituloBox {
+    @apply flex items-start
+}
+
+.titulo {
+    @apply font-bold text-3xl text-orange-500
+}
+
+.ordenarIcone {
+    @apply flex w-5 text-orange-500 hover:animate-spin
+}
+
+.ordenarText {
+    @apply font-bold pr-2
+}
+
+.ordenarListaBox {
+    @apply 
+        xl:w-96
+}
+
+.ordenarLista {
+    @apply 
+        w-48 
+        block 
+        p-2
+        text-gray-700
+        border
+        border-gray-300
+        rounded
+        transition
+        ease-in-out
+        focus:text-gray-700 
+        focus:bg-white
+        focus:border-black
+        focus:outline-none 
+}
+
+.filtroBox{
+    @apply flex items-center ml-auto pt-4 md:pt-0 
+}
+
+.line {
+    @apply h-0.5 bg-gray-400 opacity-50
+}
