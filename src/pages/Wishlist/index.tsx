@@ -10,7 +10,8 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
-import { FaStore } from 'react-icons/fa'
+import { FaHeart } from 'react-icons/fa'
+import { useHistory } from 'react-router-dom'
 import { Card } from '../../components/Card'
 import { SearchBox } from '../../components/Form/SearchBox'
 import { Header } from '../../components/Header'
@@ -21,9 +22,11 @@ export const Wishlist = () => {
   const [loading, setLoading] = useState(true)
   const { loadProducts, notFound, prodNotFound, wishlist } = useProducts()
 
+  const history = useHistory()
+
   useEffect(() => {
     loadProducts().then((res) => setLoading(false))
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const {
@@ -109,10 +112,10 @@ export const Wishlist = () => {
             borderStyle='dashed'
           >
             <Center>
-              <FaStore color='#bdbdbd' />
+              <FaHeart color='#bdbdbd' />
             </Center>
             <Heading fontSize='2xl' as='h1' mt='4'>
-              You don't have any products yet.
+              You don't have any products yet in your wishlist.
             </Heading>
             <Text color='grey.400' mt='6'>
               Click the button below to start <br /> add your{' '}
@@ -131,9 +134,9 @@ export const Wishlist = () => {
               bgColor='purple.800'
               color='white'
               _hover={{ bg: 'purple.900' }}
-              onClick={onCreateProdOpen}
+              onClick={() => history.push('/dashboard')}
             >
-              Add new product
+              Go to dashboard
             </Button>
           </Box>
         </>

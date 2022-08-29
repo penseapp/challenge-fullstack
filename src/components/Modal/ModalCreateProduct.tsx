@@ -31,6 +31,7 @@ interface ProductData {
   price: string
   promo_price: string
   category: string
+  status: boolean
 }
 
 const createProductSchema = yup.object().shape({
@@ -58,6 +59,7 @@ export const ModalCreateProduct = ({
   const handleCreateProduct: SubmitHandler<ProductData> = (
     data: ProductData
   ) => {
+    data.status = true
     createProduct(data).then((res) => onClose())
   }
 
@@ -140,7 +142,7 @@ export const ModalCreateProduct = ({
             colorScheme='blue'
             mr={3}
           >
-            Save Changes
+            Add product
           </Button>
         </ModalFooter>
       </ModalContent>

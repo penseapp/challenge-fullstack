@@ -1,16 +1,21 @@
 import {
   Button,
   Center,
+  FormLabel,
+  HStack,
   Modal,
   ModalBody,
   ModalContent,
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Stack,
+  Switch,
   Text,
   VStack,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { FaClipboard, FaTimes } from 'react-icons/fa'
 import * as yup from 'yup'
@@ -26,6 +31,7 @@ interface ProductData {
   price?: string
   promo_price?: string
   category?: string
+  status: boolean
 }
 
 interface ModalCreateProdProps {
@@ -40,6 +46,7 @@ const updateProductSchema = yup.object().shape({
   price: yup.string(),
   promo_price: yup.string(),
   category: yup.string(),
+  status: yup.boolean(),
 })
 
 export const ModalUpdateProduct = ({
@@ -83,6 +90,16 @@ export const ModalUpdateProduct = ({
           <Text fontWeight='bold' ml='2'>
             Update Product
           </Text>
+          <Center>
+            <FormLabel ml='6' mb='0'>
+              Status
+            </FormLabel>
+            <Switch
+              defaultChecked={product.status}
+              {...register('status')}
+              id='email-alerts'
+            />
+          </Center>
           <Center
             onClick={onClose}
             as='button'
@@ -102,31 +119,36 @@ export const ModalUpdateProduct = ({
               label='Name'
               error={errors.name}
               {...register('name')}
-              placeholder={product.name}
+              defaultValue={product.name}
+              placeholder='Type the name'
             />
             <TextArea
               label='Description'
               error={errors.description}
               {...register('description')}
-              placeholder={product.description}
+              defaultValue={product.description}
+              placeholder='Type the description'
             />
             <Input
               label='Price'
               error={errors.price}
               {...register('price')}
-              placeholder={product.price}
+              defaultValue={product.price}
+              placeholder='Type the price'
             />
             <Input
               label='Promotional Price'
               error={errors.promo_price}
               {...register('promo_price')}
-              placeholder={product.promo_price}
+              defaultValue={product.promo_price}
+              placeholder='Type the promotional price'
             />
             <Input
               label='Category'
               error={errors.category}
               {...register('category')}
-              placeholder={product.category}
+              defaultValue={product.category}
+              placeholder='Type the category'
             />
           </VStack>
         </ModalBody>

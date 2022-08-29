@@ -10,7 +10,7 @@ import {
   Heading,
   Text,
 } from '@chakra-ui/react'
-import { FaEdit, FaStore } from 'react-icons/fa'
+import { FaEdit, FaHeart, FaStore } from 'react-icons/fa'
 import { FiLogOut } from 'react-icons/fi'
 import { useHistory } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
@@ -25,6 +25,11 @@ export const Menu = ({ isOpen, onClose }: MenuProps) => {
   const { user, signOut, adminMode } = useAuth()
 
   const history = useHistory()
+
+  const prodPage = () => {
+    history.push('/dashboard')
+    adminMode(false)
+  }
 
   return (
     <Drawer placement='top' onClose={onClose} isOpen={isOpen}>
@@ -41,7 +46,7 @@ export const Menu = ({ isOpen, onClose }: MenuProps) => {
           <Flex
             mb={2}
             align='center'
-            onClick={() => history.push('/dashboard')}
+            onClick={prodPage}
             _hover={{ cursor: 'pointer' }}
           >
             <Center
@@ -75,7 +80,7 @@ export const Menu = ({ isOpen, onClose }: MenuProps) => {
               fontSize='2xl'
               borderRadius='md'
             >
-              <FaStore color={theme.colors.white} />
+              <FaHeart color={theme.colors.white} />
             </Center>
             <Box ml='4'>
               <Heading as='h2' fontSize='lg'>

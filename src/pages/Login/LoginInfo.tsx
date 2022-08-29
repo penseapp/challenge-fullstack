@@ -12,7 +12,7 @@ export const LoginInfo = () => (
       PenseApp Store
     </Heading>
     <Text maxW='350px'>
-      The best prices and products
+      The best prices and products <br />
       <b>available on the market</b>
     </Text>
   </Grid>

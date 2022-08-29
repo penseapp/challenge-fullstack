@@ -20,6 +20,7 @@ interface Product {
   price?: string
   promo_price?: string
   category?: string
+  status: boolean
 }
 
 interface ProductsContextData {

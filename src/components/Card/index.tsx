@@ -8,7 +8,6 @@ import {
   Stack,
   useColorModeValue,
   useDisclosure,
-  VStack,
 } from '@chakra-ui/react'
 import { FaHeart } from 'react-icons/fa'
 import { useAuth } from '../../contexts/AuthContext'
@@ -23,6 +22,7 @@ interface Product {
   price?: string
   promo_price?: string
   category?: string
+  status: boolean
 }
 
 interface ProductProps {
