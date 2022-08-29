@@ -3,12 +3,12 @@ import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
 import { ListaProdutos } from '../components/ListaProdutos'
 import { Produto } from '../interfaces/Produto'
+import { buscarTodosProdutos } from '../services/api'
 
 const Home: NextPage = () => {
 	const [listaProdutos, setListaProdutos] = useState<Produto[]>([])
 	const buscarProdutos = async () =>{
-		const response = await axios.get(process.env.NEXT_PUBLIC_BACKEND_API_URL + '/produtos')
-		const produtos: Produto[] = response.data
+		const produtos: Produto[] = await buscarTodosProdutos()
 		setListaProdutos(produtos)
 	}
 	useEffect(()=>{

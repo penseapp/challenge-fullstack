@@ -2,6 +2,7 @@ import axios from 'axios'
 import { Context, createContext, useEffect, useState } from 'react'
 import { ProviderProps } from '../@types/ProviderProps'
 import { Usuario } from '../interfaces/Usuario'
+import { validarToken } from '../services/api'
 
 type AuthContextType = {
 	isAuth: boolean
@@ -39,20 +40,23 @@ export const AuthProvider = ({ children } : ProviderProps) => {
 	const [usuario, setUsuario] = useState<Usuario>(defaultValue.usuario)
 	const [isAuth, setIsAuth] = useState<boolean>(defaultValue.isAuth)
 	
+	const atualizarDados = async (token: string) => {
+		const data = await validarToken(token)
+		setToken(token)
+		setUsuario(data.usuario)
+		setIsAuth(data.auth)
+	}
+
 	useEffect(()=>{
 		if(typeof window !== 'undefined' ){
 
 			const localAuthToken = localStorage.getItem('authToken')
 			if(localAuthToken){
-				axios.post(process.env.NEXT_PUBLIC_BACKEND_API_URL + '/auth/token', {}, {headers: {'Authorization': `Bearer ${localAuthToken}`}})
-					.then(response =>{
-						setToken(localAuthToken)
-						setUsuario(response.data.usuario)
-						setIsAuth(response.data.auth)
-					})
-					.catch(err =>{
-						console.log(err)
-					})
+				try{
+					atualizarDados(localAuthToken)
+				}catch(err){
+					console.log(err)
+				}
 			}
 		}
 	},[])

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { CarrinhoLista } from '../components/CarrinhoLista'
 import { useCarrinho } from '../hooks/useCarrinho'
 import { Produto } from '../interfaces/Produto'
+import { buscarListaProdutosPeloId } from '../services/api'
 
 const Carrinho: NextPage = () =>{
 	const { carrinho } = useCarrinho()
@@ -17,8 +18,7 @@ const Carrinho: NextPage = () =>{
 		carrinho.forEach((cart)=>{
 			listaIds.push(cart.id)
 		})	
-		const response = await axios.get(process.env.NEXT_PUBLIC_BACKEND_API_URL + '/produtos?ids='+listaIds.join(',')) 
-		const ListaProdutos: Produto[] = response.data
+		const ListaProdutos: Produto[] = await buscarListaProdutosPeloId(listaIds)
 		
 		ListaProdutos.map((prod: Produto)=>{
 			const index = carrinho.findIndex(produto=> produto.id === prod.id)

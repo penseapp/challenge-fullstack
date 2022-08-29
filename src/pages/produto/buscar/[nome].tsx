@@ -6,6 +6,7 @@ import { ListaProdutos } from '../../../components/ListaProdutos'
 import { Produto } from '../../../interfaces/Produto'
 import urlFiltro from '../../../utils/UrlFiltro'
 import styles from '../../../styles/listaProdutos.module.css'
+import { buscarProdutoFiltrado } from '../../../services/api'
 
 const Buscar: NextPage = () => {
 	const router = useRouter()
@@ -25,9 +26,10 @@ const Buscar: NextPage = () => {
 		}
 	},[router.isReady, router.replace ])
 
-	const buscarProdutos = async (url: string) =>{
-		const response = await axios.get(url)
-		const data = response.data
+	const buscarProdutos = async (filtro: string) =>{
+		const response = await axios.get(filtro)
+		
+		const data = await buscarProdutoFiltrado(filtro)
 		setListaProdutos(data)
 
 	}

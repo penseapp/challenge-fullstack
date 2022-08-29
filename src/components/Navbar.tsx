@@ -16,12 +16,6 @@ export const Navbar = () => {
 	}
 
 	useEffect(()=>{
-		window.addEventListener('resize', ()=>{
-			if(window.innerHeight > 600) setDropdown(false)
-		})
-	},[])
-
-	useEffect(()=>{
 		let quantidade = 0
 		carrinho.forEach((cart)=>{
 			quantidade += cart.quantidade
@@ -149,7 +143,7 @@ export const Navbar = () => {
 				</div>               
 
 			</div>
-			<div id="dropdown" className={`${dropdown? 'flex' : 'hidden'} flex-col p-2 space-y-4`}>
+			<div id="dropdown" className={`${dropdown? 'flex' : 'hidden'} md:hidden flex-col p-2 space-y-4`}>
 				<div>
 					<h1 className='text-gray-100 font-bold text-2xl pl-1 '>Olá. { isAuth? `${usuario.nome.split(' ')[0]}`:'Faça o seu login' }</h1>
 				</div>

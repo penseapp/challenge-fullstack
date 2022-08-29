@@ -1,9 +1,8 @@
-import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import { useAuth } from '../hooks/useAuth'
 import { useEffect, useState } from 'react'
-import Delay from '../utils/Delay'
+import { loginUsuario } from '../services/api'
 
 export const FormLogin = () => {
 	const router = useRouter()
@@ -15,17 +14,12 @@ export const FormLogin = () => {
 	const onSubmit = async (data : any) => {
 
 		try{
-			const response = await axios.post(process.env.NEXT_PUBLIC_BACKEND_API_URL + '/auth/login', {
-				email: data.email, senha: data.senha
-			})
-			const authData = await response.data
 
+			const authData = await loginUsuario(data.email, data.senha)
 			authLogin(true,	authData.usuario, authData.access_token)
-
 			setErrorLogin(false)
-			Delay(2000).then(()=>{
-				router.push('/')
-			})
+			router.push('/')
+
 			
 		} catch(err){
 			setErrorLogin(true)
@@ -33,9 +27,7 @@ export const FormLogin = () => {
 	}
 
 	useEffect(()=>{
-		Delay(6000).then(()=>{
-			setErrorLogin(false)
-		})
+		setErrorLogin(false)
 	},[errorLogin])
 
 	return(

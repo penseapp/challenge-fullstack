@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { useAuth } from '../hooks/useAuth'
 import { useCarrinho } from '../hooks/useCarrinho'
 import { Produto } from '../interfaces/Produto'
+import { buscarWishlistUsuario, deletarProdutoWishlist } from '../services/api'
 
 const ListaDesejos: NextPage = () =>{
 	const { isAuth, token } = useAuth() 
@@ -14,8 +15,7 @@ const ListaDesejos: NextPage = () =>{
 	const [produtos, setProdutos] = useState<Produto[]>([])
 	
 	const carregarProdutos = async () =>{
-		const url = process.env.NEXT_PUBLIC_BACKEND_API_URL + '/wishlist'
-		const response = await axios.get(url, { headers: { 'Authorization': 'Bearer ' + token}})
+		const response = await buscarWishlistUsuario(token)
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const prods: Produto[] = response.data.map((data: any)=>{
 			return data.produto
@@ -23,18 +23,14 @@ const ListaDesejos: NextPage = () =>{
 		setProdutos(prods)
 		
 	}
+
 	const salvarProdutoCarrinho = async (idProduto: number) =>{
 		await adicionarProduto(idProduto)
 		
 	}
 
 	const removerProduto = async (idProduto: number) =>{
-		const url = process.env.NEXT_PUBLIC_BACKEND_API_URL + '/wishlist/'
-		await axios.delete(url + idProduto, {
-			headers: {
-				Authorization:  'Bearer ' + token
-			},
-		})
+		await deletarProdutoWishlist(idProduto, token)
 		carregarProdutos()
 	}
 

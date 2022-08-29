@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 import Delay from '../utils/Delay'
+import { cadastarUsuario } from '../services/api'
 
 export const FormCadastro = () => {
 	const { register, handleSubmit } = useForm()
@@ -9,11 +9,7 @@ export const FormCadastro = () => {
 
 	const cadastrar = async (nome: string, email: string, senha: string) => {
 		try{
-			await axios.post( process.env.NEXT_PUBLIC_BACKEND_API_URL +'/auth/cadastrar', {
-				nome: nome, 
-				email: email, 
-				senha: senha,
-			})
+			await cadastarUsuario(nome, email, senha)
 			setErrorCadastro(false)
 		} catch(err){
 			setErrorCadastro(true)

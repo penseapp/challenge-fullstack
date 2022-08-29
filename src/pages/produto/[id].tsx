@@ -6,6 +6,7 @@ import { Context } from 'vm'
 import { useAuth } from '../../hooks/useAuth'
 import { useCarrinho } from '../../hooks/useCarrinho'
 import { Produto } from '../../interfaces/Produto'
+import { adicionarProdutoWishlist, buscarProdutosPeloId } from '../../services/api'
 
 
 export const getStaticPaths: GetStaticPaths<{name: string}> = async () =>{
@@ -16,9 +17,7 @@ export const getStaticPaths: GetStaticPaths<{name: string}> = async () =>{
 }
 
 export const getStaticProps: GetStaticProps = async (context: Context) => {
-	const urlParamId: number = +context.params.id
-	const response = await axios.get(process.env.NEXT_PUBLIC_BACKEND_API_URL + '/produtos/' + urlParamId)
-	const produto: Produto = await response.data
+	const produto: Produto = await buscarProdutosPeloId(context.params.id)
 	return {
 		props:{
 			produto: produto
@@ -38,11 +37,7 @@ const Produto: NextPage<ProdutoProps> = ({ produto }: ProdutoProps) => {
 	const adicionarWishList = async () =>{
 		if(!isAuth) router.push('/login')
 		try{
-			await axios.post(
-				process.env.NEXT_PUBLIC_BACKEND_API_URL + '/wishlist', 
-				{ idProduto:  produto.id }, 
-				{ headers: { 'Authorization': 'Bearer ' + token }},
-			)
+			await adicionarProdutoWishlist(produto.id, token)
 		} catch(err){
 			console.log(err)
 		} finally{
