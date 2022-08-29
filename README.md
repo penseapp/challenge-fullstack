@@ -1,46 +1,84 @@
-# Getting Started with Create React App
+<p align="center">
+  <a href="#-projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-features">Features</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-layout">Layout</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-executando-o-projeto">Executando o projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#memo-licença">Licença</a>
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<br>
 
-## Available Scripts
 
-In the project directory, you can run:
+<p align="center">
+  <img src="https://img.shields.io/github/last-commit/imthedaniel/five-bets?style=for-the-badge&color=a47dfd&labelColor=3d1b8c" alt="Languages">
+  <img src="https://img.shields.io/github/languages/count/imthedaniel/five-bets?style=for-the-badge&color=a47dfd&labelColor=3d1b8c" alt="Languages">
+  <img src="https://img.shields.io/github/license/imthedaniel/five-bets?style=for-the-badge&labelColor=3d1b8c&color=a47dfd" alt="Licenses" />
+</p>
 
-### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## ✨ Projeto
 
-### `yarn test`
+PenseApp store é uma aplicação baseada em um e-commerce, boa parte de seu Frontend foi desenvolvido com a biblioteca ChakraUI pensando em agilidade, escalabilidade e responsividade. Para os formulários foi utilizado o Yup em conjunto ao React Hook Form e para gestão da API optamos pelo uso do Axios. No Backend utilizamos Django com Python devido a sua robustez, segurança e praticidade, realizando algumas validações também. Em questão de futuras melhorias, acredito que seja uma melhor componentização e também a adição de serviços baseados em token de autenticação.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🚀 Tecnologias
 
-### `yarn build`
+Esse projeto foi desenvolvido com as seguintes tecnologias/bibliotecas:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<table border="0">
+ <tr>
+<td> HTML5</td>
+<td> CSS3</td>
+<td> JavaScript</td>
+<td> ChakraUI</td>
+ </tr>
+  <tr>
+<td> Axios</td>
+<td> Framer Motion</td>
+<td> React Icons</td>
+<td> Yup</td>
+ </tr>
+  <tr>
+<td> React</td>
+<td> React Toastify</td>
+<td> React Router Dom</td>
+<td> React Hook Form</td>
+ </tr>
+</table>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🌟 Features
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+-   [ ] 100% responsivo em resoluções até 4k.
+-   [ ] CRUD de Produtos completo e funcional.
+-   [ ] Modo administrador para alteração dos produtos.
+-   [ ] Cadastro e Login com validações.
+-   [ ] Lista de Desejos.
 
-### `yarn eject`
+## 🎨 Layout
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+ Este projeto não foi desenvolvido a partir de um figma.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 👨🏻‍💻 Executando o projeto
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Utilize o **yarn** ou o **npm install** para instalar as dependências do projeto.
+Em seguida, inicie o projeto.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Iniciando a versão web:
 
-## Learn More
+```cl
+yarn start ou npm run dev
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+AVISO IMPORTANTE: Infelizmente por eu estar na semana que estou aprendendo Python com Django, não consegui integrar a API em Python com o Front, talvez inclusive por estar na mesma máquina, mas ambos estão funcionando separadamente.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Deixo aqui o link da API de testes que utilizei, que permite vocês testarem o projeto por completo:
+https://github.com/imthedaniel/penseapp-apitest
+
+Para rodar esta api, basta seguir os mesmos passos acima do Frontend (yarn e depois yarn start).
+
+## :memo: Licença
+
+Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](./LICENSE.md) para mais detalhes.
+
+---
